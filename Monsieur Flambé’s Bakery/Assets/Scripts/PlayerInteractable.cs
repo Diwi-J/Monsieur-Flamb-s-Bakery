@@ -6,11 +6,12 @@ public class PlayerInteractable : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
 
-    public Transform hand; // Drag the Hand GameObject in Inspector
+    public Transform hand;
     private GameObject heldItem;
 
     void Update()
     {
+        // Check for interaction input
         if (Input.GetKeyDown(interactKey))
         {
             TryPickUp();
@@ -24,9 +25,12 @@ public class PlayerInteractable : MonoBehaviour
 
     void TryPickUp()
     {
+
+        // Cast a ray from the player's position in the forward direction to detect interactable objects
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
+            // Check if the hit object has an Interactable component
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
@@ -38,7 +42,7 @@ public class PlayerInteractable : MonoBehaviour
 
                 interactable.Interact();
 
-                // Save reference to the new held item
+                // Set the held item to the interactable object
                 heldItem = hit.collider.gameObject;
             }
         }
@@ -46,6 +50,7 @@ public class PlayerInteractable : MonoBehaviour
 
     void DropItem()
     {
+        // Unparent the item from the hand and reset its position and rotation
         PickupItem pickupScript = heldItem.GetComponent<PickupItem>();
         if (pickupScript != null)
         {
@@ -57,7 +62,7 @@ public class PlayerInteractable : MonoBehaviour
             heldItem.transform.SetParent(null);
         }
 
-
+        // Reset the item's position and rotation to its original state
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -65,7 +70,7 @@ public class PlayerInteractable : MonoBehaviour
             rb.useGravity = true;
             rb.linearVelocity = Vector3.zero; // Reset motion
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(transform.forward * 2f, ForceMode.Impulse); // Optional "throw"
+            rb.AddForce(transform.forward * 2f, ForceMode.Impulse); // Throw
         }
 
         heldItem = null;

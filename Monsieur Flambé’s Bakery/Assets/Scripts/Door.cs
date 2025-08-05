@@ -12,12 +12,14 @@ public class Door : Interactable
 
     private void Start()
     {
-        closedRotation = transform.localRotation;
+        // Store the initial rotation as the closed state
+        closedRotation = transform.localRotation; 
         openRotation = Quaternion.Euler(0, openAngle, 0) * closedRotation;
     }
 
     public override void Interact()
     {
+        // Check if the door is already moving
         isOpen = !isOpen;
         StopAllCoroutines();
         StartCoroutine(RotateDoor());
@@ -25,6 +27,7 @@ public class Door : Interactable
 
     private System.Collections.IEnumerator RotateDoor()
     {
+        // If the door is already moving, do not start a new rotation
         isMoving = true;
         Quaternion targetRotation = isOpen ? openRotation : closedRotation;
         while (Quaternion.Angle(transform.localRotation, targetRotation) > 0.1f)

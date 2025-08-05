@@ -24,6 +24,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        // Initialize the character controller and lock the cursor
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -31,6 +32,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        // Handle movement and rotation
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
@@ -40,6 +42,7 @@ public class Movement : MonoBehaviour
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
+        // Apply crouch logic
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpPower;
@@ -70,6 +73,7 @@ public class Movement : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
 
+        // Handle rotation
         if (canMove)
         {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;

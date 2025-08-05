@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Check for item pickup
         if (Input.GetKeyDown(KeyCode.Q) && heldItem != null)
         {
             DropItem();
@@ -15,8 +16,10 @@ public class PlayerController : MonoBehaviour
 
     void DropItem()
     {
+        // Unparent the item from the hand and reset its position and rotation
         heldItem.transform.SetParent(null);
 
+        // Reset the item's position and rotation to its original state
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour
             rb.useGravity = true;
             rb.AddForce(transform.forward * 3f, ForceMode.Impulse); // Optional "throw"
         }
-
+        
         heldItem = null;
     }
 

@@ -12,14 +12,17 @@ public class PickupItem : Interactable
 
     public override void Interact()
     {
+        // Find the player's hand transform using the PlayerInteractable script
         Transform hand = GameObject.FindWithTag("Player")?.GetComponent<PlayerInteractable>()?.hand;
 
+        // Check if the hand transform is found
         if (hand == null)
         {
             Debug.LogError("Hand not found!");
             return;
         }
 
+        // If the item is already held, do nothing
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -27,6 +30,7 @@ public class PickupItem : Interactable
             rb.useGravity = false;
         }
 
+        // Set the item's parent to the hand transform
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -37,8 +41,10 @@ public class PickupItem : Interactable
 
     public void Drop()
     {
+        // Unparent the item from the hand and reset its position and rotation
         transform.SetParent(null);
 
+        // Reset the item's position and rotation to its original state
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
