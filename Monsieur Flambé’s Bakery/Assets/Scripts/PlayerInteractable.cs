@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInteractable : MonoBehaviour
 {
-    public float interactRange = 3f;
+    public float interactRange = 10f;
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
 
@@ -11,7 +11,7 @@ public class PlayerInteractable : MonoBehaviour
 
     void Update()
     {
-        // Check for interaction input
+        //Check for interaction input
         if (Input.GetKeyDown(interactKey))
         {
             TryPickUp();
@@ -26,15 +26,15 @@ public class PlayerInteractable : MonoBehaviour
     void TryPickUp()
     {
 
-        // Cast a ray from the player's position in the forward direction to detect interactable objects
+        //Cast a ray from the player's position in the forward direction to detect interactable objects
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            // Check if the hit object has an Interactable component
+            //Check if the hit object has an Interactable component
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
-                // If already holding something, drop it first
+                //If already holding something, drop it first
                 if (heldItem != null)
                 {
                     DropItem();
@@ -42,7 +42,7 @@ public class PlayerInteractable : MonoBehaviour
 
                 interactable.Interact();
 
-                // Set the held item to the interactable object
+
                 heldItem = hit.collider.gameObject;
             }
         }
@@ -50,7 +50,7 @@ public class PlayerInteractable : MonoBehaviour
 
     void DropItem()
     {
-        // Unparent the item from the hand and reset its position and rotation
+        //Unparent the item from the hand and reset its position and rotation
         PickupItem pickupScript = heldItem.GetComponent<PickupItem>();
         if (pickupScript != null)
         {
@@ -58,11 +58,11 @@ public class PlayerInteractable : MonoBehaviour
         }
         else
         {
-            // fallback in case it's not a PickupItem
+            //Fallback in case it's not a PickupItem
             heldItem.transform.SetParent(null);
         }
 
-        // Reset the item's position and rotation to its original state
+        //Reset item physics and apply forward impulse
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         if (rb != null)
         {

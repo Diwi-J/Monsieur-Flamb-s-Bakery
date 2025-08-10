@@ -4,7 +4,7 @@ public class Pushable : Interactable
 {
     public override void Interact()
     {
-        // Check if the player is holding an item
+        // Fix this method so that it works without a rigidbody>>>
         Debug.Log("You can push this object!");
 
     }

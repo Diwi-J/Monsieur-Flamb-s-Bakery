@@ -1,33 +1,46 @@
+
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform hand; // Drag the "Hand" object in the Inspector
+    [Header("Interaction Settings")]
+    public Transform hand;                // Reference to the hand transform where items are held
+    public KeyCode dropKey = KeyCode.Q;   // Key to drop the held item
+
+    [Header("Held Item")]
     public GameObject heldItem;
+
+    [Header("Throw Settings")]
+    public float throwForce = 5f;
+    public float upwardForce = 3f;
 
     void Update()
     {
-        // Check for item pickup
-        if (Input.GetKeyDown(KeyCode.Q) && heldItem != null)
+        if (Input.GetKeyDown(dropKey) && heldItem != null)
         {
-            DropItem();
+            DropHeldItem();
         }
+
     }
 
-    void DropItem()
+    private void DropHeldItem()
     {
-        // Unparent the item from the hand and reset its position and rotation
+        // Unparent the item from the hand
         heldItem.transform.SetParent(null);
 
-        // Reset the item's position and rotation to its original state
+        // Enable physics
         Rigidbody rb = heldItem.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
-            rb.AddForce(transform.forward * 3f, ForceMode.Impulse); // Optional "throw"
+
+            // Apply force in the forward + upward direction to simulate a throw
+            Vector3 throwDirection = transform.forward * throwForce + transform.up * upwardForce;
+            rb.AddForce(throwDirection, ForceMode.Impulse);
         }
-        
+
+        // Clear reference
         heldItem = null;
     }
 
