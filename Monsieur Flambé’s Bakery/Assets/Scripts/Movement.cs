@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Movement : MonoBehaviour
@@ -9,77 +8,85 @@ public class Movement : MonoBehaviour
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
     public float jumpPower = 2f;
-    public float gravity = 1f;
-    public float lookSpeed = 2f;
+    public float gravity = 9.81f;
+    public float lookSpeed = 0.5f;
     public float lookXLimit = 45f;
-    public float defaultHeight = 2f;
-    public float crouchHeight = 1f;
-    public float crouchSpeed = 3f;
 
     private Vector3 moveDirection = Vector3.zero;
-    private float rotationX = 0;
+    private float rotationX = 0f;
     private CharacterController characterController;
 
-    private bool canMove = true;
+    private PlayerControls controls;
 
-    void Start()
+    private Vector2 moveInput = Vector2.zero;
+    private Vector2 lookInput = Vector2.zero;
+    private bool isJumping = false;
+    private bool isRunning = false;
+
+    void Awake()
     {
-        // Initialize the character controller and lock the cursor
         characterController = GetComponent<CharacterController>();
+        controls = new PlayerControls();
+
+        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+
+        controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+        controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
+
+        controls.Player.Jump.performed += ctx => isJumping = true;
+        controls.Player.Jump.canceled += ctx => isJumping = false;
+
+        controls.Player.Sprint.performed += ctx => isRunning = true;
+        controls.Player.Sprint.canceled += ctx => isRunning = false;
+    }
+
+    void OnEnable()
+    {
+        controls.Enable();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    void OnDisable()
+    {
+        controls.Disable();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     void Update()
     {
-        // Handle movement and rotation
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
 
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
-        float movementDirectionY = moveDirection.y;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+        float speed = isRunning ? runSpeed : walkSpeed;
 
-        // Apply crouch logic
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+        Vector3 desiredMove = (forward * moveInput.y + right * moveInput.x) * speed;
+
+        if (characterController.isGrounded)
         {
-            moveDirection.y = jumpPower;
+            moveDirection = desiredMove;
+
+            if (isJumping)
+            {
+                moveDirection.y = jumpPower;
+            }
         }
         else
         {
-            moveDirection.y = movementDirectionY;
-        }
-
-        if (!characterController.isGrounded)
-        {
+            moveDirection.x = desiredMove.x;
+            moveDirection.z = desiredMove.z;
             moveDirection.y -= gravity * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.R) && canMove)
-        {
-            characterController.height = crouchHeight;
-            walkSpeed = crouchSpeed;
-            runSpeed = crouchSpeed;
-
-        }
-        else
-        {
-            characterController.height = defaultHeight;
-            walkSpeed = 6f;
-            runSpeed = 12f;
         }
 
         characterController.Move(moveDirection * Time.deltaTime);
 
-        // Handle rotation
-        if (canMove)
-        {
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
-        }
+        // Look rotation
+        rotationX += -lookInput.y * lookSpeed;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+
+        transform.Rotate(Vector3.up * lookInput.x * lookSpeed);
     }
 }
