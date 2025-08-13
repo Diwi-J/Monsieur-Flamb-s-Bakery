@@ -1,32 +1,30 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Settings")]
-    public Transform hand;
     public Transform playerCamera;
-    public float throwForce = 5f;
-    public float upwardForce = 3f;
+    public float moveSpeed = 5f;
     public float lookSensitivity = 1.5f;
     public float lookXLimit = 45f;
-    public float interactRange = 5f;
 
-    private PlayerControls controls;
+    [Header("Interaction")]
+    public MixingBowl nearbyBowl;
+
     private CharacterController characterController;
-
-    private GameObject heldItem;
-    private float rotationX = 0f;
-
     private Vector2 moveInput;
     private Vector2 lookInput;
+    private float rotationX = 0f;
 
-    private bool isJumping;
-    private bool isRunning;
+    private PlayerControls controls;
+    private PlayerInteractable interactable;
 
-    void Awake()
+    private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        interactable = GetComponent<PlayerInteractable>();
         controls = new PlayerControls();
 
         // Movement
@@ -37,94 +35,39 @@ public class PlayerController : MonoBehaviour
         controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
 
-        // Jump
-        controls.Player.Jump.performed += ctx => isJumping = true;
-        controls.Player.Jump.canceled += ctx => isJumping = false;
+        // Interact (Pickup/Other Interactables)
+        controls.Player.Interact.performed += ctx => interactable.TryInteract();
 
-        // Sprint
-        controls.Player.Sprint.performed += ctx => isRunning = true;
-        controls.Player.Sprint.canceled += ctx => isRunning = false;
+        // Drop (optional separate key)
+        controls.Player.Drop.performed += ctx => interactable.DropItem();
 
-        // Interact
-        controls.Player.Interact.performed += ctx => Interact();
-
-        // Drop
-        controls.Player.Drop.performed += ctx => DropHeldItem();
+        //Mix 
+        controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();
+        
     }
 
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 
-    void Update()
+    private void Update()
     {
-        HandleLook();
         HandleMovement();
-    }
-
-    private void HandleLook()
-    {
-        float mouseX = lookInput.x * lookSensitivity;
-        float mouseY = lookInput.y * lookSensitivity;
-
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-
-        playerCamera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+        HandleLook();
     }
 
     private void HandleMovement()
     {
         Vector3 forward = transform.forward * moveInput.y;
         Vector3 right = transform.right * moveInput.x;
-        Vector3 move = forward + right;
-        // TODO: Apply movement with CharacterController.Move()
+        Vector3 move = (forward + right) * moveSpeed;
+        characterController.Move(move * Time.deltaTime);
     }
 
-    private void Interact()
+    private void HandleLook()
     {
-        Debug.Log("Interact pressed");
-
-        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
-        {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null)
-            {
-                if (heldItem != null) DropHeldItem();
-
-                interactable.Interact();
-                heldItem = hit.collider.gameObject;
-            }
-        }
-    }
-
-    private void DropHeldItem()
-    {
-        if (heldItem == null) return;
-
-        heldItem.transform.SetParent(null);
-
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            Vector3 throwDirection = transform.forward * throwForce + transform.up * upwardForce;
-            rb.AddForce(throwDirection, ForceMode.Impulse);
-        }
-
-        heldItem = null;
-        Debug.Log("Dropped held item");
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Pushable pushable = hit.collider.GetComponent<Pushable>();
-        if (pushable != null)
-        {
-            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-            pushable.Push(pushDir);
-        }
+        rotationX -= lookInput.y * lookSensitivity;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+        playerCamera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+        transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
     }
 }

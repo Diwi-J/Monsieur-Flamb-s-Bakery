@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerInteractable))]
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerControls controls;
@@ -10,7 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
         controls = new PlayerControls();
         playerInteractable = GetComponent<PlayerInteractable>();
 
-        controls.Player.Interact.performed += ctx => playerInteractable.TryPickUp();
+        controls.Player.Interact.performed += ctx => playerInteractable.TryInteract();
         controls.Player.Drop.performed += ctx => playerInteractable.DropItem();
     }
 

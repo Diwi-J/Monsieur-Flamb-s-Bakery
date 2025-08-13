@@ -2,23 +2,40 @@ using UnityEngine;
 
 public class PlayerInteractable : MonoBehaviour
 {
-    public float interactRange = 10f;
+    public float interactRange = 5f;
     public Transform hand;
-    private GameObject heldItem;
+    public PickupItem heldItem;
 
-    public void TryPickUp()
+    public void TryInteract()
     {
+        // Drop if holding an item
+        if (heldItem != null)
+        {
+            DropItem();
+            return;
+        }
+
+        // Raycast to pick up nearby item
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null)
+            PickupItem pickup = hit.collider.GetComponent<PickupItem>();
+            if (pickup != null)
             {
-                if (heldItem != null) DropItem();
+                pickup.PickUp(hand);
+                heldItem = pickup;
+                Debug.DrawRay(transform.position, transform.forward * interactRange, Color.red, 2f);
+                Debug.Log("Trying to interact: " + hit.collider?.name);
 
-                interactable.Interact();
-                heldItem = hit.collider.gameObject;
             }
+            else
+            {
+                // For other interactables
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null)
+                    interactable.Interact();
+            }
+
         }
     }
 
@@ -26,20 +43,8 @@ public class PlayerInteractable : MonoBehaviour
     {
         if (heldItem == null) return;
 
-        PickupItem pickup = heldItem.GetComponent<PickupItem>();
-        if (pickup != null)
-            pickup.Drop();
-
-        Rigidbody rb = heldItem.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.AddForce(transform.forward * 2f, ForceMode.Impulse);
-        }
-
+        heldItem.Drop();
         heldItem = null;
     }
 }
+

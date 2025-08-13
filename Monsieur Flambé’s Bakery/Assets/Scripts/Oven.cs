@@ -7,9 +7,11 @@ public class Oven : MonoBehaviour
     [SerializeField] private Transform cakeSpawnPoint;
     [SerializeField] private float bakingDuration = 5f;
 
+    //Indicates if the oven is currently baking
     private bool isBaking = false;
 
     private void OnTriggerEnter(Collider other)
+    //Triggered when an object enters the oven's collider
     {
         var bowl = other.GetComponent<MixingBowl>();
         if (bowl != null && bowl.IsMixed() && !isBaking)
@@ -19,6 +21,7 @@ public class Oven : MonoBehaviour
     }
 
     private IEnumerator BakeCoroutine(MixingBowl bowl)
+    //Coroutine to handle the baking process
     {
         isBaking = true;
         Debug.Log("Baking started...");
