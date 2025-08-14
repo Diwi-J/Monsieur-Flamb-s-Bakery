@@ -3,63 +3,59 @@ using UnityEngine;
 public class PickupItem : Interactable
 {
     private Vector3 originalScale;
+    private Rigidbody rb;
+
+    [Header("Hand Settings")]
+    [SerializeField] private float handScaleFactor = 0.7f; // scale in hand
 
     private void Awake()
     {
-        // Save the object's original size at the beginning
         originalScale = transform.localScale;
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+        }
     }
 
-    public override void Interact()
+    public void PickUp(Transform hand)
     {
-        // Find the player's hand transform using the PlayerInteractable script
-        Transform hand = GameObject.FindWithTag("Player")?.GetComponent<PlayerInteractable>()?.hand;
-
-        // Check if the hand transform is found
         if (hand == null)
         {
-            Debug.LogError("Hand not found!");
+            Debug.LogWarning($"No hand assigned for {gameObject.name}");
             return;
         }
 
-        // If the item is already held, do nothing
-        Rigidbody rb = GetComponent<Rigidbody>();
+        // Make kinematic, disable gravity
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
         }
 
-        // Set the item's parent to the hand transform
+        // Parent to hand and adjust transform
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-
-        // Resize for holding
-        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        transform.localScale = originalScale * handScaleFactor;
     }
 
     public void Drop()
     {
-        // Unparent the item from the hand and reset its position and rotation
+        // Remove parent
         transform.SetParent(null);
+        transform.localScale = originalScale;
 
-        // Reset the item's position and rotation to its original state
-        Rigidbody rb = GetComponent<Rigidbody>();
+        // Restore physics
         if (rb != null)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-
-            rb.linearDamping = 5f;
-            rb.angularDamping = 10f;
-            rb.constraints = RigidbodyConstraints.None; // Or freeze some axes
-
         }
+    }
 
-        // Restore original size
-        transform.localScale = originalScale;
+    public override void Interact()
+    {
+        Debug.Log($"Interacted with {gameObject.name}");
     }
 }
