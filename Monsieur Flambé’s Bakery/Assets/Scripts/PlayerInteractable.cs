@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class PlayerInteractable : MonoBehaviour
 {
-    public float interactRange = 5f;
+    [Header("Pickup Settings")]
+    public float interactRange = 3f;
+    public float sphereRadius = 0.3f; // radius of SphereCast
     public Transform hand;
     public PickupItem heldItem;
+    public Transform playerCamera; // assign your camera here
 
     public void TryInteract()
     {
@@ -15,27 +18,24 @@ public class PlayerInteractable : MonoBehaviour
             return;
         }
 
-        // Raycast to pick up nearby item
-        Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange))
+        // SphereCast from camera forward
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, interactRange))
         {
             PickupItem pickup = hit.collider.GetComponent<PickupItem>();
             if (pickup != null)
             {
                 pickup.PickUp(hand);
                 heldItem = pickup;
-                Debug.DrawRay(transform.position, transform.forward * interactRange, Color.red, 2f);
-                Debug.Log("Trying to interact: " + hit.collider?.name);
-
+                return;
             }
-            else
+
+            // Other interactables
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable != null)
             {
-                // For other interactables
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if (interactable != null)
-                    interactable.Interact();
+                interactable.Interact();
             }
-
         }
     }
 
@@ -46,5 +46,15 @@ public class PlayerInteractable : MonoBehaviour
         heldItem.Drop();
         heldItem = null;
     }
+
+    // Optional: debug visualization
+    private void OnDrawGizmos()
+    {
+        if (playerCamera == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(playerCamera.position, playerCamera.position + playerCamera.forward * interactRange);
+        Gizmos.DrawWireSphere(playerCamera.position + playerCamera.forward * interactRange, sphereRadius);
+    }
 }
+
 

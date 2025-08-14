@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
         // Drop (optional separate key)
         controls.Player.Drop.performed += ctx => interactable.DropItem();
 
-        //Mix 
-        controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();
+        //Mix
+        /*controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();*/
         
     }
 

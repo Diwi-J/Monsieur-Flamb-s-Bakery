@@ -1,40 +1,35 @@
-using System.Collections;
 using UnityEngine;
 
 public class Oven : MonoBehaviour
 {
-    [SerializeField] private GameObject cakePrefab;
-    [SerializeField] private Transform cakeSpawnPoint;
-    [SerializeField] private float bakingDuration = 5f;
-
-    //Indicates if the oven is currently baking
-    private bool isBaking = false;
+    [Header("Baking")]
+    public GameObject bakedCakePrefab; // prefab to spawn after baking
+    public Transform spawnPoint;       // where baked cake appears
 
     private void OnTriggerEnter(Collider other)
-    //Triggered when an object enters the oven's collider
     {
-        var bowl = other.GetComponent<MixingBowl>();
-        if (bowl != null && bowl.IsMixed() && !isBaking)
+        PickupItem mixture = other.GetComponent<PickupItem>();
+        if (mixture == null) return;
+
+        // Only allow "Mixture" items (optional: check name or tag)
+        if (!mixture.gameObject.name.Contains("Mixture")) return;
+
+        // Remove mixture from player if held
+        PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
+        if (player != null && player.heldItem == mixture)
         {
-            StartCoroutine(BakeCoroutine(bowl));
+            player.DropItem();
         }
-    }
 
-    private IEnumerator BakeCoroutine(MixingBowl bowl)
-    //Coroutine to handle the baking process
-    {
-        isBaking = true;
-        Debug.Log("Baking started...");
+        // Destroy the mixture prefab
+        Destroy(mixture.gameObject);
 
-        yield return new WaitForSeconds(bakingDuration);
+        // Spawn baked cake
+        if (bakedCakePrefab != null && spawnPoint != null)
+        {
+            Instantiate(bakedCakePrefab, spawnPoint.position, spawnPoint.rotation);
+        }
 
-        Instantiate(cakePrefab, cakeSpawnPoint.position, Quaternion.identity);
-
-        Debug.Log("Cake is ready!");
-
-        bowl.ResetBowl();
-
-        GameManager.Instance.AdvanceStage(CakeStage.CakeReady);
-        isBaking = false;
+        Debug.Log("[Oven] Mixture baked!");
     }
 }

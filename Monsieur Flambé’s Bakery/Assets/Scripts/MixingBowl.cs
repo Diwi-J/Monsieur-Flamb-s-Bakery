@@ -1,141 +1,130 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MixingBowl : Interactable
 {
+    [Header("Ingredients (unique names)")]
     [SerializeField]
     private List<string> requiredIngredients = new List<string>
     {
         "Egg", "Flour", "Sugar", "Water", "Butter", "Baking Powder", "Vanilla Essence"
     };
 
-    private List<string> addedIngredients = new List<string>();
+    private readonly HashSet<string> addedUnique = new HashSet<string>();
 
+    [Header("Visuals")]
     [SerializeField] private GameObject rawIngredientsVisual;
     [SerializeField] private GameObject mixtureVisual;
-    [SerializeField] private float mixingDuration = 3f;
+
+    [Header("Result")]
     [SerializeField] private GameObject mixturePrefab;
-    [SerializeField] private Transform hand; 
+    [SerializeField] private Vector3 spawnOffset = new Vector3(0, 0.75f, 0);
 
-    private bool isMixed = false;
+    [Header("Other")]
     public Checklist checklist;
-    private bool playerInRange = false;
-
+    private bool isMixed = false;
 
     private void Start()
     {
-        rawIngredientsVisual?.SetActive(false);
-        mixtureVisual?.SetActive(false);
+        if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
+        if (mixtureVisual) mixtureVisual.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         PickupItem item = other.GetComponent<PickupItem>();
-        if (item != null)
-        {
-            // Use the name of the item as ingredient
-            AddIngredient(item.gameObject.name);
+        if (item == null) return;
 
-            // Optional: destroy or hide the ingredient
-            Destroy(item.gameObject);
+        string ingName = other.gameObject.name.Trim();
+
+        if (rawIngredientsVisual) rawIngredientsVisual.SetActive(true);
+
+        if (!addedUnique.Contains(ingName))
+        {
+            addedUnique.Add(ingName);
+            if (checklist) checklist.MarkIngredientAsAdded(ingName);
+            Debug.Log($"[MixingBowl] Added ingredient: {ingName} ({addedUnique.Count}/{requiredIngredients.Count})");
+        }
+        else
+        {
+            Debug.Log($"[MixingBowl] Duplicate ingredient ignored: {ingName}");
         }
 
-        if (other.CompareTag("Player"))
+        // Remove the dropped ingredient
+        Destroy(other.gameObject);
+
+        // Complete instantly when all ingredients are added
+        if (!isMixed && addedUnique.Count >= requiredIngredients.Count)
         {
-            playerInRange = true;
+            CompleteInstantly();
         }
-    }
-
-
-    public void AddIngredient(string ingredientName)
-    {
-        if (isMixed) return;
-
-        if (!addedIngredients.Contains(ingredientName))
-        {
-            addedIngredients.Add(ingredientName);
-            rawIngredientsVisual?.SetActive(true);
-
-            checklist?.MarkIngredientAsAdded(ingredientName);
-
-            if (addedIngredients.Count >= requiredIngredients.Count)
-            {
-                GameManager.Instance.AdvanceStage(CakeStage.Mixing);
-            }
-        }
-    }
-
-    public void StartMixing()
-    {
-        if (isMixed) return;
-        if (addedIngredients.Count < requiredIngredients.Count) return;
-
-        StartCoroutine(MixCoroutine());
     }
 
     public override void Interact()
     {
-        // Either start the mixing coroutine
-        // or instantly finish mixture
-        IsMixed();
-        Debug.Log("Bowl interacted with!");
+        if (!isMixed && addedUnique.Count >= requiredIngredients.Count)
+        {
+            CompleteInstantly();
+        }
     }
 
-
-
-
-    private IEnumerator MixCoroutine()
+    private void CompleteInstantly()
     {
-        // Show raw ingredients visual while mixing
-        rawIngredientsVisual?.SetActive(true);
-        mixtureVisual?.SetActive(false);
-
-        yield return new WaitForSeconds(mixingDuration);
-
-        // Mixing finished
         isMixed = true;
 
-        // Hide the original bowl visuals
-        rawIngredientsVisual?.SetActive(false);
-        mixtureVisual?.SetActive(false);
+        // Hide visuals
+        if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
+        if (mixtureVisual) mixtureVisual.SetActive(false);
 
-        // Spawn the finished mixture prefab at the bowl’s position
-        if (mixturePrefab != null)
+        if (mixturePrefab == null)
         {
-            GameObject finishedMixture = Instantiate(mixturePrefab, transform.position, Quaternion.identity);
+            Debug.LogError("[MixingBowl] No mixturePrefab assigned!");
+        }
+        else
+        {
+            // Spawn mixture prefab
+            GameObject finishedMixture = Instantiate(mixturePrefab, transform.position + spawnOffset, Quaternion.identity);
+            finishedMixture.SetActive(true);
 
-            // Make the player pick it up automatically
-            PlayerInteractable playerInteractable = FindObjectOfType<PlayerInteractable>();
-            if (playerInteractable != null && finishedMixture.TryGetComponent<PickupItem>(out PickupItem item))
+            // Ensure Collider
+            if (finishedMixture.GetComponent<Collider>() == null)
+                finishedMixture.AddComponent<BoxCollider>();
+
+            // Ensure Rigidbody
+            Rigidbody rb = finishedMixture.GetComponent<Rigidbody>();
+            if (rb == null)
+                rb = finishedMixture.AddComponent<Rigidbody>();
+            rb.useGravity = true;
+            rb.isKinematic = true; // important for pickup
+
+            // Ensure PickupItem
+            PickupItem pickupItem = finishedMixture.GetComponent<PickupItem>();
+            if (pickupItem == null)
+                pickupItem = finishedMixture.AddComponent<PickupItem>();
+
+            // Auto-pickup
+            PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
+            if (player != null && player.hand != null)
             {
-                item.PickUp(playerInteractable.hand);
-                playerInteractable.heldItem = item;
+                if (player.heldItem != null)
+                    player.DropItem();
+
+                pickupItem.PickUp(player.hand);
+                player.heldItem = pickupItem;
+                Debug.Log("[MixingBowl] Mixture auto-picked up into player's hand.");
+            }
+            else
+            {
+                Debug.LogWarning("[MixingBowl] Player or hand not found. Mixture stays in scene.");
             }
         }
 
-        // Destroy or deactivate the original bowl
-        gameObject.SetActive(false);
+        // Destroy the bowl
+        Destroy(gameObject);
 
-        GameManager.Instance.AdvanceStage(CakeStage.MixtureReady);
+        // Advance game stage safely
+        try { GameManager.Instance.AdvanceStage(CakeStage.MixtureReady); } catch { }
     }
-
 
     public bool IsMixed() => isMixed;
-
-    public void ResetBowl()
-    {
-        isMixed = false;
-        addedIngredients.Clear();
-        rawIngredientsVisual?.SetActive(false);
-        mixtureVisual?.SetActive(false);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
 }
