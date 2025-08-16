@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e9fa018c049c28042aec38e6225e904f
+  - enabled: 1
+    path: "Assets/Scenes/_Flamb\xE9's Bakery.unity"
+    guid: dfd48c60f7e1889499942d17f66c1304
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5b9281cffd9f1c540a6fecc1af349f6a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
