@@ -23,7 +23,7 @@ public class Checklist : MonoBehaviour
 
     public void MarkIngredientAsAdded(string ingredientName)
     {
-        //Check if the ingredient name matches any task's required ingredient
+        //Check if the ingredient name matches any task's required ingredient.
         foreach (var task in tasks)
         {
             if (!task.completed && task.requiredIngredientName == ingredientName)
@@ -40,7 +40,7 @@ public class Checklist : MonoBehaviour
 
     private void UpdateChecklistText()
     {
-        //Update the text display with the current checklist status
+        //Update the text display with the current checklist status.
         string output = "";
         foreach (var task in tasks)
         {

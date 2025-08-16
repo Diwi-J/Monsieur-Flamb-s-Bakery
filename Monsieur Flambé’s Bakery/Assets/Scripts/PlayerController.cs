@@ -27,23 +27,24 @@ public class PlayerController : MonoBehaviour
         interactable = GetComponent<PlayerInteractable>();
         controls = new PlayerControls();
 
-        // Movement
+        //Movement
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
 
-        // Look
+        //Look
         controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
 
-        // Interact (Pickup/Other Interactables)
+        //Interact (Pickup/Other Interactables)
         controls.Player.Interact.performed += ctx => interactable.TryInteract();
 
-        // Drop (optional separate key)
+        //Drop
         controls.Player.Drop.performed += ctx => interactable.DropItem();
 
         //Mix
+        //Might use at a later stage for players to mix ingredients themselves.
         /*controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();*/
-        
+
     }
 
     private void OnEnable() => controls.Enable();
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
         HandleLook();
     }
 
+    //Handles player movement.
     private void HandleMovement()
     {
         Vector3 forward = transform.forward * moveInput.y;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(move * Time.deltaTime);
     }
 
+    //Handles player looking around with the camera.
     private void HandleLook()
     {
         rotationX -= lookInput.y * lookSensitivity;
