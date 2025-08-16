@@ -8,18 +8,19 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        //Ensure that only one instance of GameManager exists
+        //Ensures that only one instance of GameManager exists.
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject); //Prevent duplicates
+            Destroy(gameObject); //Prevents duplicates.
     }
 
     public void AdvanceStage(CakeStage newStage)
     {
-        //Check if the new stage is valid
+        //Checks if the new stage is valid.
         CurrentStage = newStage;
         Debug.Log($"GameManager: Stage changed to {newStage}");
     }
 }
+
 
