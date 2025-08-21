@@ -20,6 +20,7 @@ public class FPController : MonoBehaviour
 
     private void Awake()
     {
+        //Initialize the CharacterController and lock the cursor
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -31,6 +32,7 @@ public class FPController : MonoBehaviour
         HandleLook();
     }
 
+    //Input System Callbacks
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();

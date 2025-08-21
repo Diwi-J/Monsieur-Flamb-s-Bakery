@@ -1,6 +1,6 @@
 public enum CakeStage
 {
-    //Initializing,
+    //The dfferent cake making stages in order.
     AddingIngredients,
     Mixing,
     MixtureReady,

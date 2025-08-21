@@ -7,9 +7,10 @@ public class MixingBowl : Interactable
     [SerializeField]
     private List<string> requiredIngredients = new List<string>
     {
-        "Egg", "Flour", "Sugar", "Water", "Butter", "Baking Powder", "Vanilla Essence"
+        "Egg", "Flour", "Sugar", "Water", "Butter", "Baking Powder", "Vanilla Essence", "Milk"
     };
 
+    //This tracks unique ingredients added to the bowl.
     private readonly HashSet<string> addedUnique = new HashSet<string>();
 
     [Header("Visuals")]
@@ -26,6 +27,7 @@ public class MixingBowl : Interactable
 
     private void Start()
     {
+        //Ensures visuals are hidden at start.
         if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
         if (mixtureVisual) mixtureVisual.SetActive(false);
     }
@@ -50,10 +52,10 @@ public class MixingBowl : Interactable
             Debug.Log($"[MixingBowl] Duplicate ingredient ignored: {ingName}");
         }
 
-        // Remove the dropped ingredient
+        //Removes the dropped ingredient from the scene after being added to the mixing bowl.
         Destroy(other.gameObject);
 
-        // Complete instantly when all ingredients are added
+        //Completes mixture instantly when all ingredients are added.
         if (!isMixed && addedUnique.Count >= requiredIngredients.Count)
         {
             CompleteInstantly();
@@ -72,7 +74,7 @@ public class MixingBowl : Interactable
     {
         isMixed = true;
 
-        // Hide visuals
+        //Hides visuals.
         if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
         if (mixtureVisual) mixtureVisual.SetActive(false);
 
@@ -82,27 +84,27 @@ public class MixingBowl : Interactable
         }
         else
         {
-            // Spawn mixture prefab
+            //Spawns mixture prefab.
             GameObject finishedMixture = Instantiate(mixturePrefab, transform.position + spawnOffset, Quaternion.identity);
             finishedMixture.SetActive(true);
 
-            // Ensure Collider
+            //Ensures the Collider component.
             if (finishedMixture.GetComponent<Collider>() == null)
                 finishedMixture.AddComponent<BoxCollider>();
 
-            // Ensure Rigidbody
+            //Ensures the Rigidbody component.
             Rigidbody rb = finishedMixture.GetComponent<Rigidbody>();
             if (rb == null)
                 rb = finishedMixture.AddComponent<Rigidbody>();
             rb.useGravity = true;
-            rb.isKinematic = true; // important for pickup
+            rb.isKinematic = true;
 
-            // Ensure PickupItem
+            //Ensures PickupItem.
             PickupItem pickupItem = finishedMixture.GetComponent<PickupItem>();
             if (pickupItem == null)
                 pickupItem = finishedMixture.AddComponent<PickupItem>();
 
-            // Auto-pickup
+            //Auto-pickup mixture prefab.
             PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
             if (player != null && player.hand != null)
             {
@@ -119,10 +121,10 @@ public class MixingBowl : Interactable
             }
         }
 
-        // Destroy the bowl
+        //Destroys the bowl object after mixing is complete.
         Destroy(gameObject);
 
-        // Advance game stage safely
+        //Advance game stage safely.
         try { GameManager.Instance.AdvanceStage(CakeStage.MixtureReady); } catch { }
     }
 

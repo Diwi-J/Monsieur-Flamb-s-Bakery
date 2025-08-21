@@ -8,7 +8,7 @@ public class Pushable : MonoBehaviour
 
     void Start()
     {
-        //Ensure the object has a Rigidbody component
+        //Ensure the object has a Rigidbody component.
         rb = GetComponent<Rigidbody>();
 
         if (rb == null)
@@ -21,9 +21,10 @@ public class Pushable : MonoBehaviour
     {
         if (rb != null)
         {
-            //Only push horizontally — zero out Y to avoid flying
+            //Only push horizontally, avoid flying.
             Vector3 force = new Vector3(pushDirection.x, 0, pushDirection.z) * pushPower;
             rb.AddForce(force, ForceMode.Impulse);
         }
     }
 }
+

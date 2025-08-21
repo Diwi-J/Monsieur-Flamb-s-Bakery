@@ -25,30 +25,26 @@ public class Movement : MonoBehaviour
 
     void Awake()
     {
-        //Initialize components
+        //Initialize components.
         characterController = GetComponent<CharacterController>();
         controls = new PlayerControls();
 
-        //Movement controls
+        //Movement controls.
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
 
-        //Look controls
+        //Look controls.
         controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
 
-        //Jump controls
-        controls.Player.Jump.performed += ctx => isJumping = true;
-        controls.Player.Jump.canceled += ctx => isJumping = false;
-
-        //Sprint controls
+        //Sprint controls.
         controls.Player.Sprint.performed += ctx => isRunning = true;
         controls.Player.Sprint.canceled += ctx => isRunning = false;
     }
 
     void OnEnable()
     {
-        //Enable the controls and lock the cursor
+        //Enable the controls and lock the cursor.
         controls.Enable();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -56,7 +52,7 @@ public class Movement : MonoBehaviour
 
     void OnDisable()
     {
-        //Disable the controls and unlock the cursor
+        //Disable the controls and unlock the cursor.
         controls.Disable();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -64,7 +60,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        //Handle movement and look input
+        //Handle movement and look input.
         Vector3 forward = transform.forward;
         Vector3 right = transform.right;
 
@@ -72,7 +68,7 @@ public class Movement : MonoBehaviour
 
         Vector3 desiredMove = (forward * moveInput.y + right * moveInput.x) * speed;
 
-        //Apply gravity
+        //Apply gravity.
         if (characterController.isGrounded)
         {
             moveDirection = desiredMove;
@@ -89,10 +85,10 @@ public class Movement : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
-        //Move the character controller
+        //Move the character controller.
         characterController.Move(moveDirection * Time.deltaTime);
 
-        //Look rotation
+        //Look rotation.
         rotationX += -lookInput.y * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);

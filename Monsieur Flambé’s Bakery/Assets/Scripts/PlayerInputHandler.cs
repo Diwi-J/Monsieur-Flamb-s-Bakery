@@ -8,6 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
+        //Initialize PlayerControls and PlayerInteractable.
         controls = new PlayerControls();
         playerInteractable = GetComponent<PlayerInteractable>();
 
@@ -15,6 +16,8 @@ public class PlayerInputHandler : MonoBehaviour
         controls.Player.Drop.performed += ctx => playerInteractable.DropItem();
     }
 
+    //Enable and Disable the controls when the script is enabled or disabled.
     private void OnEnable() => controls.Enable();
     private void OnDisable() => controls.Disable();
 }
+
