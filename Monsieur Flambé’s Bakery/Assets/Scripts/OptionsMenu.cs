@@ -11,10 +11,10 @@ public class ControlsMenu : MonoBehaviour
         controls = new PlayerControls();
 
         // Bind the action to toggle the menu
-        controls.UI.OptionsMenu.performed += ctx =>
-        {
-            menuPanel.SetActive(!menuPanel.activeSelf);
-        };
+        //controls.UI.Pause.performed += ctx =>
+        //{
+            //menuPanel.SetActive(!menuPanel.activeSelf);
+        //};
     }
 
     private void OnEnable() => controls.Enable();
