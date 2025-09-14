@@ -37,10 +37,6 @@ public class Movement : MonoBehaviour
         controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
         controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
 
-        //Jump controls.
-        controls.Player.Jump.performed += ctx => isJumping = true;
-        controls.Player.Jump.canceled += ctx => isJumping = false;
-
         //Sprint controls.
         controls.Player.Sprint.performed += ctx => isRunning = true;
         controls.Player.Sprint.canceled += ctx => isRunning = false;
