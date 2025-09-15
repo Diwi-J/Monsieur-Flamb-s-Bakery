@@ -7,7 +7,7 @@ public class PauseMenu : MonoBehaviour
     GameObject pauseMenu;        //This is only the PauseCanvas
     GameObject settingsMenu;     //This is only the SettingsCanvas
 
-    public  Movement movement;
+    public Movement movement;
 
     bool IsPaused = false;
 
