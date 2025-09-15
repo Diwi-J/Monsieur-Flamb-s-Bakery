@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         //Mix
         //Might use at a later stage for players to mix ingredients themselves.
         /*controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();*/
-
+       
     }
 
     private void OnEnable() => controls.Enable();
