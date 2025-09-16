@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private PlayerControls controls;
     private PlayerInteractable interactable;
+
+    public PauseMenu pauseMenu;
 
     private void Awake()
     {
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour
         //Might use at a later stage for players to mix ingredients themselves.
         /*controls.Player.PlayerMix.performed += ctx => interactable.TryInteract();*/
 
+        //Pause 
+        controls.UI.Pause.performed += ctx => pauseMenu.PauseGame();
     }
 
     private void OnEnable() => controls.Enable();
@@ -73,4 +78,79 @@ public class PlayerController : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
     }
+
+    #region Intput Action System 
+    /*
+    
+    [Header("Movement Settings")]
+    public float moveSpeed = 5f;
+    public float gravity = -9.81f;
+
+    [Header("Look Settings")]
+    public Transform cameraTransform;
+    public float lookSensitivity = 2f;
+    public float verticalLookLimit = 90f;
+
+    private CharacterController controller;
+    private Vector2 moveInput;
+    private Vector2 lookInput;
+    private Vector3 velocity;
+
+    private float verticalRotation = 0f;
+
+    private void Awake()
+    {
+        //Initialize the CharacterController and lock the cursor
+        controller = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void Update()
+    {
+        HandleMovement();
+        HandleLook();
+    }
+
+    //Input System Callbacks
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnPause(InputAction.CallBackContext context)
+    {
+        
+    }
+
+    public void HandleMovement()
+    {
+        Vector3 move = transform.right * moveInput.x + transform.forward *
+        moveInput.y;
+        controller.Move(move * moveSpeed * Time.deltaTime);
+        if (controller.isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void HandleLook()
+    {
+        float mouseX = lookInput.x * lookSensitivity;
+        float mouseY = lookInput.y * lookSensitivity;
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, -verticalLookLimit,
+        verticalLookLimit);
+        cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
+    }
+
+    */
+    #endregion 
 }
+

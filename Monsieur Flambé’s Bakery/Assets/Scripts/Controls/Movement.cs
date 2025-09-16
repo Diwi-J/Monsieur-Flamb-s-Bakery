@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
         controls.Player.Sprint.canceled += ctx => isRunning = false;
     }
 
-    void OnEnable()
+    public void OnEnable()
     {
         //Enable the controls and lock the cursor.
         controls.Enable();
@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
     }
 
-    void OnDisable()
+    public void OnDisable()
     {
         //Disable the controls and unlock the cursor.
         controls.Disable();
