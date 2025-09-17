@@ -10,7 +10,7 @@ public class MixingBowl : Interactable
         "Egg", "Flour", "Sugar", "Water", "Butter", "Baking Powder", "Vanilla Essence", "Milk"
     };
 
-    // Tracks unique ingredients added to the bowl.
+    //Tracks unique ingredients added to the bowl.
     private readonly HashSet<string> addedUnique = new HashSet<string>();
 
     [Header("Visuals")]
@@ -28,7 +28,7 @@ public class MixingBowl : Interactable
 
     private void Start()
     {
-        // Hide visuals at start
+        //Hide visuals at start
         if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
         if (mixtureVisual) mixtureVisual.SetActive(false);
     }
@@ -46,21 +46,21 @@ public class MixingBowl : Interactable
         {
             addedUnique.Add(ingName);
 
-            // Auto-tick in recipe book
+            //Auto-tick in recipe book
             if (recipeBookUI != null)
                 AddIngredient(ingName);
 
-            Debug.Log($"[MixingBowl] Added ingredient: {ingName} ({addedUnique.Count}/{requiredIngredients.Count})");
+            Debug.Log("[MixingBowl] Added ingredient: {ingName} ({addedUnique.Count}/{requiredIngredients.Count})");
         }
         else
         {
-            Debug.Log($"[MixingBowl] Duplicate ingredient ignored: {ingName}");
+            Debug.Log("[MixingBowl] Duplicate ingredient ignored: {ingName}");
         }
 
-        // Remove the ingredient object from the scene
+        //Remove the ingredient object from the scene
         Destroy(other.gameObject);
 
-        // Complete mixture instantly if all ingredients added
+        //Complete mixture instantly if all ingredients added
         if (!isMixed && addedUnique.Count >= requiredIngredients.Count)
             CompleteInstantly();
     }
@@ -75,7 +75,7 @@ public class MixingBowl : Interactable
     {
         isMixed = true;
 
-        // Hide visuals
+        //Hide visuals
         if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
         if (mixtureVisual) mixtureVisual.SetActive(false);
 
@@ -85,26 +85,26 @@ public class MixingBowl : Interactable
             return;
         }
 
-        // Spawn finished mixture
+        //Spawn finished mixture
         GameObject finishedMixture = Instantiate(mixturePrefab, transform.position + spawnOffset, Quaternion.identity);
 
-        // Ensure collider
+        //Ensure collider
         if (finishedMixture.GetComponent<Collider>() == null)
             finishedMixture.AddComponent<BoxCollider>();
 
-        // Ensure Rigidbody
+        //Ensure Rigidbody
         Rigidbody rb = finishedMixture.GetComponent<Rigidbody>();
         if (rb == null)
             rb = finishedMixture.AddComponent<Rigidbody>();
         rb.useGravity = true;
         rb.isKinematic = true;
 
-        // Ensure PickupItem
+        //Ensure PickupItem
         PickupItem pickupItem = finishedMixture.GetComponent<PickupItem>();
         if (pickupItem == null)
             pickupItem = finishedMixture.AddComponent<PickupItem>();
 
-        // Auto-pickup
+        //Auto-pickup
         PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
         if (player != null && player.hand != null)
         {
@@ -116,10 +116,16 @@ public class MixingBowl : Interactable
             Debug.Log("[MixingBowl] Mixture auto-picked up into player's hand.");
         }
 
-        // Destroy bowl after mixing
+        GameTimer timer = FindObjectOfType<GameTimer>();
+        if (timer != null)
+        {
+            timer.ObjectiveComplete();
+        }
+
+        //Destroy bowl after mixing
         Destroy(gameObject);
 
-        // Advance game stage safely
+        //Advance game stage safely
         try { GameManager.Instance.AdvanceStage(CakeStage.MixtureReady); } catch { }
     }
 
@@ -129,10 +135,10 @@ public class MixingBowl : Interactable
     {
         Debug.Log($"Added {ingredientName} to the bowl");
 
-        // Auto-tick in the recipe book
+        //Auto-tick in the recipe book
         recipeBookUI?.AutoTickIngredient(ingredientName);
 
-        // Check if recipe is complete
+        //Check if recipe is complete
         if (recipeBookUI != null && recipeBookUI.IsRecipeComplete())
             Debug.Log("Recipe complete! Ready to bake!");
     }
