@@ -7,7 +7,7 @@ public class PauseMenu : MonoBehaviour
     GameObject pauseMenu;        //This is only the PauseCanvas
     GameObject settingsMenu;     //This is only the SettingsCanvas
 
-    public Movement movement;
+    public PlayerController movement;
 
     bool IsPaused = false;
 
@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         IsPaused = true;
 
-        movement.OnDisable();
+        PlayerController.OnDisable();
     }
 
     public void ResumeGame()
@@ -47,7 +47,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         IsPaused = false;
 
-        movement.OnEnable();
+        PlayerController.OnEnable();
     }
 
     public void MainMenu()
