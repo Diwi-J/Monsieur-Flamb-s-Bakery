@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private PlayerControls controls;
     private PlayerInteractable interactable;
+    private PlayerInput input;
 
     [Header("Movement Settings")]
     public float walkSpeed = 6f;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity;
     private float rotationX;
 
+    private bool controlstate;
     private bool isRunning;
 
     [Header("Pause Menu")]
@@ -33,12 +35,15 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         interactable = GetComponent<PlayerInteractable>();
+        input = GetComponent<PlayerInput>();
         controls = new PlayerControls();
 
         OnEnable();
     }
     private void Update()
     {
+        if (controlstate) return;
+
         HandleMovement();
         HandleLook();
     }
@@ -92,15 +97,19 @@ public class PlayerController : MonoBehaviour
     public void OnEnable()
     {
         controls.Enable();
+        input.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        controlstate = false;
     }
 
     public void OnDisable()
     {
         controls.Disable();
+        input.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        controlstate = true;
     }
     #endregion 
 
