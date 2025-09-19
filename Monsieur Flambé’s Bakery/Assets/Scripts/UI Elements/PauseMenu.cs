@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -76,4 +76,4 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
     }
-}
+}*/
