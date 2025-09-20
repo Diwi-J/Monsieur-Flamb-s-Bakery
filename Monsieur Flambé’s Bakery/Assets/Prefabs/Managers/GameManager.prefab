@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLimit: 20
   timerText: {fileID: 0}
-  gameOverPanel: {fileID: 0}
+  gameOverMenu: {fileID: 704617502706607542, guid: c3c884d36b8a5204fa19fadf724309d1, type: 3}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   warningColor: {r: 1, g: 0, b: 0, a: 1}
   flashThreshold: 10
