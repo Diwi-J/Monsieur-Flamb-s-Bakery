@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour
 {
     [Header("Timer Settings")]
-    public float timeLimit = 120f; //seconds for time limit
+    public float timeLimit; //seconds for time limit
     private float currentTime;
 
     [Header("UI References")]
     public TextMeshProUGUI timerText;
-    public GameObject gameOverPanel;
+    public GameOverMenu gameOverMenu;
 
     [Header("Flash Settings")]
     public Color normalColor = Color.white;
@@ -23,8 +23,6 @@ public class GameTimer : MonoBehaviour
     void Start()
     {
         currentTime = timeLimit;
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(false);
     }
 
     void Update()
@@ -36,7 +34,8 @@ public class GameTimer : MonoBehaviour
         if (currentTime < 0)
         {
             currentTime = 0;
-            EndGame();
+            gameOverMenu.GameOver();
+            isGameOver = true;
         }
 
         UpdateTimerUI();
@@ -60,18 +59,11 @@ public class GameTimer : MonoBehaviour
             timerText.color = normalColor;
         }
     }
+
     public void ObjectiveComplete()
     {
         isGameOver = true;
+
         Debug.Log("Objective completed in time!");
-    }
-
-
-    void EndGame()
-    {
-        isGameOver = true;
-        Time.timeScale = 0f; //Pause game
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
     }
 }

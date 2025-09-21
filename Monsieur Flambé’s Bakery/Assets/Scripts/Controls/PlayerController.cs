@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private PlayerControls controls;
     private PlayerInteractable interactable;
+    private PlayerInput input;
 
     [Header("Movement Settings")]
     public float walkSpeed = 6f;
@@ -24,53 +25,95 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity;
     private float rotationX;
 
+    private bool controlstate;
     private bool isRunning;
+
+    [Header("Pause Menu")]
+    public PauseMenu pauseMenu;
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         interactable = GetComponent<PlayerInteractable>();
+        input = GetComponent<PlayerInput>();
         controls = new PlayerControls();
 
-        //Movement input
-        controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
-
-        //Look input
-        controls.Player.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
-        controls.Player.Look.canceled += ctx => lookInput = Vector2.zero;
-
-        //Sprint
-        controls.Player.Sprint.performed += ctx => isRunning = true;
-        controls.Player.Sprint.canceled += ctx => isRunning = false;
-
-        //Interact
-        controls.Player.Interact.performed += ctx => interactable.TryInteract();
-
-        //Drop item
-        controls.Player.Drop.performed += ctx => interactable.DropItem();
+        OnEnable();
     }
-
-    private void OnEnable()
-    {
-        controls.Enable();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
     private void Update()
     {
+        if (controlstate) return;
+
         HandleMovement();
         HandleLook();
     }
 
+    #region Unity Events
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();   
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isRunning = true;
+
+            //Debug.Log("Sprinting");
+        }
+        else if (context.canceled)
+        {
+            isRunning = false; 
+        }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnInteract()
+    {
+        interactable.TryInteract();
+    }
+
+    public void OnDrop()
+    {
+        interactable.DropItem();
+    }
+
+    public void OnPause()
+    {
+        pauseMenu.PauseGame();
+
+        Debug.Log("Pausing");
+    }
+
+    #endregion
+
+    #region controls Ontoggle
+    public void OnEnable()
+    {
+        controls.Enable();
+        input.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        controlstate = false;
+    }
+
+    public void OnDisable()
+    {
+        controls.Disable();
+        input.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        controlstate = true;
+    }
+    #endregion 
+
+    #region Handle
     private void HandleMovement()
     {
         //Get move direction
@@ -99,4 +142,5 @@ public class PlayerController : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.Rotate(Vector3.up * lookInput.x * lookSensitivity);
     }
+    #endregion
 }
