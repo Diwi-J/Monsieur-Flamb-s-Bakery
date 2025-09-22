@@ -3,26 +3,30 @@ using UnityEngine;
 public class NPC : Interactable
 {
     [Header("Dialogue")]
-    public Dialogue dialogue;               //Normal dialogue
-    public Dialogue blockedDialogue;        //Dialogue shown if cake isn't placed
+    public Dialogue blockedDialogue;  // if cake not placed
+    public Dialogue mainDialogue;     // normal dialogue once cake is placed
 
-    [Header("Cake Requirement")]
-    [Tooltip("Assign only if this NPC should wait for the cake")]
-    public CakeTargetZone cakeTargetZone;
+    [Header("Cake Target Zone")]
+    public CakeTargetZone cakeZone;   // assign in Inspector
+
+    private bool unlocked = false;
+
+    public void UnlockDialogue()
+    {
+        unlocked = true;
+    }
 
     public override void Interact()
     {
-        //Check if this NPC is waiting for the cake
-        if (cakeTargetZone != null && !cakeTargetZone.cakePlaced)
+        if (cakeZone != null && !cakeZone.IsCakePlaced())
         {
-            //Show blocked dialogue
-            if (blockedDialogue != null)
-            {
-                DialogueManager.Instance.StartDialogue(blockedDialogue);
-            }
+            // Cake not placed, show blocked dialogue
+            DialogueManager.Instance.StartDialogue(blockedDialogue);
         }
-
-        //Normal dialogue
-        DialogueManager.Instance.StartDialogue(dialogue);
+        else
+        {
+            // Cake placed or unlocked manually
+            DialogueManager.Instance.StartDialogue(mainDialogue);
+        }
     }
 }

@@ -519,27 +519,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe7eb0e323ef944696569e0e0436225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    npcName: 'Pip '
-    sentences:
-    - "Oh no, oh no\u2026 if you don\u2019t get a cake done in time, the bakery\u2019s
-      finished!"
-    - The inspector is coming soon and if that cakes not done...
-    - A cake, a real showstopper, that could bring everyone back and impress that
-      inspector.
-    - Two birds with one stone!
-    - "Layers of cream, frosting so smooth it shines\u2026 yes, yes, that\u2019s
-      it! Just one perfect cake to save us all."
-    - Mmmm... wanna hear a joke?
-    - Why did the cake go to therapy?
-    - Because it felt crumby inside.
-    - Hahaha... Gets me everytime! But anyway, I'm getting distracted.
-    - 'Head downstairs and get started! Put your heart and soul into this cake! '
-    - I'm counting on you!
   blockedDialogue:
     npcName: 
     sentences: []
-  cakeTargetZone: {fileID: 0}
+  mainDialogue:
+    npcName: Pip
+    sentences:
+    - Oh no, oh no... if you don't get a cake done in time, the bakery's finished!
+    - The inspector is coming soon and if that cakes not done...
+    - A cake, a real showstopper, that could bring everyone back and impress that
+      inspector!
+    - Two birds with one stone!!
+    - Layers of cream, frosting so smooth it shines... yes, yes, that's it! Just
+      one perfect cake to save us all.
+    - Mmmm... wanna hear a joke?
+    - Why did the cake go to therapy?
+    - Because it felt crumby insde!!
+    - Hahaha... Gets me everytime! But anyway, I'm getting distracted.
+    - Head downstairs and get started! Put your heart and soul into this cake!
+    - I'm counting on you!
+  cakeZone: {fileID: 0}
 --- !u!114 &26347199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3714,8 +3713,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514ae5394ba002d44ad2fc1369d2c28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cakeTag: Cake
+  npcToUnlock: {fileID: 1660630123}
   gameTimer: {fileID: 4528379668697343906}
-  cakeSpawnPoint: {fileID: 0}
   cakePlaced: 0
 --- !u!65 &569142183
 BoxCollider:
@@ -9345,20 +9345,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe7eb0e323ef944696569e0e0436225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    npcName: Inspector
-    sentences:
-    - Hmmm... let's see...
-    - "Oh my goodness\u2026 this cake!"
-    - "I\u2019ve never seen anything like it."
-    - "The layers, the frosting, the aroma... it\u2019s perfect!"
-    - "You\u2019ve outdone yourself."
-    - Consider this bakery officially approved!!!
   blockedDialogue:
     npcName: Inspector
     sentences:
     - I'm WAITING!!! This better not take all day...
-  cakeTargetZone: {fileID: 569142182}
+  mainDialogue:
+    npcName: Inspector
+    sentences:
+    - Hmmm... let's see...
+    - Oh my goodness... this cake!
+    - I've never seen anything like it!
+    - The layers, the frosting, the aroma... it's perfect!
+    - You've outdone yourself!
+    - Consider this bakery officially approved!!!
+  cakeZone: {fileID: 569142182}
 --- !u!114 &1660630124
 MonoBehaviour:
   m_ObjectHideFlags: 0
