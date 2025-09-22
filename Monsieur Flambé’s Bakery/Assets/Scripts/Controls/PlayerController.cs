@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
     #region controls Ontoggle
     public void OnEnable()
     {
-        controls.Enable();
+        //controls.Enable();
         input.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDisable()
     {
-        controls.Disable();
+        //controls.Disable();
         input.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
