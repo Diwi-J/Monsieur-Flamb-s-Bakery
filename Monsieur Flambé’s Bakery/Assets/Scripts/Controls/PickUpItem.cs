@@ -6,49 +6,44 @@ public class PickupItem : Interactable
     private Rigidbody rb;
 
     [Header("Hand Settings")]
-    [SerializeField] private float handScaleFactor = 0.7f; // scale in hand
+    [SerializeField] private float handScaleFactor = 0.7f;
 
     private void Awake()
     {
-        //Initialize original scale and Rigidbody.
         originalScale = transform.localScale;
         rb = GetComponent<Rigidbody>();
         if (rb == null)
-        {
             rb = gameObject.AddComponent<Rigidbody>();
-        }
     }
 
-    //Pick up the item by parenting it to the hand transform.
+    //Pick up the item and attach to hand
     public void PickUp(Transform hand)
     {
         if (hand == null)
         {
-            Debug.LogWarning($"No hand assigned for {gameObject.name}");
+            Debug.LogWarning("No hand assigned for {gameObject.name}");
             return;
         }
 
-        //Makes it kinematic, disables gravity.
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
         }
 
-        //Parent to hand and adjust transform.
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         transform.localScale = originalScale * handScaleFactor;
     }
 
+
+    //Drop the item and restore original scale
     public void Drop()
     {
-        //Removes parent.
         transform.SetParent(null);
         transform.localScale = originalScale;
 
-        //Restores physics.
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -56,10 +51,10 @@ public class PickupItem : Interactable
         }
     }
 
+
+    //Interaction logic (for demonstration)
     public override void Interact()
     {
-        //Just incase the Interact() stops working.
         Debug.Log($"Interacted with {gameObject.name}");
     }
 }
-

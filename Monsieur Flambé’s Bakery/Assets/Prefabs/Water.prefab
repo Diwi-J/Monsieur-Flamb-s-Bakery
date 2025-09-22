@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3341598488759669625
+--- !u!1 &7688760207089250729
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6121244368109133365}
-  - component: {fileID: 7169090096683742520}
-  - component: {fileID: 6025737198489646270}
-  - component: {fileID: 7488816443242742800}
-  - component: {fileID: 101056271579853426}
-  - component: {fileID: 5352016018013918570}
-  m_Layer: 0
-  m_Name: Cake
-  m_TagString: Interactable
+  - component: {fileID: 9172853298705404258}
+  - component: {fileID: 6586704277619373465}
+  - component: {fileID: 2301426461746585009}
+  - component: {fileID: 8612379726297846383}
+  - component: {fileID: 997255346977392938}
+  - component: {fileID: 1092055042937366759}
+  - component: {fileID: 3975423290252476093}
+  - component: {fileID: 5103976836053814350}
+  - component: {fileID: 386459847111969006}
+  m_Layer: 3
+  m_Name: Water
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6121244368109133365
+  m_IsActive: 1
+--- !u!4 &9172853298705404258
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
+  m_GameObject: {fileID: 7688760207089250729}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.434, y: 1.018, z: 8.614}
-  m_LocalScale: {x: 0.2707248, y: 0.3327188, z: 0.24587387}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 22.4402, y: 17.97, z: -37.27}
+  m_LocalScale: {x: 0.44020724, y: 0.37652117, z: 0.33427864}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7169090096683742520
+--- !u!33 &6586704277619373465
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
-  m_Mesh: {fileID: -2432090755550338912, guid: 01c3fd44972187e428b8ecaae866be35, type: 3}
---- !u!23 &6025737198489646270
+  m_GameObject: {fileID: 7688760207089250729}
+  m_Mesh: {fileID: 3525479140033381557, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!23 &2301426461746585009
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
+  m_GameObject: {fileID: 7688760207089250729}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4da7e70a0a0e76a4d94e1111bdd672fd, type: 2}
+  - {fileID: 2100000, guid: e004e3d076aa5d2499f7c6f5d92da291, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7488816443242742800
+--- !u!65 &8612379726297846383
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
+  m_GameObject: {fileID: 7688760207089250729}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,28 +111,41 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.3880959, y: 2.0021873, z: 3.9000027}
-  m_Center: {x: -0.026042663, y: 0.98687106, z: 0.009527938}
---- !u!114 &101056271579853426
+  m_Size: {x: 2.0477664, y: 2.0477662, z: 5.894536}
+  m_Center: {x: -0.000005275011, y: 4.848249e-15, z: 0.6823302}
+--- !u!114 &997255346977392938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
+  m_GameObject: {fileID: 7688760207089250729}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handScaleFactor: 0.3
---- !u!54 &5352016018013918570
+  handScaleFactor: 0.7
+--- !u!114 &1092055042937366759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688760207089250729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b71ef8d55e41e0418525af4dee3749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: Water
+--- !u!54 &3975423290252476093
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3341598488759669625}
+  m_GameObject: {fileID: 7688760207089250729}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -150,3 +166,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5103976836053814350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688760207089250729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a562a4bfb5edf44ca3b208e3f2b5d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textUI: {fileID: 0}
+--- !u!114 &386459847111969006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688760207089250729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Water

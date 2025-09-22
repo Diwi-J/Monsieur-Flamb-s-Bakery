@@ -28,7 +28,7 @@ public class DoorNewInput : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        if (!playerInRange) return; // only interact if player is near this door
+        if (!playerInRange) return; //only interact if player is near this door
 
         isOpen = !isOpen;
         targetAngle = isOpen ? openAngle : 0f;
@@ -41,14 +41,14 @@ public class DoorNewInput : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, newY, 0);
     }
 
-    // Player enters door trigger
+    //Player enters door trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
             playerInRange = true;
     }
 
-    // Player leaves door trigger
+    //Player leaves door trigger
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

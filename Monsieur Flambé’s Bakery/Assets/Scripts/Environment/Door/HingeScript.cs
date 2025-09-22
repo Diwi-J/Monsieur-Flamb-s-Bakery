@@ -7,8 +7,8 @@ public class HingeDoor : MonoBehaviour
     public InputActionReference interactAction;
 
     [Header("Door Settings")]
-    public Transform hinge;           // the pivot/hinge object
-    public Vector3 rotationAxis = Vector3.up; // axis relative to hinge's local space
+    public Transform hinge;           
+    public Vector3 rotationAxis = Vector3.up; 
     public float openAngle = 90f;
     public float speed = 2f;
 

@@ -35,12 +35,16 @@ public class DialogueManager : MonoBehaviour
         controls.Player.Disable();
     }
 
+
+    //Handle input to continue dialogue
     private void OnNextPressed(InputAction.CallbackContext context)
     {
-        if (dialogueUI.activeSelf) // only advance if dialogue is open
+        if (dialogueUI.activeSelf) //Only continue if dialogue is open
             NextSentence();
     }
 
+
+    //Start a new dialogue
     public void StartDialogue(Dialogue dialogue)
     {
         dialogueUI.SetActive(true);
@@ -51,6 +55,8 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = sentences[index];
     }
 
+
+    //Show next sentence or end dialogue if finished
     public void NextSentence()
     {
         index++;
@@ -60,6 +66,8 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
     }
 
+
+    //End the dialogue and hide UI
     void EndDialogue()
     {
         dialogueUI.SetActive(false);

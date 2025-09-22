@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8075882216366379738
+--- !u!1 &2502234977636345682
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6054500658183995442}
-  - component: {fileID: 6157696354341961475}
-  - component: {fileID: 6987805336468085587}
-  - component: {fileID: 5045800415343004250}
-  - component: {fileID: 6413893255414380894}
-  - component: {fileID: -1131286635963849234}
+  - component: {fileID: 5725160732711557414}
+  - component: {fileID: 348183594814255133}
+  - component: {fileID: 3241780277283529196}
+  - component: {fileID: 2906214063363176965}
+  - component: {fileID: 4348025350154373411}
+  - component: {fileID: 7606915122156892069}
+  - component: {fileID: 1924164440786289273}
+  - component: {fileID: 6843340137309923749}
+  - component: {fileID: 6017832890956886434}
   m_Layer: 3
-  m_Name: Mixture
-  m_TagString: Interactable
+  m_Name: Vanilla_Essence
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6054500658183995442
+  m_IsActive: 1
+--- !u!4 &5725160732711557414
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
+  m_GameObject: {fileID: 2502234977636345682}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.8697, y: 0.443, z: 1.0544}
-  m_LocalScale: {x: 0.3775561, y: 0.1648, z: 0.37627265}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -17.9, y: 20.22, z: -34.085}
+  m_LocalScale: {x: 0.39277732, y: 0.32758066, z: 0.5269108}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6157696354341961475
+--- !u!33 &348183594814255133
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6987805336468085587
+  m_GameObject: {fileID: 2502234977636345682}
+  m_Mesh: {fileID: -8511244319434432286, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!23 &3241780277283529196
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
+  m_GameObject: {fileID: 2502234977636345682}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d66e4789e9a1dc946b2540fbeeef6e52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5045800415343004250
+--- !u!65 &2906214063363176965
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
+  m_GameObject: {fileID: 2502234977636345682}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,15 +111,41 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6413893255414380894
+  m_Size: {x: 1.3494877, y: 2.0343888, z: 2.3242967}
+  m_Center: {x: -0.00000071525574, y: 0, z: 0.16215238}
+--- !u!114 &4348025350154373411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502234977636345682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handScaleFactor: 0.7
+--- !u!114 &7606915122156892069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502234977636345682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b71ef8d55e41e0418525af4dee3749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: Vanilla Essence
+--- !u!54 &1924164440786289273
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
+  m_GameObject: {fileID: 2502234977636345682}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -133,19 +162,33 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-1131286635963849234
+--- !u!114 &6843340137309923749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8075882216366379738}
+  m_GameObject: {fileID: 2502234977636345682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a562a4bfb5edf44ca3b208e3f2b5d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textUI: {fileID: 0}
+--- !u!114 &6017832890956886434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502234977636345682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Vanilla Essence
