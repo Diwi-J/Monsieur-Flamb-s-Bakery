@@ -26258,7 +26258,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2502234977636345682, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
       propertyPath: m_Name
-      value: Vanilla_Essence
+      value: Vanilla Essence
       objectReference: {fileID: 0}
     - target: {fileID: 5725160732711557414, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
       propertyPath: m_LocalScale.y
