@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2164027783234201285
+--- !u!1 &1627374030318788305
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3041231794970082068}
-  - component: {fileID: 998009939857857968}
-  - component: {fileID: 2644595899353561708}
-  - component: {fileID: 3698351831229300834}
-  - component: {fileID: 7905228124631772120}
-  - component: {fileID: 6275919023203664904}
-  m_Layer: 0
-  m_Name: Mixture 1
-  m_TagString: Untagged
+  - component: {fileID: 6097643225520227976}
+  - component: {fileID: 4781948043803329700}
+  - component: {fileID: 6379061584943374376}
+  - component: {fileID: 2285907455827311439}
+  - component: {fileID: 3007536431036612044}
+  - component: {fileID: 6517144097942855301}
+  - component: {fileID: 6146077556892205633}
+  - component: {fileID: 5929049808296465753}
+  - component: {fileID: 1177711969541359371}
+  m_Layer: 3
+  m_Name: Butter
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &3041231794970082068
+  m_IsActive: 1
+--- !u!4 &6097643225520227976
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
+  m_GameObject: {fileID: 1627374030318788305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.774, y: 1.302, z: -1.343}
-  m_LocalScale: {x: 0.5725, y: 0.076792404, z: 0.509}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -6.53, y: 19.97, z: -5.33}
+  m_LocalScale: {x: 1.0740812, y: 0.36238313, z: 0.18857193}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &998009939857857968
+--- !u!33 &4781948043803329700
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2644595899353561708
+  m_GameObject: {fileID: 1627374030318788305}
+  m_Mesh: {fileID: 6463182680398645851, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!23 &6379061584943374376
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
+  m_GameObject: {fileID: 1627374030318788305}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4da7e70a0a0e76a4d94e1111bdd672fd, type: 2}
+  - {fileID: 2100000, guid: 9ae6ccc1537061d4cb6a2402d7efc3ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3698351831229300834
-CapsuleCollider:
+--- !u!65 &2285907455827311439
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
+  m_GameObject: {fileID: 1627374030318788305}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,31 +110,42 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7905228124631772120
+  serializedVersion: 3
+  m_Size: {x: 1.8213481, y: 3.0988705, z: 3.0588694}
+  m_Center: {x: -0.24517708, y: 0.12420153, z: 0.52944237}
+--- !u!114 &3007536431036612044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
+  m_GameObject: {fileID: 1627374030318788305}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handScaleFactor: 0.5
---- !u!54 &6275919023203664904
+  handScaleFactor: 0.7
+--- !u!114 &6517144097942855301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627374030318788305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b71ef8d55e41e0418525af4dee3749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: Butter
+--- !u!54 &6146077556892205633
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2164027783234201285}
+  m_GameObject: {fileID: 1627374030318788305}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -152,3 +166,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5929049808296465753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627374030318788305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a562a4bfb5edf44ca3b208e3f2b5d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textUI: {fileID: 0}
+--- !u!114 &1177711969541359371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627374030318788305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Butter

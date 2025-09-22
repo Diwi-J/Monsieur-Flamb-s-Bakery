@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [Header("Pause Menu")]
     public PauseMenu pauseMenu;
 
+    private RecipeBookToggle focusedBook;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -46,6 +48,16 @@ public class PlayerController : MonoBehaviour
 
         HandleMovement();
         HandleLook();
+
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+        {
+            focusedBook = hit.collider.GetComponent<RecipeBookToggle>();
+        }
+        else
+        {
+            focusedBook = null;
+        }
     }
 
     #region Unity Events
@@ -73,9 +85,15 @@ public class PlayerController : MonoBehaviour
     {
         lookInput = context.ReadValue<Vector2>();
     }
-
-    public void OnInteract()
+    public void OnInteract(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
+
+        if (focusedBook != null)
+        {
+            focusedBook.ToggleRecipeBook();
+        }
+
         interactable.TryInteract();
     }
 
@@ -96,7 +114,7 @@ public class PlayerController : MonoBehaviour
     #region controls Ontoggle
     public void OnEnable()
     {
-        controls.Enable();
+        //controls.Enable();
         input.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -105,7 +123,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDisable()
     {
-        controls.Disable();
+        //controls.Disable();
         input.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

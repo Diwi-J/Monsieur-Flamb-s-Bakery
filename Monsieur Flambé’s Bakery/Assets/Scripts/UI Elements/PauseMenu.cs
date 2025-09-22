@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
     GameObject pauseMenu;        //This is only the PauseCanvas
     GameObject settingsMenu;     //This is only the SettingsCanvas
 
+    GameObject recipePanel; 
+
     public PlayerController playerController;
 
     bool IsPaused = false;
@@ -24,6 +26,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         pauseMenu.SetActive(false);   
         settingsMenu.SetActive(false);
+
+        recipePanel = GameObject.Find("RecipePanel");
     }
 
     public void PauseGame()
@@ -68,6 +72,11 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
+
+        if (recipePanel != null)
+        {
+            recipePanel.SetActive(false);
+        }
     }
 
     public void Back()
@@ -75,5 +84,11 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
+
+        if (recipePanel != null)
+        {
+            recipePanel.SetActive(true);
+        }
+
     }
 }

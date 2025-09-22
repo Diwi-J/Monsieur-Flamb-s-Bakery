@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - Pushable
   - Ingredient
+  - NPC
+  - Mixture
   layers:
   - Default
   - TransparentFX

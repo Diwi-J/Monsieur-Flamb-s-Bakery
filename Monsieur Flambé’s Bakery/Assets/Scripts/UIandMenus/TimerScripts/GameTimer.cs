@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour
 {
     [Header("Timer Settings")]
-    public float timeLimit; //seconds for time limit
+    public float timeLimit; //Seconds for time limit
     private float currentTime;
 
     [Header("UI References")]
@@ -16,7 +16,7 @@ public class GameTimer : MonoBehaviour
     [Header("Flash Settings")]
     public Color normalColor = Color.white;
     public Color warningColor = Color.red;
-    public float flashThreshold = 10f; //seconds left when it flashes
+    public float flashThreshold = 10f; //Seconds left when it flashes
 
     private bool isGameOver = false;
 
