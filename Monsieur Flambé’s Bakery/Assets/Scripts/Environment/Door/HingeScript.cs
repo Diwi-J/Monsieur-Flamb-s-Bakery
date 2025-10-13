@@ -13,8 +13,8 @@ public class HingeDoor : MonoBehaviour
     public float speed = 2f;
 
     private bool isOpen = false;
-    private float targetAngle = 0f;
-    private float currentAngle = 0f;
+    private float targetAngle = 90f;
+    private float currentAngle = -90f;
     private bool playerInRange = false;
 
     void OnEnable()
