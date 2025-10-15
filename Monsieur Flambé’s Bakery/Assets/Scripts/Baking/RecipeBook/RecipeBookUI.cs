@@ -65,7 +65,7 @@ public class RecipeBookUI : MonoBehaviour
         }
 
         if (!found)
-            Debug.LogWarning($"[RecipeBookUI] Ingredient not found: {trimmedName}");
+            Debug.LogWarning("[RecipeBookUI] Ingredient not found: {trimmedName}");
     }
 
     public bool IsRecipeComplete()
@@ -73,7 +73,7 @@ public class RecipeBookUI : MonoBehaviour
         return collectedIngredients.Count == ingredients.Length;
     }
 
-    /*Reset the book
+    //Reset the book
     public void ResetBook()
     {
         foreach (var entry in ingredients)
@@ -82,6 +82,6 @@ public class RecipeBookUI : MonoBehaviour
                 entry.toggle.isOn = false;
         }
         collectedIngredients.Clear();
-    }*/
+    }
 }
 

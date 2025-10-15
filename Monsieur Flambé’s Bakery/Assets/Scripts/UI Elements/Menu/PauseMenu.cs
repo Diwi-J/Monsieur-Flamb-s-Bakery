@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -7,7 +9,8 @@ public class PauseMenu : MonoBehaviour
     GameObject pauseMenu;        //This is only the PauseCanvas
     GameObject settingsMenu;     //This is only the SettingsCanvas
 
-    GameObject recipePanel; 
+    GameObject recipePanel;
+    public GameObject firstSelected;
 
     public PlayerController playerController;
 
@@ -90,5 +93,21 @@ public class PauseMenu : MonoBehaviour
             recipePanel.SetActive(true);
         }
 
+    }
+
+    void OnEnable()
+    {
+        // Proper reset
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.firstSelectedGameObject = firstSelected;
+
+        // Small delay helps avoid double-selection bug
+        StartCoroutine(SelectFirst());
+    }
+
+    private IEnumerator SelectFirst()
+    {
+        yield return null; // wait 1 frame
+        EventSystem.current.SetSelectedGameObject(firstSelected);
     }
 }

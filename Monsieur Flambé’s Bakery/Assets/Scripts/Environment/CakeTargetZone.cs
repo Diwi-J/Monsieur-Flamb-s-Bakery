@@ -2,33 +2,36 @@ using UnityEngine;
 
 public class CakeTargetZone : MonoBehaviour
 {
-    [Header("References")]
-    public GameTimer gameTimer;        
-    public Transform cakeSpawnPoint; 
+    [Header("Required Tag")]
+    public string cakeTag = "Cake"; // make sure your cake prefab has this tag!
 
-    [HideInInspector] public bool cakePlaced = false;
+    [Header("Linked NPC")]
+    public NPC npcToUnlock;
+
+    [Header("Timer Reference (Optional)")]
+    public GameTimer gameTimer;
+
+    public bool cakePlaced = false;
+    public bool IsCakePlaced() => cakePlaced;
+
 
     private void OnTriggerEnter(Collider other)
     {
-        //Check if the object is a cake
-        PickupItem pickup = other.GetComponent<PickupItem>();
-        if (pickup != null && other.gameObject.name.Contains("Cake"))
+        if (cakePlaced) return; // already placed once
+
+        if (other.CompareTag(cakeTag))
         {
-            //Stop timer
-            gameTimer?.ObjectiveComplete();
-
-            //Place the cake at a specific position and prevent pickup
-            if (cakeSpawnPoint != null)
-            {
-                other.transform.position = cakeSpawnPoint.position;
-                other.transform.rotation = cakeSpawnPoint.rotation;
-            }
-            pickup.enabled = false; //Prevents player from picking it up again
-
-            //Mark cake as placed
             cakePlaced = true;
+            Debug.Log("[CakeTargetZone] Cake placed!");
 
-            Debug.Log("[CakeTargetZone] Cake has been placed!");
+            // Unlock NPC if assigned
+            if (npcToUnlock != null)
+                npcToUnlock.UnlockDialogue();
+
+            // Stop timer if assigned
+            if (gameTimer != null)
+                gameTimer.ObjectiveComplete();
         }
     }
 }
+
