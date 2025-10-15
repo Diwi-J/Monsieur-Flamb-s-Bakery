@@ -9,10 +9,28 @@ public class DoorNewInput : MonoBehaviour
     [Header("Door Settings")]
     public float openAngle = 90f;
     public float speed = 2f;
+    public float snapThreshold = 0.5f;
 
     private bool isOpen = false;
-    private float targetAngle = 0f;
     private bool playerInRange = false;
+    private Quaternion closedRotation;
+    private Quaternion targetRotation;
+
+    void Start()
+    {
+        // Freeze any weird rotation inheritance
+        transform.localRotation = Quaternion.Euler(0f, transform.localEulerAngles.y, 0f);
+
+        // Define "closed" as the rotation at start
+        closedRotation = transform.localRotation;
+
+        // Define "open" relative to the closed state
+        targetRotation = closedRotation;
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.isKinematic = true;
+    }
 
     void OnEnable()
     {
@@ -26,29 +44,33 @@ public class DoorNewInput : MonoBehaviour
         interactAction.action.Disable();
     }
 
-    private void OnInteract(InputAction.CallbackContext context)
+    private void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!playerInRange) return; //only interact if player is near this door
+        if (!playerInRange) return;
 
         isOpen = !isOpen;
-        targetAngle = isOpen ? openAngle : 0f;
+        float targetY = isOpen ? openAngle : 0f;
+        targetRotation = closedRotation * Quaternion.Euler(0f, targetY, 0f);
     }
 
     void Update()
     {
-        float currentY = transform.localEulerAngles.y;
-        float newY = Mathf.LerpAngle(currentY, targetAngle, Time.deltaTime * speed);
-        transform.localEulerAngles = new Vector3(0, newY, 0);
+        transform.localRotation = Quaternion.Lerp(
+            transform.localRotation,
+            targetRotation,
+            Time.deltaTime * speed
+        );
+
+        if (Quaternion.Angle(transform.localRotation, targetRotation) < snapThreshold)
+            transform.localRotation = targetRotation;
     }
 
-    //Player enters door trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
             playerInRange = true;
     }
 
-    //Player leaves door trigger
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
