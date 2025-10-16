@@ -13,11 +13,9 @@ public class MixingBowl : Interactable
     private readonly HashSet<string> addedUnique = new HashSet<string>();
 
     [Header("Visuals")]
-    [SerializeField] private GameObject rawIngredientsVisual;
-    [SerializeField] private GameObject mixtureVisual;
-    [SerializeField] private Transform fillVisual; //The liquid or ingredient pile visual
-    [SerializeField] private float fillMaxHeight = 0.2f; // how high it fills
-    [SerializeField] private float fillSmoothSpeed = 3f; // how smooth the fill transitions
+    [SerializeField] private Transform fillVisual;
+    [SerializeField] private float fillMaxHeight = 0.2f;
+    [SerializeField] private float fillSmoothSpeed = 3f;
 
     [Header("Recipe Book")]
     public RecipeBookUI recipeBookUI;
@@ -27,15 +25,16 @@ public class MixingBowl : Interactable
     private float targetFillLevel = 0f;
     private float currentFillLevel = 0f;
 
+    public int ingredientsAdded = 0;
+    public int totalIngredientsRequired = 7;
+
     private void Start()
     {
-        if (rawIngredientsVisual) rawIngredientsVisual.SetActive(false);
-        if (mixtureVisual) mixtureVisual.SetActive(false);
-
         pickupItem = GetComponent<PickupItem>();
         if (pickupItem != null)
-            pickupItem.enabled = false; //Cannot pick up until mixed
+            pickupItem.canPickUp = false; // prevent early pickup
 
+        // Start fill at 0
         if (fillVisual != null)
         {
             Vector3 scale = fillVisual.localScale;
@@ -54,27 +53,26 @@ public class MixingBowl : Interactable
         }
     }
 
-    //When an ingredient enters the bowl
     private void OnTriggerEnter(Collider other)
     {
+        if (isMixed) return;
+
         PickupItem item = other.GetComponent<PickupItem>();
-        if (item == null || isMixed) return;
+        if (item == null) return;
 
         string ingName = other.gameObject.name.Trim();
-
-        if (rawIngredientsVisual) rawIngredientsVisual.SetActive(true);
 
         if (!addedUnique.Contains(ingName))
         {
             addedUnique.Add(ingName);
             recipeBookUI?.AutoTickIngredient(ingName);
 
-            // Update fill target based on progress
             targetFillLevel = (float)addedUnique.Count / requiredIngredients.Count;
         }
 
         Destroy(other.gameObject);
 
+        // Check if all ingredients are added
         if (addedUnique.Count >= requiredIngredients.Count)
             CompleteMixture();
     }
@@ -89,22 +87,34 @@ public class MixingBowl : Interactable
     {
         isMixed = true;
 
-        // Keep the fill visible
+        // Fill visual recolor
         if (fillVisual != null)
         {
-            // Optional: change color to indicate "mixed"
             Renderer rend = fillVisual.GetComponent<Renderer>();
             if (rend != null)
-            {
-                rend.material.color = new Color(0.9f, 0.75f, 0.5f); // creamy brownish batter
-            }
+                rend.material.color = new Color(0.9f, 0.75f, 0.5f); // creamy brown
         }
 
-        // Enable pickup now that it’s fully mixed
+        // Enable pickup now that mixture is complete
         if (pickupItem != null)
-            pickupItem.enabled = true;
+        {
+            pickupItem.canPickUp = true;  // ✅ allow pickup
+        }
+
+        if (recipeBookUI != null && recipeBookUI.IsRecipeComplete())
+            Debug.Log("Recipe book shows all ingredients completed!");
     }
 
+    // Optional: manual ingredient counter (can be used by UI buttons)
+    public void AddIngredient()
+    {
+        ingredientsAdded++;
+
+        if (ingredientsAdded >= totalIngredientsRequired && pickupItem != null)
+            pickupItem.canPickUp = true;
+        else if (pickupItem != null)
+            pickupItem.canPickUp = false;
+    }
 
     public bool IsMixed() => isMixed;
 }

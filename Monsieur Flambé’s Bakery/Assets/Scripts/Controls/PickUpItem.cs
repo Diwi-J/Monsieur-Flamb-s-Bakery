@@ -2,59 +2,81 @@
 
 public class PickupItem : Interactable
 {
-    private Vector3 originalScale;
     private Rigidbody rb;
+    private bool isHeld = false;
 
     [Header("Hand Settings")]
-    [SerializeField] private float handScaleFactor = 0.7f;
+    public Transform holdParent;          // Default hand parent
+    public Vector3 handWorldScale = Vector3.one; // Desired world scale in hand
+
+    [Header("Pickup Control")]
+    public bool canPickUp = true;        // Whether the item can be picked up
+
+    private Vector3 originalLocalScale;
+    private Vector3 originalWorldScale;
 
     private void Awake()
     {
-        originalScale = transform.localScale;
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody>();
+        originalLocalScale = transform.localScale;
+        originalWorldScale = transform.lossyScale; // world scale
     }
 
-    //Pick up the item and attach to hand
-    public void PickUp(Transform hand)
-    {
-        if (hand == null)
-        {
-            Debug.LogWarning("No hand assigned for {gameObject.name}");
-            return;
-        }
-
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-        }
-
-        transform.SetParent(hand);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        transform.localScale = originalScale * handScaleFactor;
-    }
-
-
-    //Drop the item and restore original scale
-    public void Drop()
-    {
-        transform.SetParent(null);
-        transform.localScale = originalScale;
-
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-        }
-    }
-
-
-    //Interaction logic (for demonstration)
     public override void Interact()
     {
-        Debug.Log($"Interacted with {gameObject.name}");
+        if (!canPickUp) return;
+
+        if (!isHeld)
+            PickUp();
+        else
+            Drop();
+    }
+
+    public void PickUp()
+    {
+        if (!canPickUp || holdParent == null) return;
+        DoPickUp(holdParent);
+    }
+
+    public void PickUp(Transform customParent)
+    {
+        if (!canPickUp || customParent == null) return;
+        DoPickUp(customParent);
+    }
+
+    private void DoPickUp(Transform parent)
+    {
+        isHeld = true;
+
+        rb.useGravity = false;
+        rb.isKinematic = true;
+
+        // Parent first
+        transform.SetParent(parent);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+
+        // Apply desired world scale regardless of parent's scale
+        Vector3 parentScale = parent.lossyScale;
+        transform.localScale = new Vector3(
+            handWorldScale.x / parentScale.x,
+            handWorldScale.y / parentScale.y,
+            handWorldScale.z / parentScale.z
+        );
+    }
+
+    public void Drop()
+    {
+        isHeld = false;
+
+        transform.SetParent(null);
+        rb.isKinematic = false;
+        rb.useGravity = true;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // Restore original local scale
+        transform.localScale = originalLocalScale;
     }
 }
