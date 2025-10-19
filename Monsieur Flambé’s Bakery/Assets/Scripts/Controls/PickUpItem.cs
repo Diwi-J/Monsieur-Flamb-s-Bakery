@@ -3,80 +3,84 @@
 public class PickupItem : Interactable
 {
     private Rigidbody rb;
+    private Vector3 originalScale;
+    private Transform originalParent;
     private bool isHeld = false;
 
     [Header("Hand Settings")]
-    public Transform holdParent;          // Default hand parent
-    public Vector3 handWorldScale = Vector3.one; // Desired world scale in hand
+    [SerializeField] private Transform holdParent;
 
-    [Header("Pickup Control")]
-    public bool canPickUp = true;        // Whether the item can be picked up
+    [Header("Held Appearance")]
+    [Tooltip("Optional: scale multiplier applied when held. 1 = same size as prefab.")]
+    [SerializeField] private float handScaleMultiplier = 1f;
 
-    private Vector3 originalLocalScale;
-    private Vector3 originalWorldScale;
+    public bool canPickUp = true;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        originalLocalScale = transform.localScale;
-        originalWorldScale = transform.lossyScale; // world scale
+        originalScale = transform.localScale;
+        originalParent = transform.parent;
     }
 
+    //Override the Interact method to pick up or drop the item
     public override void Interact()
     {
         if (!canPickUp) return;
 
         if (!isHeld)
-            PickUp();
+            PickUp(holdParent);
         else
             Drop();
     }
 
-    public void PickUp()
+    //Pick up the item into the specified hand transform
+    public void PickUp(Transform hand)
     {
-        if (!canPickUp || holdParent == null) return;
-        DoPickUp(holdParent);
-    }
+        if (!canPickUp || hand == null || isHeld) return;
 
-    public void PickUp(Transform customParent)
-    {
-        if (!canPickUp || customParent == null) return;
-        DoPickUp(customParent);
-    }
-
-    private void DoPickUp(Transform parent)
-    {
         isHeld = true;
+
+        originalParent = transform.parent;
+        originalScale = transform.lossyScale;
 
         rb.useGravity = false;
         rb.isKinematic = true;
 
-        // Parent first
-        transform.SetParent(parent);
+        transform.SetParent(hand, worldPositionStays: true);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        // Apply desired world scale regardless of parent's scale
-        Vector3 parentScale = parent.lossyScale;
+        //Apply safe hand scale multiplier
+        Vector3 parentScale = hand.lossyScale;
         transform.localScale = new Vector3(
-            handWorldScale.x / parentScale.x,
-            handWorldScale.y / parentScale.y,
-            handWorldScale.z / parentScale.z
+            originalScale.x * handScaleMultiplier / parentScale.x,
+            originalScale.y * handScaleMultiplier / parentScale.y,
+            originalScale.z * handScaleMultiplier / parentScale.z
         );
     }
 
+    //Pick up the item into the default hold parent
+    public void PickUp()
+    {
+        PickUp(holdParent);
+    }
+
+    //Drop the item from the hand
     public void Drop()
     {
+        if (!isHeld) return;
+
         isHeld = false;
 
-        transform.SetParent(null);
+        transform.SetParent(originalParent, worldPositionStays: true);
+
         rb.isKinematic = false;
         rb.useGravity = true;
 
+        transform.localScale = originalScale;
+
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-
-        // Restore original local scale
-        transform.localScale = originalLocalScale;
     }
 }
