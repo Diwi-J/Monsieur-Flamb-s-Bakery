@@ -1,19 +1,19 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; // for progress bar UI
+using UnityEngine.UI;
 
 public class Oven : MonoBehaviour
 {
     [Header("Baking Settings")]
-    public GameObject bakedCakePrefab;
-    public Transform spawnPoint;
+    public GameObject bakedCakePrefab;      // Prefab of the finished cake
+    public Transform spawnPoint;            // Where to spawn the cake
     public float bakeTime = 5f;
 
     [Header("Effects")]
-    public AudioSource audioSource;      
-    public AudioClip dingSound;          
-    public ParticleSystem steamEffect;   
-    public Slider progressBar;           
+    public AudioSource audioSource;
+    public AudioClip dingSound;
+    public ParticleSystem steamEffect;
+    public Slider progressBar;
 
     private bool isBaking = false;
 
@@ -21,25 +21,26 @@ public class Oven : MonoBehaviour
     {
         if (isBaking) return;
 
-        PickupItem mixture = other.GetComponent<PickupItem>();
+        PickupItem mixtureItem = other.GetComponent<PickupItem>();
         MixingBowl bowl = other.GetComponent<MixingBowl>();
 
-        if (mixture == null || bowl == null) return;
+        if (mixtureItem == null || bowl == null) return;
         if (!bowl.IsMixed()) return;
 
+        // Drop the bowl if the player is holding it
         PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
-        if (player != null && player.heldItem == mixture)
+        if (player != null && player.heldItem == mixtureItem)
             player.DropItem();
 
-        StartCoroutine(BakeRoutine(mixture, player));
+        StartCoroutine(BakeRoutine(bowl, player));
     }
 
-    private IEnumerator BakeRoutine(PickupItem mixture, PlayerInteractable player)
+    private IEnumerator BakeRoutine(MixingBowl bowl, PlayerInteractable player)
     {
         isBaking = true;
         Debug.Log("Baking started...");
 
-        //Enable visual/audio effects
+        // Enable visual/audio effects
         if (steamEffect != null) steamEffect.Play();
         if (progressBar != null)
         {
@@ -49,12 +50,10 @@ public class Oven : MonoBehaviour
 
         float elapsed = 0f;
 
-        //While baking time not done
         while (elapsed < bakeTime)
         {
             elapsed += Time.deltaTime;
 
-            //Update UI progress
             if (progressBar != null)
                 progressBar.value = Mathf.Clamp01(elapsed / bakeTime);
 
@@ -68,30 +67,31 @@ public class Oven : MonoBehaviour
         if (progressBar != null)
             progressBar.gameObject.SetActive(false);
 
-        // Play ding sound
         if (audioSource != null && dingSound != null)
             audioSource.PlayOneShot(dingSound);
 
-        // Spawn baked cake
+        // Spawn the baked cake
         if (bakedCakePrefab != null && spawnPoint != null)
         {
             GameObject cake = Instantiate(bakedCakePrefab, spawnPoint.position, spawnPoint.rotation);
 
+            // Ensure it has PickupItem
             PickupItem cakePickup = cake.GetComponent<PickupItem>();
             if (cakePickup == null)
                 cakePickup = cake.AddComponent<PickupItem>();
 
+            cakePickup.canPickUp = true;  // allow immediate pickup
+
+            // Ensure it has Rigidbody and Collider
             Rigidbody rb = cake.GetComponent<Rigidbody>();
-            if (rb == null)
-                rb = cake.AddComponent<Rigidbody>();
+            if (rb == null) rb = cake.AddComponent<Rigidbody>();
             rb.useGravity = true;
             rb.isKinematic = false;
 
             if (cake.GetComponent<Collider>() == null)
                 cake.AddComponent<BoxCollider>();
 
-            cake.transform.localScale = bakedCakePrefab.transform.localScale;
-
+            // Optional: automatically pick up the cake if player has hand
             if (player != null && player.hand != null)
             {
                 if (player.heldItem != null)
@@ -102,7 +102,9 @@ public class Oven : MonoBehaviour
             }
         }
 
-        Destroy(mixture.gameObject);
+        // Destroy the mixing bowl
+        Destroy(bowl.gameObject);
+
         isBaking = false;
     }
 }
