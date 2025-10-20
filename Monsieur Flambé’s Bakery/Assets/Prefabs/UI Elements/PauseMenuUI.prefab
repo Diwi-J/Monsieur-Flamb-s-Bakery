@@ -363,8 +363,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023f6354309748840bcec1ea6e6968a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 0}
+  pauseMenuUI: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  settingsMenu: {fileID: 0}
+  recipeCanvas: {fileID: 0}
   playerController: {fileID: 5640927289563648364, guid: d56a34e9647e96b498f9a8582e4202ee, type: 3}
+  pauseAction:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 28ac2d81-6e0b-4aa9-a0da-7429e49e0fa9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  firstPauseButton: {fileID: 0}
+  firstSettingsButton: {fileID: 0}
+  recipePanel: {fileID: 0}
 --- !u!1 &1486042218741517691
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,8 +677,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023f6354309748840bcec1ea6e6968a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelected: {fileID: 1537208745697747791}
+  pauseMenuUI: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  settingsMenu: {fileID: 0}
+  recipeCanvas: {fileID: 0}
   playerController: {fileID: 0}
+  pauseAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 144b590c-c396-4f51-a850-1624732be9f5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  firstPauseButton: {fileID: 0}
+  firstSettingsButton: {fileID: 0}
+  recipePanel: {fileID: 0}
 --- !u!1 &3133903024407325825
 GameObject:
   m_ObjectHideFlags: 0
