@@ -10,7 +10,6 @@ public class PauseMenu : MonoBehaviour
     GameObject settingsMenu;     //This is only the SettingsCanvas
 
     GameObject recipePanel;
-    public GameObject firstSelected;
 
     public PlayerController playerController;
 
@@ -27,7 +26,7 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         pauseMenuUI.SetActive(false);
-        pauseMenu.SetActive(false);   
+        pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
 
         recipePanel = GameObject.Find("RecipePanel");
@@ -95,19 +94,4 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    void OnEnable()
-    {
-        // Proper reset
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.firstSelectedGameObject = firstSelected;
-
-        // Small delay helps avoid double-selection bug
-        StartCoroutine(SelectFirst());
-    }
-
-    private IEnumerator SelectFirst()
-    {
-        yield return null; // wait 1 frame
-        EventSystem.current.SetSelectedGameObject(firstSelected);
-    }
 }
