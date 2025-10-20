@@ -30,7 +30,8 @@ public class GameOverMenu : MonoBehaviour
         gameOverMenu.SetActive(true);
 
         // Disable player movement the proper way
-        playerController.enabled = false;
+        if (playerController != null)
+            playerController.enabled = false;
 
         Debug.Log("Game Over");
     }
