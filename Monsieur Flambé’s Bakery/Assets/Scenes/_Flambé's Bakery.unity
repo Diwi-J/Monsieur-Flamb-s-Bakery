@@ -3069,13 +3069,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 135878932}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: pauseMenuUI
+      value: 
+      objectReference: {fileID: 1479648333}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: settingsMenu
+      value: 
+      objectReference: {fileID: 1660581874}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: firstSelected
+      value: 
+      objectReference: {fileID: 1586721804}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: firstPauseButton
       value: 
       objectReference: {fileID: 1586721804}
     - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1337103607}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: pauseAction.m_Name
+      value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: firstSettingsButton
+      value: 
+      objectReference: {fileID: 1526796186}
     - target: {fileID: 1945776023228992729, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4205,7 +4229,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
   m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1479648333}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 023f6354309748840bcec1ea6e6968a2, type: 3}
@@ -15195,6 +15219,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460926354}
   m_CullTransparentMesh: 1
+--- !u!1 &1479648333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+  m_PrefabInstance: {fileID: 335196028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479897436
 GameObject:
   m_ObjectHideFlags: 0
@@ -15698,6 +15727,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 833fe417b464ee645880eae07eb16918, type: 3}
   m_PrefabInstance: {fileID: 1497831357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1526796186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1537208745697747791, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+  m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1542349233
 GameObject:
@@ -16371,6 +16405,11 @@ BoxCollider:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7075385840451371918, guid: d56a34e9647e96b498f9a8582e4202ee, type: 3}
   m_PrefabInstance: {fileID: 650884598}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1660581874 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5597614360639627347, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+  m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1660630119
 GameObject:

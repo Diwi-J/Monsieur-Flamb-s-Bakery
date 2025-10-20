@@ -1,37 +1,77 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System.Collections;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
-    GameObject pauseMenuUI;      //This is the Whole Canvas
-    GameObject pauseMenu;        //This is only the PauseCanvas
-    GameObject settingsMenu;     //This is only the SettingsCanvas
+    [Header("UI Canvases")]
+    public GameObject pauseMenuUI;       // whole pause menu canvas
+    public GameObject pauseMenu;         // main pause panel
+    public GameObject settingsMenu;      // settings panel
+    public GameObject recipeCanvas;      // recipe canvas
 
-    GameObject recipePanel;
-
-    public GameObject recipeCanvas; // drag your RecipeCanvas here in inspector
-
+    [Header("Player")]
     public PlayerController playerController;
 
-    bool IsPaused = false;
+    [Header("Input System")]
+    public InputAction pauseAction;      // assign in inspector
+
+    [Header("First Selected Buttons")]
+    public GameObject firstPauseButton;      // first button in main pause menu
+    public GameObject firstSettingsButton;   // first button in settings menu
+
+    [Header("Recipe Panel")]
+    public GameObject recipePanel;       // optional
+
+    private bool IsPaused = false;
 
     private void Awake()
     {
-        pauseMenuUI = gameObject;
+        if (pauseMenuUI == null)
+            pauseMenuUI = gameObject;
 
-        pauseMenu = pauseMenuUI.transform.GetChild(0).gameObject;
-        settingsMenu = pauseMenuUI.transform.GetChild(1).gameObject;
+        if (pauseMenu == null && pauseMenuUI.transform.childCount > 0)
+            pauseMenu = pauseMenuUI.transform.GetChild(0).gameObject;
 
+        if (settingsMenu == null && pauseMenuUI.transform.childCount > 1)
+            settingsMenu = pauseMenuUI.transform.GetChild(1).gameObject;
+
+        if (recipePanel == null)
+            recipePanel = GameObject.Find("RecipePanel");
     }
+
     private void Start()
     {
         pauseMenuUI.SetActive(false);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
+    }
 
-        recipePanel = GameObject.Find("RecipePanel");
+    private void OnEnable()
+    {
+        if (pauseAction != null)
+        {
+            pauseAction.Enable();
+            pauseAction.performed += TogglePause;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (pauseAction != null)
+        {
+            pauseAction.performed -= TogglePause;
+            pauseAction.Disable();
+        }
+    }
+
+    private void TogglePause(InputAction.CallbackContext context)
+    {
+        if (IsPaused)
+            ResumeGame();
+        else
+            PauseGame();
     }
 
     public void PauseGame()
@@ -41,12 +81,15 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
 
         if (recipeCanvas != null)
-            recipeCanvas.SetActive(false); // hide recipe when paused
+            recipeCanvas.SetActive(false);
 
         Time.timeScale = 0f;
         IsPaused = true;
 
-        playerController.OnDisable();
+        if (playerController != null)
+            playerController.enabled = false;
+
+        SelectButton(firstPauseButton);
     }
 
     public void ResumeGame()
@@ -56,14 +99,14 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
 
         if (recipeCanvas != null)
-            recipeCanvas.SetActive(true); // show recipe when resuming
+            recipeCanvas.SetActive(true);
 
         Time.timeScale = 1f;
         IsPaused = false;
 
-        playerController.OnEnable();
+        if (playerController != null)
+            playerController.enabled = true;
     }
-
 
     public void MainMenu()
     {
@@ -74,33 +117,38 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-
         Debug.Log("Application Quit");
     }
 
-    public void SettingsMenu()
+    public void OpenSettings()
     {
-        pauseMenuUI.SetActive(true);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
 
         if (recipePanel != null)
-        {
             recipePanel.SetActive(false);
-        }
+
+        SelectButton(firstSettingsButton);
     }
 
     public void Back()
     {
-        pauseMenuUI.SetActive(true);
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
 
         if (recipePanel != null)
-        {
             recipePanel.SetActive(true);
-        }
 
+        SelectButton(firstPauseButton);
     }
 
+    // Utility method to handle EventSystem selection
+    private void SelectButton(GameObject button)
+    {
+        if (button != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(button);
+        }
+    }
 }
