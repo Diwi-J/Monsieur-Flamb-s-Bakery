@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdParent: {fileID: 0}
-  handScaleMultiplier: 2
+  pickUpForce: 10
   canPickUp: 1
 --- !u!114 &4632321659772724851
 MonoBehaviour:

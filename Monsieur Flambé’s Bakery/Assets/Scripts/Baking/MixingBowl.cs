@@ -13,15 +13,12 @@ public class MixingBowl : Interactable
     private readonly HashSet<string> addedUnique = new HashSet<string>();
 
     [Header("Visuals")]
-    [SerializeField] private Transform fillVisual; //The liquid visual
-    [SerializeField] private float fillMaxHeight = 0.2f; //Max Y scale for full mixture
-    [SerializeField] private float fillSmoothSpeed = 3f; //Speed of filling animation
+    [SerializeField] private Transform fillVisual;
+    [SerializeField] private float fillMaxHeight = 0.2f;
+    [SerializeField] private float fillSmoothSpeed = 3f;
 
     [Header("Recipe Book")]
     public RecipeBookUI recipeBookUI;
-
-    [Header("Particle Effects")]
-    [SerializeField] private ParticleSystem addIngredientParticles;
 
     private bool isMixed = false;
     private PickupItem pickupItem;
@@ -35,9 +32,9 @@ public class MixingBowl : Interactable
     {
         pickupItem = GetComponent<PickupItem>();
         if (pickupItem != null)
-            pickupItem.enabled = false; //Prevent early pickup
+            pickupItem.canPickUp = false; // prevent early pickup
 
-        //Start fill at 0
+        // Start fill at 0
         if (fillVisual != null)
         {
             Vector3 scale = fillVisual.localScale;
@@ -47,7 +44,7 @@ public class MixingBowl : Interactable
 
     private void Update()
     {
-        //Smoothly animate the filling as ingredients are added
+        // Smoothly animate the filling
         if (fillVisual != null && !isMixed)
         {
             currentFillLevel = Mathf.Lerp(currentFillLevel, targetFillLevel, Time.deltaTime * fillSmoothSpeed);
@@ -63,30 +60,19 @@ public class MixingBowl : Interactable
         PickupItem item = other.GetComponent<PickupItem>();
         if (item == null) return;
 
-        //Clean name in case of (Clone)
-        string ingName = other.gameObject.name.Replace("(Clone)", "").Trim();
+        string ingName = other.gameObject.name.Trim();
 
         if (!addedUnique.Contains(ingName))
         {
             addedUnique.Add(ingName);
             recipeBookUI?.AutoTickIngredient(ingName);
 
-            //Update fill progress
             targetFillLevel = (float)addedUnique.Count / requiredIngredients.Count;
-
-            //Spawn ingredient particles at the bowl
-            if (addIngredientParticles != null)
-            {
-                Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
-                ParticleSystem ps = Instantiate(addIngredientParticles, spawnPos, Quaternion.identity);
-                ps.Play();
-                Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
-            }
         }
 
         Destroy(other.gameObject);
 
-        //Check if all ingredients are added
+        // Check if all ingredients are added
         if (addedUnique.Count >= requiredIngredients.Count)
             CompleteMixture();
     }
@@ -101,7 +87,7 @@ public class MixingBowl : Interactable
     {
         isMixed = true;
 
-        //Keep fill visible and recolor to indicate mixed
+        // Fill visual recolor
         if (fillVisual != null)
         {
             Renderer rend = fillVisual.GetComponent<Renderer>();
@@ -109,30 +95,26 @@ public class MixingBowl : Interactable
                 rend.material.color = new Color(0.9f, 0.75f, 0.5f); // creamy brown
         }
 
-        //Enable pickup now that mixture is complete
+        // Enable pickup now that mixture is complete
         if (pickupItem != null)
-            pickupItem.enabled = true;
+        {
+            pickupItem.canPickUp = true;  // ✅ allow pickup
+        }
 
-        //Recipe book completion log
         if (recipeBookUI != null && recipeBookUI.IsRecipeComplete())
             Debug.Log("Recipe book shows all ingredients completed!");
     }
 
-    public bool IsMixed() => isMixed;
-
+    // Optional: manual ingredient counter (can be used by UI buttons)
     public void AddIngredient()
     {
         ingredientsAdded++;
 
-        if (ingredientsAdded >= totalIngredientsRequired)
-        {
-            //Enable pickup
+        if (ingredientsAdded >= totalIngredientsRequired && pickupItem != null)
             pickupItem.canPickUp = true;
-        }
-        else
-        {
-            //Keep pickup disabled until all added
+        else if (pickupItem != null)
             pickupItem.canPickUp = false;
-        }
     }
+
+    public bool IsMixed() => isMixed;
 }
