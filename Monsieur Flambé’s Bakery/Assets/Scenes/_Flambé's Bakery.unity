@@ -2880,6 +2880,14 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 533213912039167251, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1479648337}
+    - target: {fileID: 533213912039167251, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1083379948072078375, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_text
       value: Main Menu
@@ -2972,6 +2980,14 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1180291045588524926, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1479648337}
+    - target: {fileID: 1180291045588524926, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
     - target: {fileID: 1203505766876966567, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 194.649
@@ -3002,7 +3018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_fontSize
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_fontAsset
@@ -3022,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_fontSizeBase
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_sharedMaterial
@@ -3068,10 +3084,22 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1769866078046278223, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1479648337}
+    - target: {fileID: 1769866078046278223, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 135878932}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: backButton
+      value: 
+      objectReference: {fileID: 1526796189}
     - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: pauseMenuUI
       value: 
@@ -3100,6 +3128,10 @@ PrefabInstance:
       propertyPath: firstSettingsButton
       value: 
       objectReference: {fileID: 1526796186}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: submitAction.m_Name
+      value: Submit
+      objectReference: {fileID: 0}
     - target: {fileID: 1945776023228992729, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3309,6 +3341,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2956739887559831611, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_Colors.m_PressedColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956739887559831611, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.16981131
       objectReference: {fileID: 0}
@@ -3343,7 +3379,7 @@ PrefabInstance:
     - target: {fileID: 2956739887559831611, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 459394611}
+      objectReference: {fileID: 1479648337}
     - target: {fileID: 2956739887559831611, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -3456,6 +3492,10 @@ PrefabInstance:
       propertyPath: m_margin.z
       value: 85.02301
       objectReference: {fileID: 0}
+    - target: {fileID: 5866756460973639133, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_Color.a
+      value: 0.2784314
+      objectReference: {fileID: 0}
     - target: {fileID: 6123501777554604266, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_text
       value: Settings
@@ -3564,14 +3604,26 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9194977517869581947, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1479648337}
+    - target: {fileID: 9194977517869581947, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenSettings
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8175510604697952098, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+    - {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 152762150289349344, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       insertIndex: 0
       addedObject: {fileID: 2002299414}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1479648337}
     - targetCorrespondingSourceObject: {fileID: 507495005180469378, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1165232584}
@@ -4224,17 +4276,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1945776023228992729, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
   m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &459394611 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
-  m_PrefabInstance: {fileID: 335196028}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479648333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 023f6354309748840bcec1ea6e6968a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &493803624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10044,7 +10085,7 @@ PrefabInstance:
     - target: {fileID: 5640927289563648364, guid: d56a34e9647e96b498f9a8582e4202ee, type: 3}
       propertyPath: pauseMenu
       value: 
-      objectReference: {fileID: 459394611}
+      objectReference: {fileID: 0}
     - target: {fileID: 5640927289563648364, guid: d56a34e9647e96b498f9a8582e4202ee, type: 3}
       propertyPath: walkSpeed
       value: 11
@@ -14240,7 +14281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 459394611}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -15224,6 +15265,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
   m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1479648337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479648333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023f6354309748840bcec1ea6e6968a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeCanvas: {fileID: 0}
+  playerController: {fileID: 1337103607}
 --- !u!1 &1479897436
 GameObject:
   m_ObjectHideFlags: 0
@@ -15733,6 +15788,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1537208745697747791, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
   m_PrefabInstance: {fileID: 335196028}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1526796189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2956739887559831611, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+  m_PrefabInstance: {fileID: 335196028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526796186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1542349233
 GameObject:
   m_ObjectHideFlags: 0
