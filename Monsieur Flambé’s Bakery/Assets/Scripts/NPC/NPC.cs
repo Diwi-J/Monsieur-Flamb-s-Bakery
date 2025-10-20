@@ -9,6 +9,9 @@ public class NPC : Interactable
     [Header("Cake Target Zone")]
     public CakeTargetZone cakeZone;   // assign in Inspector
 
+    [Header("Celebration")]
+    public bool triggersCelebration = false;  // Only this NPC can trigger confetti
+
     private bool unlocked = false;
 
     public void UnlockDialogue()
@@ -21,12 +24,21 @@ public class NPC : Interactable
         if (cakeZone != null && !cakeZone.IsCakePlaced())
         {
             // Cake not placed, show blocked dialogue
-            DialogueManager.Instance.StartDialogue(blockedDialogue);
+            DialogueManager.Instance.StartDialogue(blockedDialogue, false);
         }
         else
         {
             // Cake placed or unlocked manually
-            DialogueManager.Instance.StartDialogue(mainDialogue);
+            // Only trigger celebration if this NPC is flagged
+            if (triggersCelebration)
+            {
+                DialogueManager.Instance.StartDialogue(mainDialogue, true, transform);
+            }
+            else
+            {
+                DialogueManager.Instance.StartDialogue(mainDialogue, false);
+            }
         }
     }
 }
+

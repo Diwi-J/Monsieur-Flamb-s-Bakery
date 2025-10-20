@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInteractable : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class PlayerInteractable : MonoBehaviour
 
     public void TryInteract()
     {
-        //Drop if players already holding an item.
+        // Drop if the player is already holding an item
         if (heldItem != null)
         {
             DropItem();
@@ -21,16 +21,21 @@ public class PlayerInteractable : MonoBehaviour
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, interactRange))
         {
-            //Check for PickupItem first.
+            // Check for PickupItem first
             PickupItem pickup = hit.collider.GetComponent<PickupItem>();
-            if (pickup != null)
+            if (pickup != null && pickup.canPickUp) // ✅ Respect canPickUp
             {
-                pickup.PickUp(hand);
+                // Use hand if assigned, otherwise fallback to PickupItem default
+                if (hand != null)
+                    pickup.PickUp(hand);
+                else
+                    pickup.PickUp();
+
                 heldItem = pickup;
                 return;
             }
 
-            //Other interactables.
+            // Other interactables
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
@@ -41,14 +46,13 @@ public class PlayerInteractable : MonoBehaviour
 
     public void DropItem()
     {
-        //Ensure there is an item to drop.
         if (heldItem == null) return;
 
         heldItem.Drop();
         heldItem = null;
     }
 
-    //Just to help visualize the interaction range in the editor.
+    // Visualize interaction range in editor
     private void OnDrawGizmos()
     {
         if (playerCamera == null) return;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour
 {
     [Header("Timer Settings")]
-    public float timeLimit; //Seconds for time limit
+    public float timeLimit = 420f; //Seconds for time limit
     private float currentTime;
 
     [Header("UI References")]
