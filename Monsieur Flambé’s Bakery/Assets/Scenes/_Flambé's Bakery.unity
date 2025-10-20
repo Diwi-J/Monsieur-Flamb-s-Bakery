@@ -437,10 +437,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.6049135
+  m_Height: 2.4222949
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.20325969, y: 0.010876982, z: 0.97138286}
 --- !u!23 &26347195
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -502,14 +502,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26347192}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.93, y: 33.82, z: -35.31}
+  m_LocalRotation: {x: -0, y: 0.9999403, z: -0, w: -0.010932002}
+  m_LocalPosition: {x: -16.93, y: 33.82, z: -33.31}
   m_LocalScale: {x: 4, y: 4.68, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450653126727776}
   m_Father: {fileID: 1134200224}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 181.253, z: 0}
 --- !u!114 &26347198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &154247968
@@ -2573,7 +2573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &256074366
@@ -2821,19 +2821,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.84216154
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.5392254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2841,7 +2841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 65.262
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e77faa9ae75026846850ffd3eaaa176b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -3131,6 +3131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_text
       value: Back
@@ -3206,6 +3210,10 @@ PrefabInstance:
     - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: playerController
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905019425883147076, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
+      propertyPath: pauseAction.m_Name
+      value: Pause
       objectReference: {fileID: 0}
     - target: {fileID: 1945776023228992729, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_Pivot.x
@@ -10681,7 +10689,6 @@ Transform:
   m_LocalScale: {x: 1.4115411, y: 0.94000447, z: 1.2600174}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1112510047}
   - {fileID: 812840874}
   m_Father: {fileID: 1134200224}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10730,7 +10737,7 @@ MonoBehaviour:
   fillMaxHeight: 1.5
   fillSmoothSpeed: 0.2
   recipeBookUI: {fileID: 738247182}
-  addIngredientParticles: {fileID: 0}
+  addIngredientParticles: {fileID: 8922156075525293307, guid: 249a01e553115b64ea5216ab12939f13, type: 3}
   ingredientsAdded: 0
   totalIngredientsRequired: 7
 --- !u!135 &738247179
@@ -10874,7 +10881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!54 &738247186
@@ -11575,7 +11582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &774575822
@@ -12369,7 +12376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &869653657
@@ -13597,38 +13604,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3404707393889299285, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
---- !u!1 &1112510046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1112510047}
-  m_Layer: 0
-  m_Name: FillVisual
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1112510047
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112510046}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2014250907}
-  m_Father: {fileID: 738247176}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1130133289
 GameObject:
   m_ObjectHideFlags: 0
@@ -16397,7 +16372,7 @@ MonoBehaviour:
     - You've outdone yourself!
     - Consider this bakery officially approved!!!
   cakeZone: {fileID: 569142182}
-  triggersCelebration: 0
+  triggersCelebration: 1
 --- !u!114 &1660630124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16413,8 +16388,8 @@ MonoBehaviour:
   dialogueUI: {fileID: 1376126977}
   nameText: {fileID: 117607047}
   dialogueText: {fileID: 131765180}
-  celebrationParticles: {fileID: 0}
-  celebrationSpawnPoint: {fileID: 0}
+  celebrationParticles: {fileID: 1250107838607900995, guid: ada22d7aa7170e143a58846dab44ce6d, type: 3}
+  celebrationSpawnPoint: {fileID: 1660630120}
 --- !u!136 &1660630125
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -16695,7 +16670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &1679765402
@@ -17397,7 +17372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &1752409885
@@ -17747,7 +17722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96197f9b87417464cb33987c736c3940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdParent: {fileID: 0}
+  holdParent: {fileID: 3206720755752076643}
   handScaleMultiplier: 1
   canPickUp: 1
 --- !u!65 &1775364530
@@ -24197,114 +24172,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002299413}
   m_CullTransparentMesh: 1
---- !u!1 &2014250906
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2014250907}
-  - component: {fileID: 2014250910}
-  - component: {fileID: 2014250909}
-  - component: {fileID: 2014250908}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2014250907
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014250906}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0234, y: -0.567, z: 0.0232}
-  m_LocalScale: {x: 1.9780679, y: 1, z: 2.2499578}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1112510047}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2014250908
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014250906}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.4893142
-  m_Center: {x: 0.002950128, y: 0.12588644, z: 0}
---- !u!23 &2014250909
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014250906}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cb2a8916d23b20848a38b23fe829573b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2014250910
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014250906}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2021721183
 GameObject:
   m_ObjectHideFlags: 0
@@ -28914,6 +28781,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6934521973223038260, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
+      propertyPath: holdParent
+      value: 
+      objectReference: {fileID: 3206720755752076643}
     - target: {fileID: 7231549357065777998, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
       propertyPath: m_Name
       value: Sugar
@@ -32119,6 +31990,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butter
       objectReference: {fileID: 0}
+    - target: {fileID: 3007536431036612044, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
+      propertyPath: holdParent
+      value: 
+      objectReference: {fileID: 3206720755752076643}
     - target: {fileID: 5929049808296465753, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
       propertyPath: textUI
       value: 
@@ -33330,7 +33205,7 @@ Transform:
   m_GameObject: {fileID: 7075385840061715915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33, y: -0.306, z: 0.71}
+  m_LocalPosition: {x: 1, y: -0.64, z: 2.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37887,9 +37762,9 @@ MonoBehaviour:
     m_ActionName: 'Player/Drop[/Keyboard/q]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5640927290253920041}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnInteract
+      - m_Target: {fileID: 8945105390514738339}
+        m_TargetAssemblyTypeName: PlayerInteractable, Assembly-CSharp
+        m_MethodName: TryInteract
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39529,6 +39404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vanilla Essence
       objectReference: {fileID: 0}
+    - target: {fileID: 4348025350154373411, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
+      propertyPath: holdParent
+      value: 
+      objectReference: {fileID: 3206720755752076643}
     - target: {fileID: 5725160732711557414, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.32758063
@@ -41499,23 +41378,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6300415980589922308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6347325340186550814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b367a744abe48484dbf38256deadf91c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRange: 8
-  sphereRadius: 2
-  hand: {fileID: 3206720755752076643}
-  heldItem: {fileID: 0}
-  playerCamera: {fileID: 7056960621083072132}
 --- !u!33 &6313836130559177623
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41551,8 +41413,6 @@ GameObject:
   - component: {fileID: 2729607463547544456}
   - component: {fileID: 6614772495441936188}
   - component: {fileID: 8960120355241106915}
-  - component: {fileID: 6300415980589922308}
-  - component: {fileID: 6671098003899073600}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -42324,36 +42184,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6671098003899073600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6347325340186550814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!4 &6672853289854573238
 Transform:
   m_ObjectHideFlags: 0
@@ -47799,6 +47629,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1934972422}
     m_Modifications:
+    - target: {fileID: 997255346977392938, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
+      propertyPath: holdParent
+      value: 
+      objectReference: {fileID: 3206720755752076643}
     - target: {fileID: 5103976836053814350, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
       propertyPath: textUI
       value: 
