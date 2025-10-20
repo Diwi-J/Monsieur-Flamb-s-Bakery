@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
 
     GameObject recipePanel;
 
+    public GameObject recipeCanvas; // drag your RecipeCanvas here in inspector
+
     public PlayerController playerController;
 
     bool IsPaused = false;
@@ -38,6 +40,9 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
 
+        if (recipeCanvas != null)
+            recipeCanvas.SetActive(false); // hide recipe when paused
+
         Time.timeScale = 0f;
         IsPaused = true;
 
@@ -50,11 +55,15 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
 
+        if (recipeCanvas != null)
+            recipeCanvas.SetActive(true); // show recipe when resuming
+
         Time.timeScale = 1f;
         IsPaused = false;
 
         playerController.OnEnable();
     }
+
 
     public void MainMenu()
     {
