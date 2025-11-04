@@ -1,68 +1,75 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // Needed for the new input system
 
-public class DoorNewInput : MonoBehaviour
+public class DoorWithNewInput : MonoBehaviour
 {
+    [Header("References")]
+    public Transform doorMesh;
+
+    [Header("Settings")]
+    public float openAngle = 90f;
+    public float openSpeed = 6f;
+    public bool useProximityCheck = false;
+    public float proximityRadius = 2f;
+
     [Header("Input")]
+    [Tooltip("Your player's InputActionAsset or PlayerInput component must have an 'Interact' action.")]
     public InputActionReference interactAction;
 
-    [Header("Door Settings")]
-    public float openAngle = 90f;
-    public float speed = 2f;
-    public float snapThreshold = 0.5f;
-
+    private Quaternion closedLocalRot;
+    private Quaternion openLocalRot;
     private bool isOpen = false;
     private bool playerInRange = false;
-    private Quaternion closedRotation;
-    private Quaternion targetRotation;
+    private Transform player;
 
-    void Start()
+    private void Awake()
     {
-        // Freeze any weird rotation inheritance
-        transform.localRotation = Quaternion.Euler(0f, transform.localEulerAngles.y, 0f);
+        if (doorMesh == null) doorMesh = transform;
 
-        // Define "closed" as the rotation at start
-        closedRotation = transform.localRotation;
+        closedLocalRot = doorMesh.localRotation;
+        openLocalRot = closedLocalRot * Quaternion.Euler(0f, openAngle, 0f);
 
-        // Define "open" relative to the closed state
-        targetRotation = closedRotation;
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
+        else
+            Debug.LogWarning("[DoorWithNewInput] Player not found. Tag your player as 'Player'.");
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null)
-            rb.isKinematic = true;
+        if (interactAction == null)
+            Debug.LogWarning("[DoorWithNewInput] Missing InputActionReference for 'Interact'.");
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        interactAction.action.Enable();
-        interactAction.action.performed += OnInteract;
+        if (interactAction != null)
+            interactAction.action.performed += OnInteract;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        interactAction.action.performed -= OnInteract;
-        interactAction.action.Disable();
+        if (interactAction != null)
+            interactAction.action.performed -= OnInteract;
     }
 
     private void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (!playerInRange) return;
-
-        isOpen = !isOpen;
-        float targetY = isOpen ? openAngle : 0f;
-        targetRotation = closedRotation * Quaternion.Euler(0f, targetY, 0f);
+        if (playerInRange)
+        {
+            isOpen = !isOpen;
+        }
     }
 
-    void Update()
+    private void Update()
     {
-        transform.localRotation = Quaternion.Lerp(
-            transform.localRotation,
-            targetRotation,
-            Time.deltaTime * speed
-        );
+        // Optional distance check instead of trigger
+        if (useProximityCheck && player != null)
+        {
+            float dist = Vector3.Distance(player.position, transform.position);
+            playerInRange = dist <= proximityRadius;
+        }
 
-        if (Quaternion.Angle(transform.localRotation, targetRotation) < snapThreshold)
-            transform.localRotation = targetRotation;
+        Quaternion targetRot = isOpen ? openLocalRot : closedLocalRot;
+        doorMesh.localRotation = Quaternion.Slerp(doorMesh.localRotation, targetRot, Time.deltaTime * openSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,5 +82,14 @@ public class DoorNewInput : MonoBehaviour
     {
         if (other.CompareTag("Player"))
             playerInRange = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (useProximityCheck)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, proximityRadius);
+        }
     }
 }
