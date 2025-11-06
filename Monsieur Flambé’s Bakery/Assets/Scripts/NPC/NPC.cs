@@ -1,18 +1,24 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NPC : Interactable
 {
     [Header("Dialogue")]
-    public Dialogue blockedDialogue;  // if cake not placed
-    public Dialogue mainDialogue;     // normal dialogue once cake is placed
+    public Dialogue blockedDialogue;  // Dialogue if cake not placed
+    public Dialogue mainDialogue;     // Normal dialogue once cake is placed
 
     [Header("Cake Target Zone")]
-    public CakeTargetZone cakeZone;   // assign in Inspector
+    public CakeTargetZone cakeZone;   // Assign in Inspector
 
     [Header("Celebration")]
-    public bool triggersCelebration = false;  // Only this NPC can trigger confetti
+    public bool triggersCelebration = false;  // Only this NPC triggers confetti
+
+    [Header("Door Unlock (optional)")]
+    public HingeDoor linkedDoor; // Assign the door this NPC unlocks (optional)
 
     private bool unlocked = false;
+
+    // Public property to let other scripts check if NPC has been spoken to
+    public bool HasBeenSpokenTo => unlocked;
 
     public void UnlockDialogue()
     {
@@ -21,15 +27,16 @@ public class NPC : Interactable
 
     public override void Interact()
     {
+        // Mark NPC as spoken to
+        unlocked = true;
+
+        // Start appropriate dialogue
         if (cakeZone != null && !cakeZone.IsCakePlaced())
         {
-            // Cake not placed, show blocked dialogue
             DialogueManager.Instance.StartDialogue(blockedDialogue, false);
         }
         else
         {
-            // Cake placed or unlocked manually
-            // Only trigger celebration if this NPC is flagged
             if (triggersCelebration)
             {
                 DialogueManager.Instance.StartDialogue(mainDialogue, true, transform);
@@ -39,6 +46,12 @@ public class NPC : Interactable
                 DialogueManager.Instance.StartDialogue(mainDialogue, false);
             }
         }
+
+        // Unlock linked door (optional)
+        if (linkedDoor != null)
+        {
+            linkedDoor.TryOpenDoor();
+            Debug.Log("Door unlocked!");
+        }
     }
 }
-
