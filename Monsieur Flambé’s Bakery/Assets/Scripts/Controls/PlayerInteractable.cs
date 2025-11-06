@@ -23,7 +23,7 @@ public class PlayerInteractable : MonoBehaviour
         {
             // Check for PickupItem first
             PickupItem pickup = hit.collider.GetComponent<PickupItem>();
-            if (pickup != null && pickup.canPickUp) // ✅ Respect canPickUp
+            if (pickup != null && pickup.canPickUp) //Respect canPickUp
             {
                 // Use hand if assigned, otherwise fallback to PickupItem default
                 if (hand != null)
@@ -42,6 +42,7 @@ public class PlayerInteractable : MonoBehaviour
                 interactable.Interact();
             }
         }
+
     }
 
     public void DropItem()
