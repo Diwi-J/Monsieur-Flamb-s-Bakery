@@ -4,6 +4,7 @@ using System.Collections;
 public class PickupItem : Interactable
 {
     private Rigidbody rb;
+    private Collider col;
     private Vector3 originalScale;
     private Transform originalParent;
     private bool isHeld = false;
@@ -20,8 +21,8 @@ public class PickupItem : Interactable
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        originalScale = transform.localScale;
-
+        col = GetComponent<Collider>();
+        originalScale = transform.localScale; // Store once here
         if (transform.parent != null)
             originalParent = transform.parent;
     }
@@ -55,7 +56,6 @@ public class PickupItem : Interactable
         if (isHeld) return;
 
         isHeld = true;
-        originalScale = transform.localScale;
 
         // Start safe pickup coroutine
         StartCoroutine(PickupRoutine(hand));
@@ -63,26 +63,31 @@ public class PickupItem : Interactable
 
     private IEnumerator PickupRoutine(Transform hand)
     {
-        // Freeze physics first
+        // --- FIX: freeze physics and disable collider to prevent collision issues ---
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        // Wait for end of frame to avoid physics jumps
-        yield return new WaitForEndOfFrame();
+        if (col != null)
+            col.enabled = false; // Disable collisions while held
 
-        // Parent to hand
-        transform.SetParent(hand, worldPositionStays: true);
+        // Wait a frame to stabilize
+        yield return null;
+
+        // --- Parent with worldPositionStays=false so it snaps to hand ---
+        transform.SetParent(hand, worldPositionStays: false);
+
+        // --- Reset local position and rotation to align perfectly ---
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
         // Apply safe scale
         Vector3 parentScale = hand.lossyScale;
         transform.localScale = new Vector3(
-            originalScale.x * handScaleMultiplier / parentScale.x,
-            originalScale.y * handScaleMultiplier / parentScale.y,
-            originalScale.z * handScaleMultiplier / parentScale.z
+            originalScale.x * handScaleMultiplier / Mathf.Max(parentScale.x, 0.0001f),
+            originalScale.y * handScaleMultiplier / Mathf.Max(parentScale.y, 0.0001f),
+            originalScale.z * handScaleMultiplier / Mathf.Max(parentScale.z, 0.0001f)
         );
 
         Debug.Log("Picked up " + gameObject.name);
@@ -105,8 +110,9 @@ public class PickupItem : Interactable
         // Restore physics
         rb.isKinematic = false;
         rb.useGravity = true;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+
+        if (col != null)
+            col.enabled = true; // Re-enable collisions
 
         // Restore scale
         transform.localScale = originalScale;
