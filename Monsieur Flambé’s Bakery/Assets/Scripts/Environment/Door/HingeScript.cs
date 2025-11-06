@@ -1,16 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SmartHingeDoor : MonoBehaviour
+public class HingeScript : MonoBehaviour
 {
-    [Header("Input")]
-    public InputActionReference interactAction;
+    [Header("References")]
+    public Transform hinge;
 
     [Header("Door Settings")]
-    public Transform hinge;           // parent object to rotate
     public Vector3 rotationAxis = Vector3.up;
     public float openAngle = 90f;
-    public float speed = 3f;
+    public float speed = 5f;
+
+    [Header("Player Detection")]
+    public bool useProximityCheck = false;
+    public float proximityRadius = 2f;
+
+    [Header("Input")]
+    public InputActionReference interactAction;
 
     private bool isOpen = false;
     private float targetAngle = 0f;
@@ -20,12 +26,21 @@ public class SmartHingeDoor : MonoBehaviour
 
     private void Awake()
     {
+        // Auto-assign hinge if none
         if (hinge == null)
-            hinge = transform.GetChild(0); // auto-find first child if none assigned
+        {
+            if (transform.childCount > 0)
+                hinge = transform.GetChild(0);
+            else
+                hinge = transform;
+        }
 
+        // Find player by tag
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.transform;
-        else Debug.LogWarning("[SmartHingeDoor] Player not found. Tag your player 'Player'.");
+
+        if (interactAction == null)
+            Debug.LogWarning("Interact action not assigned.");
     }
 
     private void OnEnable()
@@ -50,11 +65,9 @@ public class SmartHingeDoor : MonoBehaviour
     {
         if (!playerInRange || player == null) return;
 
-        // Determine side: vector from hinge to player
+        // Determine side to swing based on player position
         Vector3 toPlayer = player.position - hinge.position;
-
-        // Calculate perpendicular to hinge forward to get swing side
-        float side = Vector3.Dot(hinge.right, toPlayer); // hinge.right points to door’s right edge
+        float side = Vector3.Dot(hinge.right, toPlayer);
         int swingDirection = side >= 0 ? 1 : -1;
 
         isOpen = !isOpen;
@@ -63,19 +76,36 @@ public class SmartHingeDoor : MonoBehaviour
 
     private void Update()
     {
+        // Optional proximity detection
+        if (useProximityCheck && player != null)
+        {
+            float dist = Vector3.Distance(player.position, transform.position);
+            playerInRange = dist <= proximityRadius;
+        }
+
+        // Smooth rotation
         currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * speed);
         hinge.localRotation = Quaternion.AngleAxis(currentAngle, rotationAxis);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!useProximityCheck && other.CompareTag("Player"))
             playerInRange = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!useProximityCheck && other.CompareTag("Player"))
             playerInRange = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (useProximityCheck)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, proximityRadius);
+        }
     }
 }

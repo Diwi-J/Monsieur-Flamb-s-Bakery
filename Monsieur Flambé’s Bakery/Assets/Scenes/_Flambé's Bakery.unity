@@ -18072,7 +18072,6 @@ GameObject:
   - component: {fileID: 905359377}
   - component: {fileID: 905359381}
   - component: {fileID: 905359380}
-  - component: {fileID: 905359379}
   - component: {fileID: 905359378}
   - component: {fileID: 905359383}
   - component: {fileID: 905359382}
@@ -18111,29 +18110,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1568469640}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   speed: 5
---- !u!114 &905359379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905359376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd222ae117b898f49ad5cd1c7f69d852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorMesh: {fileID: 905359377}
-  openAngle: 90
-  openSpeed: 5
-  useProximityCheck: 1
-  proximityRadius: 5
-  interactAction: {fileID: 3072042129050072860, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
+  useProximityCheck: 0
+  proximityRadius: 2
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!23 &905359380
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23449,7 +23432,6 @@ GameObject:
   - component: {fileID: 963037934}
   - component: {fileID: 963037933}
   - component: {fileID: 963037932}
-  - component: {fileID: 963037931}
   - component: {fileID: 963037930}
   m_Layer: 0
   m_Name: Door
@@ -23486,29 +23468,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1572167434}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   speed: 5
---- !u!114 &963037931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963037928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd222ae117b898f49ad5cd1c7f69d852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorMesh: {fileID: 963037929}
-  openAngle: 90
-  openSpeed: 5
-  useProximityCheck: 1
+  useProximityCheck: 0
   proximityRadius: 5
-  interactAction: {fileID: 3072042129050072860, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!54 &963037932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26800,11 +26766,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1568469640}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
-  speed: 5
+  speed: 3
+  useProximityCheck: 1
+  proximityRadius: 9
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!1 &1572167432
 GameObject:
   m_ObjectHideFlags: 0
@@ -26834,11 +26802,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1572167434}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   speed: 2
+  useProximityCheck: 1
+  proximityRadius: 7
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!4 &1572167434
 Transform:
   m_ObjectHideFlags: 0
@@ -34558,11 +34528,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1827283505}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   speed: 2
+  useProximityCheck: 1
+  proximityRadius: 7
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!4 &1827283505
 Transform:
   m_ObjectHideFlags: 0
@@ -35976,7 +35948,6 @@ GameObject:
   - component: {fileID: 2090385850}
   - component: {fileID: 2090385849}
   - component: {fileID: 2090385848}
-  - component: {fileID: 2090385847}
   - component: {fileID: 2090385846}
   m_Layer: 0
   m_Name: Door
@@ -36013,29 +35984,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a909e09731d59e489a64bf3b033faf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   hinge: {fileID: 1827283505}
   rotationAxis: {x: 0, y: 1, z: 0}
   openAngle: 90
   speed: 5
---- !u!114 &2090385847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090385844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd222ae117b898f49ad5cd1c7f69d852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorMesh: {fileID: 2090385845}
-  openAngle: 90
-  openSpeed: 5
-  useProximityCheck: 1
-  proximityRadius: 5
-  interactAction: {fileID: 3072042129050072860, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
+  useProximityCheck: 0
+  proximityRadius: 2
+  interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
 --- !u!54 &2090385848
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -49010,6 +48965,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7bc48910-a3d5-43a6-aa26-1685f9f10d34
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 767957d4-8e9b-4d8b-bc99-00336b5ccfa9
+    m_ActionName: 'UI/OpenPauseMenu[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
