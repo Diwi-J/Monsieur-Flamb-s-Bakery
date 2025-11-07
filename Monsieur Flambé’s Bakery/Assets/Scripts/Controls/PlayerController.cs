@@ -97,6 +97,11 @@ public class PlayerController : MonoBehaviour
         interactable.TryInteract();
     }
 
+    public void OnPickUp()
+    {
+        interactable.TryInteract();
+    }
+
     public void OnDrop()
     {
         interactable.DropItem();

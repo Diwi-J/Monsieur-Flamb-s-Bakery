@@ -30,7 +30,7 @@ public class NameTagManager : MonoBehaviour
         nameGO = new GameObject("NameTagText");
         nameGO.transform.SetParent(canvas.transform, false);
         nameText = nameGO.AddComponent<TextMeshProUGUI>();
-        nameText.fontSize = 36;
+        nameText.fontSize = 90;
         nameText.alignment = TextAlignmentOptions.Center;
         nameText.raycastTarget = false;
 

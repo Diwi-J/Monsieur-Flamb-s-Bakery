@@ -1,18 +1,24 @@
-using UnityEngine;
+﻿using UnityEngine;
+using System.Linq;
 
 public class NPC : Interactable
 {
     [Header("Dialogue")]
-    public Dialogue blockedDialogue;  // if cake not placed
-    public Dialogue mainDialogue;     // normal dialogue once cake is placed
+    public Dialogue blockedDialogue;
+    public Dialogue mainDialogue;
 
     [Header("Cake Target Zone")]
-    public CakeTargetZone cakeZone;   // assign in Inspector
+    public CakeTargetZone cakeZone;
 
     [Header("Celebration")]
-    public bool triggersCelebration = false;  // Only this NPC can trigger confetti
+    public bool triggersCelebration = false;
+
+    [Header("Door Unlock (optional)")]
+    public HingeDoor linkedDoor;
 
     private bool unlocked = false;
+
+    public bool HasBeenSpokenTo => unlocked;
 
     public void UnlockDialogue()
     {
@@ -21,24 +27,33 @@ public class NPC : Interactable
 
     public override void Interact()
     {
-        if (cakeZone != null && !cakeZone.IsCakePlaced())
+        unlocked = true;
+
+        bool cakeInZone = false;
+        if (cakeZone != null)
         {
-            // Cake not placed, show blocked dialogue
+            // Dynamically check for any cake in zone
+            cakeInZone = cakeZone.IsCakePlaced();
+        }
+
+        if (!cakeInZone)
+        {
             DialogueManager.Instance.StartDialogue(blockedDialogue, false);
         }
         else
         {
-            // Cake placed or unlocked manually
-            // Only trigger celebration if this NPC is flagged
             if (triggersCelebration)
-            {
                 DialogueManager.Instance.StartDialogue(mainDialogue, true, transform);
-            }
             else
-            {
                 DialogueManager.Instance.StartDialogue(mainDialogue, false);
-            }
+        }
+
+        if (linkedDoor != null)
+        {
+            linkedDoor.TryOpenDoor();
+            Debug.Log("Door unlocked!");
         }
     }
 }
+
 

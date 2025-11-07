@@ -3,34 +3,33 @@ using UnityEngine;
 public class CakeTargetZone : MonoBehaviour
 {
     [Header("Required Tag")]
-    public string cakeTag = "Cake"; // make sure your cake prefab has this tag!
+    public string cakeTag = "Cake";
 
     [Header("Linked NPC")]
     public NPC npcToUnlock;
 
-    [Header("Timer Reference (Optional)")]
+    [Header("Timer")]
     public GameTimer gameTimer;
 
-    public bool cakePlaced = false;
+    private bool cakePlaced = false;
     public bool IsCakePlaced() => cakePlaced;
-
 
     private void OnTriggerEnter(Collider other)
     {
-        if (cakePlaced) return; // already placed once
+        if (cakePlaced) return;
 
         if (other.CompareTag(cakeTag))
         {
             cakePlaced = true;
             Debug.Log("[CakeTargetZone] Cake placed!");
 
-            // Unlock NPC if assigned
+            // Unlock NPC dialogue
             if (npcToUnlock != null)
                 npcToUnlock.UnlockDialogue();
 
-            // Stop timer if assigned
+            // Stop timer (success)
             if (gameTimer != null)
-                gameTimer.ObjectiveComplete();
+                gameTimer.StopTimerForObjective();
         }
     }
 }

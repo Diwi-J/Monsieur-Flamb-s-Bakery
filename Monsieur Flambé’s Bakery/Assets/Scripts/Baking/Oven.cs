@@ -32,10 +32,10 @@ public class Oven : MonoBehaviour
         if (player != null && player.heldItem == mixtureItem)
             player.DropItem();
 
-        StartCoroutine(BakeRoutine(bowl, player));
+        StartCoroutine(BakeRoutine(bowl));
     }
 
-    private IEnumerator BakeRoutine(MixingBowl bowl, PlayerInteractable player)
+    private IEnumerator BakeRoutine(MixingBowl bowl)
     {
         isBaking = true;
         Debug.Log("Baking started...");
@@ -49,7 +49,6 @@ public class Oven : MonoBehaviour
         }
 
         float elapsed = 0f;
-
         while (elapsed < bakeTime)
         {
             elapsed += Time.deltaTime;
@@ -70,7 +69,7 @@ public class Oven : MonoBehaviour
         if (audioSource != null && dingSound != null)
             audioSource.PlayOneShot(dingSound);
 
-        // Spawn the baked cake
+        // Spawn the baked cake in the world, ready to pick up manually
         if (bakedCakePrefab != null && spawnPoint != null)
         {
             GameObject cake = Instantiate(bakedCakePrefab, spawnPoint.position, spawnPoint.rotation);
@@ -80,7 +79,7 @@ public class Oven : MonoBehaviour
             if (cakePickup == null)
                 cakePickup = cake.AddComponent<PickupItem>();
 
-            cakePickup.canPickUp = true;  // allow immediate pickup
+            cakePickup.canPickUp = true;  // allow manual pickup
 
             // Ensure it has Rigidbody and Collider
             Rigidbody rb = cake.GetComponent<Rigidbody>();
@@ -90,19 +89,9 @@ public class Oven : MonoBehaviour
 
             if (cake.GetComponent<Collider>() == null)
                 cake.AddComponent<BoxCollider>();
-
-            // Optional: automatically pick up the cake if player has hand
-            if (player != null && player.hand != null)
-            {
-                if (player.heldItem != null)
-                    player.DropItem();
-
-                cakePickup.PickUp(player.hand);
-                player.heldItem = cakePickup;
-            }
         }
 
-        // Destroy the mixing bowl
+        // Destroy the mixing bowl after baking
         Destroy(bowl.gameObject);
 
         isBaking = false;

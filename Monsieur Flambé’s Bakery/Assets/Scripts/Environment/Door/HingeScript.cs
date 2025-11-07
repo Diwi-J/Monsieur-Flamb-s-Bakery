@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HingeScript : MonoBehaviour
+public class HingeDoor : MonoBehaviour
 {
     [Header("References")]
     public Transform hinge;
@@ -18,6 +18,12 @@ public class HingeScript : MonoBehaviour
     [Header("Input")]
     public InputActionReference interactAction;
 
+    [Header("NPC Requirement")]
+    public NPC npcToTalkTo; // Assign the NPC that must be spoken to
+
+    [Header("Feedback")]
+    public string lockedMessage = "You need to speak to the NPC first!";
+
     private bool isOpen = false;
     private float targetAngle = 0f;
     private float currentAngle = 0f;
@@ -26,21 +32,17 @@ public class HingeScript : MonoBehaviour
 
     private void Awake()
     {
-        // Auto-assign hinge if none
         if (hinge == null)
         {
-            if (transform.childCount > 0)
-                hinge = transform.GetChild(0);
-            else
-                hinge = transform;
+            hinge = transform.childCount > 0 ? transform.GetChild(0) : transform;
         }
 
-        // Find player by tag
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.transform;
+        else Debug.LogWarning("[HingeDoor] Player not found. Tag your player 'Player'.");
 
         if (interactAction == null)
-            Debug.LogWarning("Interact action not assigned.");
+            Debug.LogWarning("[HingeDoor] Interact action not assigned.");
     }
 
     private void OnEnable()
@@ -65,25 +67,32 @@ public class HingeScript : MonoBehaviour
     {
         if (!playerInRange || player == null) return;
 
-        // Determine side to swing based on player position
+        // NPC check: prevent opening if player hasn't spoken
+        if (npcToTalkTo != null && !npcToTalkTo.HasBeenSpokenTo)
+        {
+            Debug.Log(lockedMessage);
+            return;
+        }
+
+        // Determine swing direction
         Vector3 toPlayer = player.position - hinge.position;
         float side = Vector3.Dot(hinge.right, toPlayer);
         int swingDirection = side >= 0 ? 1 : -1;
 
         isOpen = !isOpen;
         targetAngle = isOpen ? swingDirection * openAngle : 0f;
+
+        Debug.Log("Door opens!");
     }
 
     private void Update()
     {
-        // Optional proximity detection
         if (useProximityCheck && player != null)
         {
             float dist = Vector3.Distance(player.position, transform.position);
             playerInRange = dist <= proximityRadius;
         }
 
-        // Smooth rotation
         currentAngle = Mathf.LerpAngle(currentAngle, targetAngle, Time.deltaTime * speed);
         hinge.localRotation = Quaternion.AngleAxis(currentAngle, rotationAxis);
     }
@@ -107,5 +116,25 @@ public class HingeScript : MonoBehaviour
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, proximityRadius);
         }
+    }
+
+    // Call this manually or from NPC when unlocked
+    public void TryOpenDoor()
+    {
+        if (npcToTalkTo != null && !npcToTalkTo.HasBeenSpokenTo)
+        {
+            Debug.Log(lockedMessage);
+            return;
+        }
+
+        // Determine swing direction (default if player is null)
+        Vector3 toPlayer = player != null ? player.position - hinge.position : Vector3.forward;
+        float side = Vector3.Dot(hinge.right, toPlayer);
+        int swingDirection = side >= 0 ? 1 : -1;
+
+        isOpen = true;
+        targetAngle = swingDirection * openAngle;
+
+        Debug.Log("Door opens!");
     }
 }

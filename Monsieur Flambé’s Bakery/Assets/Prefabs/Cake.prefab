@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6668199207901723986}
   - component: {fileID: 4632321659772724851}
   - component: {fileID: 2602208042069964813}
+  - component: {fileID: 7474162610406743071}
   m_Layer: 0
   m_Name: Cake
   m_TagString: Cake
@@ -102,7 +103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdParent: {fileID: 0}
+  holdOffset: {x: 0, y: 0.1, z: 0.2}
   handScaleMultiplier: 1
+  dropPhysicsDelay: 0.05
+  interactAction: {fileID: 0}
+  dropAction: {fileID: 0}
   canPickUp: 1
 --- !u!114 &4632321659772724851
 MonoBehaviour:
@@ -143,3 +148,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7474162610406743071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308528413780146920}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.5623977, y: 1.8200823, z: 3.5623977}
+  m_Center: {x: 0, y: 0.91379696, z: 2.2616576e-15}
