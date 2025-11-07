@@ -445,13 +445,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26347192}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press 'E' to talk
-  displayDistance: 4
+  displayDistance: 5
 --- !u!1 &38259352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,6 +1374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1679765397}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1679765405}
   m_SourcePrefab: {fileID: 100100000, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
 --- !u!4 &144698874 stripped
 Transform:
@@ -1474,6 +1477,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 154247963}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 154247971}
   m_SourcePrefab: {fileID: 100100000, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
 --- !u!4 &154247960 stripped
 Transform:
@@ -1584,6 +1590,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.024360476, y: 0.026855119, z: 0.030101744}
   m_Center: {x: 0.00043430497, y: 0.0009706705, z: 0.00040454118}
+--- !u!114 &154247971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143809717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Object
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 3
+  player: {fileID: 0}
 --- !u!1 &158833171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,6 +1892,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 869653652}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 869653660}
   m_SourcePrefab: {fileID: 100100000, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
 --- !u!4 &174461057 stripped
 Transform:
@@ -3228,7 +3258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_text
@@ -3929,6 +3959,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df87519197f5bfe498e4c5a07f132dba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 774575817}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: df87519197f5bfe498e4c5a07f132dba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 774575825}
   m_SourcePrefab: {fileID: 100100000, guid: df87519197f5bfe498e4c5a07f132dba, type: 3}
 --- !u!4 &336763728 stripped
 Transform:
@@ -9718,6 +9751,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1775364525}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1775364533}
   m_SourcePrefab: {fileID: 100100000, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
 --- !u!4 &504202639 stripped
 Transform:
@@ -15301,6 +15337,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6685635677644276585, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!1 &643141826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7231549357065777998, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
+  m_PrefabInstance: {fileID: 1298464421520904625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &645768286
 GameObject:
   m_ObjectHideFlags: 0
@@ -15582,7 +15623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 758346178865494618, guid: c3c884d36b8a5204fa19fadf724309d1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1218090334596340775, guid: c3c884d36b8a5204fa19fadf724309d1, type: 3}
       propertyPath: m_Color.a
@@ -16298,6 +16339,9 @@ GameObject:
   - component: {fileID: 744936856}
   - component: {fileID: 744936858}
   - component: {fileID: 744936857}
+  - component: {fileID: 744936859}
+  - component: {fileID: 744936861}
+  - component: {fileID: 744936860}
   m_Layer: 0
   m_Name: Oven_Door.001 (1)
   m_TagString: Untagged
@@ -16373,6 +16417,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744936855}
   m_Mesh: {fileID: -6462356668026364266, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!114 &744936859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744936855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Press 'E' to Open
+  displayDistance: 5
+--- !u!114 &744936860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744936855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a562a4bfb5edf44ca3b208e3f2b5d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textUI: {fileID: 187546927}
+--- !u!114 &744936861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744936855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Oven
 --- !u!1 &762154983
 GameObject:
   m_ObjectHideFlags: 0
@@ -16949,6 +17033,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.022435488, y: 0.024258107, z: 0.013257472}
   m_Center: {x: 0.00013540148, y: -0.00070675573, z: 0.0028001587}
+--- !u!114 &774575825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774575814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Flour
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 4
+  player: {fileID: 0}
 --- !u!1 &790119693
 GameObject:
   m_ObjectHideFlags: 0
@@ -17831,6 +17936,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019986648, y: 0.019973304, z: 0.026778342}
   m_Center: {x: -0.0000000027939677, y: 0.00001333514, z: -9.4751885e-20}
+--- !u!114 &869653660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869653649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Egg
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 4
+  player: {fileID: 0}
 --- !u!64 &871093722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18312,6 +18438,8 @@ GameObject:
   - component: {fileID: 905359383}
   - component: {fileID: 905359382}
   - component: {fileID: 905359384}
+  - component: {fileID: 905359386}
+  - component: {fileID: 905359385}
   m_Layer: 0
   m_Name: Fridge_Door
   m_TagString: Untagged
@@ -18469,8 +18597,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Press E
-  displayDistance: 3
+  promptMessage: Press 'E' to Open
+  displayDistance: 5
+--- !u!114 &905359385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905359376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: Fridge
+--- !u!114 &905359386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905359376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a562a4bfb5edf44ca3b208e3f2b5d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textUI: {fileID: 187546927}
 --- !u!1 &942123840
 GameObject:
   m_ObjectHideFlags: 0
@@ -25093,6 +25247,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6820801161076013555, guid: 75be62e63416e6344ae4130f1170505a, type: 3}
+--- !u!1 &1154129864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2502234977636345682, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
+  m_PrefabInstance: {fileID: 5597144410215181767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &1159474850
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27414,6 +27573,11 @@ MonoBehaviour:
   interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   npcToTalkTo: {fileID: 0}
   lockedMessage: You need to speak to the NPC first!
+--- !u!1 &1570678263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7688760207089250729, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
+  m_PrefabInstance: {fileID: 8925508015682844031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1572167432
 GameObject:
   m_ObjectHideFlags: 0
@@ -28025,6 +28189,7 @@ GameObject:
   - component: {fileID: 1660630122}
   - component: {fileID: 1660630121}
   - component: {fileID: 1660630128}
+  - component: {fileID: 1660630129}
   m_Layer: 0
   m_Name: NPC (Inspector)
   m_TagString: NPC
@@ -28209,6 +28374,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cakeTargetZone: {fileID: 569142182}
   linkedNPC: {fileID: 1660630123}
+--- !u!114 &1660630129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660630119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Press 'E' to Talk
+  displayDistance: 5
 --- !u!64 &1664714314
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28431,6 +28610,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019986648, y: 0.019973308, z: 0.026778348}
   m_Center: {x: -0.0000000027935703, y: 0.000013335142, z: -4.1633363e-17}
+--- !u!114 &1679765405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679765394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Object
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 3
+  player: {fileID: 0}
 --- !u!1 &1682779680 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6c41a559155f444e9b906d2638547d4, type: 3}
@@ -29151,6 +29351,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1752409880}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1752409888}
   m_SourcePrefab: {fileID: 100100000, guid: 74e952ccca3143b4f95930c446dd19fa, type: 3}
 --- !u!4 &1752409877 stripped
 Transform:
@@ -29261,6 +29464,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019986657, y: 0.019973317, z: 0.02677835}
   m_Center: {x: -0.000000002794267, y: 0.000013335149, z: -3.9748066e-13}
+--- !u!114 &1752409888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181806411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Object
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 3
+  player: {fileID: 0}
 --- !u!65 &1755634378
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29666,6 +29890,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019986648, y: 0.019973308, z: 0.026778348}
   m_Center: {x: -0.0000000027935703, y: 0.000013335142, z: 0.00000011920929}
+--- !u!114 &1775364533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775364522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Object
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 3
+  player: {fileID: 0}
 --- !u!1 &1778202632
 GameObject:
   m_ObjectHideFlags: 0
@@ -35924,6 +36169,11 @@ Transform:
   - {fileID: 1881827947}
   m_Father: {fileID: 1731404789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1927260225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1627374030318788305, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
+  m_PrefabInstance: {fileID: 2702190917558082269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1934972421
 GameObject:
   m_ObjectHideFlags: 0
@@ -37000,8 +37250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Press E
-  displayDistance: 3
+  promptMessage: Press 'E' to open
+  displayDistance: 5
 --- !u!1 &2116393901
 GameObject:
   m_ObjectHideFlags: 0
@@ -37957,6 +38207,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6097643225520227976, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
   m_PrefabInstance: {fileID: 2702190917558082269}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &186174671853714932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927260225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Butter
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 5
+  player: {fileID: 0}
 --- !u!23 &189216313379095657
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -39930,6 +40201,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5725160732711557414, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
   m_PrefabInstance: {fileID: 5597144410215181767}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &961922639430950463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154129864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Vanilla Essence
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 5
+  player: {fileID: 0}
 --- !u!4 &967435239923378569
 Transform:
   m_ObjectHideFlags: 0
@@ -40927,7 +41219,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7231549357065777998, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6426448319691852053}
   m_SourcePrefab: {fileID: 100100000, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
 --- !u!4 &1308592063332198098
 Transform:
@@ -44225,7 +44520,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1627374030318788305, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 186174671853714932}
   m_SourcePrefab: {fileID: 100100000, guid: df746cc037a16ea4eba384eb42a0bd03, type: 3}
 --- !u!1 &2723842078585665836
 GameObject:
@@ -46624,6 +46922,7 @@ GameObject:
   - component: {fileID: 4714608546585191634}
   - component: {fileID: 6770142389603363352}
   - component: {fileID: 6770142389603363351}
+  - component: {fileID: 6770142389603363353}
   m_Layer: 0
   m_Name: Oven_Door.001
   m_TagString: Interactable
@@ -46854,6 +47153,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9172853298705404258, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
   m_PrefabInstance: {fileID: 8925508015682844031}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3924232459505047587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570678263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Water
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 5
+  player: {fileID: 0}
 --- !u!23 &3929435372653487722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -51621,7 +51941,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2502234977636345682, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 961922639430950463}
   m_SourcePrefab: {fileID: 100100000, guid: 7f4e0fa763e73c443b8ab177be2ff438, type: 3}
 --- !u!23 &5610089356235135663
 MeshRenderer:
@@ -53677,6 +54000,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5888357231193495338, guid: 05c2cbc7477fc3d4ca73a96cbe1fdad8, type: 3}
   m_PrefabInstance: {fileID: 1298464421520904625}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6426448319691852053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643141826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptPrefab: {fileID: 0}
+  displayName: Sugar
+  interactPrompt: Press E
+  promptInstance: {fileID: 0}
+  nameText: {fileID: 0}
+  promptText: {fileID: 0}
+  mainCamera: {fileID: 0}
+  showDistance: 5
+  player: {fileID: 0}
 --- !u!4 &6436650396359057289
 Transform:
   m_ObjectHideFlags: 0
@@ -54553,7 +54897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8656c8abd1f910f4bbfee654cbf75ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Press 'E' to Open Door
+  objectName: Oven
 --- !u!114 &6770142389603363352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54567,6 +54911,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textUI: {fileID: 187546927}
+--- !u!114 &6770142389603363353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766528703828731623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67637c0c5c6b3144d9e3741764aea4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Press 'E' to Open
+  displayDistance: 5
 --- !u!33 &6772912781447557320
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -59548,7 +59906,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7688760207089250729, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3924232459505047587}
   m_SourcePrefab: {fileID: 100100000, guid: c78296233cf6ff546ab99e8b6aa141df, type: 3}
 --- !u!4 &8934385354549658105
 Transform:
