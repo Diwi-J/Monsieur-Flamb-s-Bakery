@@ -1602,15 +1602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Object
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 3
-  player: {fileID: 0}
 --- !u!1 &158833171
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,7 +3249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1431187585497369851, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1728641042268951954, guid: e016708b80b11d14b99d26031e3923e9, type: 3}
       propertyPath: m_text
@@ -9180,7 +9171,7 @@ MonoBehaviour:
   openAngle: -90
   speed: 5
   useProximityCheck: 1
-  proximityRadius: 5
+  proximityRadius: 6
   interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   npcToTalkTo: {fileID: 0}
   lockedMessage: You need to speak to the NPC first!
@@ -9314,6 +9305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407055972}
   - component: {fileID: 407055973}
+  - component: {fileID: 407055974}
   m_Layer: 0
   m_Name: OvenHinge
   m_TagString: Untagged
@@ -9358,6 +9350,18 @@ MonoBehaviour:
   interactAction: {fileID: 566819272404832027, guid: 4223b281c0179db40970eb0408f1a6db, type: 3}
   npcToTalkTo: {fileID: 0}
   lockedMessage: You need to speak to the NPC first!
+--- !u!114 &407055974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407055971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95a6478c9784ca4d976b45b429addc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &413742853
 GameObject:
   m_ObjectHideFlags: 0
@@ -15623,7 +15627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 758346178865494618, guid: c3c884d36b8a5204fa19fadf724309d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1218090334596340775, guid: c3c884d36b8a5204fa19fadf724309d1, type: 3}
       propertyPath: m_Color.a
@@ -17045,15 +17049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Flour
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 4
-  player: {fileID: 0}
 --- !u!1 &790119693
 GameObject:
   m_ObjectHideFlags: 0
@@ -17948,15 +17943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Egg
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 4
-  player: {fileID: 0}
 --- !u!64 &871093722
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28622,15 +28608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Object
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 3
-  player: {fileID: 0}
 --- !u!1 &1682779680 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c6c41a559155f444e9b906d2638547d4, type: 3}
@@ -29476,15 +29453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Object
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 3
-  player: {fileID: 0}
 --- !u!65 &1755634378
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29902,15 +29870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Object
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 3
-  player: {fileID: 0}
 --- !u!1 &1778202632
 GameObject:
   m_ObjectHideFlags: 0
@@ -38219,15 +38178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Butter
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 5
-  player: {fileID: 0}
 --- !u!23 &189216313379095657
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40213,15 +40163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Vanilla Essence
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 5
-  player: {fileID: 0}
 --- !u!4 &967435239923378569
 Transform:
   m_ObjectHideFlags: 0
@@ -47165,15 +47106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Water
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 5
-  player: {fileID: 0}
 --- !u!23 &3929435372653487722
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -54012,15 +53944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abba69b979169f4f825fa761d7be1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptPrefab: {fileID: 0}
-  displayName: Sugar
-  interactPrompt: Press E
-  promptInstance: {fileID: 0}
-  nameText: {fileID: 0}
-  promptText: {fileID: 0}
-  mainCamera: {fileID: 0}
-  showDistance: 5
-  player: {fileID: 0}
 --- !u!4 &6436650396359057289
 Transform:
   m_ObjectHideFlags: 0
