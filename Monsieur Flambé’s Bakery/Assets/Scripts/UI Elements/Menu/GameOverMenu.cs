@@ -20,7 +20,20 @@ public class GameOverMenu : MonoBehaviour
         gameOverMenu.SetActive(false);
     }
 
+    // Called when player loses (time ran out)
     public void GameOver()
+    {
+        ShowMenu("Game Over!");
+    }
+
+    // Called when player completes objective successfully
+    public void GameComplete()
+    {
+        ShowMenu("Objective Completed!");
+    }
+
+    // Unified menu display logic
+    private void ShowMenu(string title)
     {
         // Pause game
         Time.timeScale = 0f;
@@ -29,11 +42,16 @@ public class GameOverMenu : MonoBehaviour
         gameOverMenuUI.SetActive(true);
         gameOverMenu.SetActive(true);
 
-        // Disable player movement the proper way
+        // Disable player movement
         if (playerController != null)
             playerController.enabled = false;
 
-        Debug.Log("Game Over");
+        // Optional: set a text field inside panel if you have one
+        var textField = gameOverMenu.GetComponentInChildren<UnityEngine.UI.Text>();
+        if (textField != null)
+            textField.text = title;
+
+        Debug.Log(title);
     }
 
     public void Restart()
@@ -41,24 +59,21 @@ public class GameOverMenu : MonoBehaviour
         // Unpause time
         Time.timeScale = 1f;
 
-        // Reactivate player (optional — scene will reload anyway)
+        // Reactivate player (optional — scene reload resets anyway)
         if (playerController != null)
             playerController.enabled = true;
 
-        // Start a coroutine to reload scene safely
+        // Reload scene safely
         StartCoroutine(RestartRoutine());
     }
 
     private System.Collections.IEnumerator RestartRoutine()
     {
-        // Load scene asynchronously
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
 
-        // Wait until it’s done
         while (!asyncLoad.isDone)
             yield return null;
 
-        // Now the new scene is active
         // Reset UI just in case
         gameOverMenuUI.SetActive(false);
         gameOverMenu.SetActive(false);

@@ -8,13 +8,17 @@ public class PickupItem : Interactable
     private Vector3 originalScale;
     private Transform originalParent;
     private bool isHeld = false;
+    private bool canBePickedUp = true;
 
     [Header("Hand Settings")]
     [SerializeField] private Transform holdParent;
+    [SerializeField] private Vector3 holdOffset = new Vector3(0f, 0.1f, 0.2f);
 
     [Header("Held Appearance")]
-    [Tooltip("Optional: scale multiplier applied when held. 1 = same size as prefab.")]
     [SerializeField] private float handScaleMultiplier = 1f;
+
+    [Header("Physics Settings")]
+    [SerializeField] private float dropPhysicsDelay = 0.05f;
 
     public bool canPickUp = true;
 
@@ -22,80 +26,48 @@ public class PickupItem : Interactable
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        originalScale = transform.localScale; // Store once here
-        if (transform.parent != null)
-            originalParent = transform.parent;
+        originalScale = transform.localScale;
+        originalParent = transform.parent;
     }
 
-    public override void Interact()
+    public override void Interact() { }
+
+    // Original PickUp() untouched
+    public void PickUp()
     {
-        Debug.Log("Interact called on " + gameObject.name);
-
-        if (!canPickUp) return;
-
-        if (!isHeld)
-            PickUp(holdParent);
-        else
-            Drop();
+        PickUp(holdParent);
     }
 
     public void PickUp(Transform hand)
     {
-        if (!canPickUp)
-        {
-            Debug.Log("Cannot pick up " + gameObject.name + " because canPickUp is false");
-            return;
-        }
-
-        if (hand == null)
-        {
-            Debug.LogWarning("Hand is null for " + gameObject.name);
-            return;
-        }
-
-        if (isHeld) return;
+        if (!canPickUp || hand == null || isHeld) return;
 
         isHeld = true;
 
-        // Start safe pickup coroutine
-        StartCoroutine(PickupRoutine(hand));
-    }
-
-    private IEnumerator PickupRoutine(Transform hand)
-    {
-        // --- FIX: freeze physics and disable collider to prevent collision issues ---
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         rb.useGravity = false;
+        rb.interpolation = RigidbodyInterpolation.None;
 
         if (col != null)
-            col.enabled = false; // Disable collisions while held
+            col.enabled = false;
 
-        // Wait a frame to stabilize
-        yield return null;
-
-        // --- Parent with worldPositionStays=false so it snaps to hand ---
         transform.SetParent(hand, worldPositionStays: false);
-
-        // --- Reset local position and rotation to align perfectly ---
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = holdOffset;
         transform.localRotation = Quaternion.identity;
+        transform.localScale = originalScale * handScaleMultiplier;
 
-        // Apply safe scale
-        Vector3 parentScale = hand.lossyScale;
-        transform.localScale = new Vector3(
-            originalScale.x * handScaleMultiplier / Mathf.Max(parentScale.x, 0.0001f),
-            originalScale.y * handScaleMultiplier / Mathf.Max(parentScale.y, 0.0001f),
-            originalScale.z * handScaleMultiplier / Mathf.Max(parentScale.z, 0.0001f)
-        );
-
-        Debug.Log("Picked up " + gameObject.name);
+        Debug.Log($"Picked up {gameObject.name}");
     }
 
-    public void PickUp()
+    private void LateUpdate()
     {
-        PickUp(holdParent);
+        if (isHeld && holdParent != null)
+        {
+            transform.position = holdParent.position + holdParent.TransformVector(holdOffset);
+            transform.rotation = holdParent.rotation;
+        }
     }
 
     public void Drop()
@@ -103,23 +75,28 @@ public class PickupItem : Interactable
         if (!isHeld) return;
 
         isHeld = false;
+        canBePickedUp = false;
 
-        // Restore parent safely
         transform.SetParent(originalParent, worldPositionStays: true);
-
-        // Restore physics
-        rb.isKinematic = false;
-        rb.useGravity = true;
-
-        if (col != null)
-            col.enabled = true; // Re-enable collisions
-
-        // Restore scale
         transform.localScale = originalScale;
-
-        // Small offset to prevent sinking
         transform.position += Vector3.up * 0.05f;
 
-        Debug.Log("Dropped " + gameObject.name);
+        StartCoroutine(EnablePhysicsAfterDelay());
+    }
+
+    private IEnumerator EnablePhysicsAfterDelay()
+    {
+        yield return new WaitForSeconds(dropPhysicsDelay);
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        if (col != null)
+            col.enabled = true;
+
+        canBePickedUp = true;
+        Debug.Log($"Dropped {gameObject.name}");
     }
 }

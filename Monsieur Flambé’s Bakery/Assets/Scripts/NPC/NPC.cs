@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public class NPC : Interactable
 {
     [Header("Dialogue")]
-    public Dialogue blockedDialogue;  // Dialogue if cake not placed
-    public Dialogue mainDialogue;     // Normal dialogue once cake is placed
+    public Dialogue blockedDialogue;
+    public Dialogue mainDialogue;
 
     [Header("Cake Target Zone")]
-    public CakeTargetZone cakeZone;   // Assign in Inspector
+    public CakeTargetZone cakeZone;
 
     [Header("Celebration")]
-    public bool triggersCelebration = false;  // Only this NPC triggers confetti
+    public bool triggersCelebration = false;
 
     [Header("Door Unlock (optional)")]
-    public HingeDoor linkedDoor; // Assign the door this NPC unlocks (optional)
+    public HingeDoor linkedDoor;
 
     private bool unlocked = false;
 
-    // Public property to let other scripts check if NPC has been spoken to
     public bool HasBeenSpokenTo => unlocked;
 
     public void UnlockDialogue()
@@ -27,27 +27,27 @@ public class NPC : Interactable
 
     public override void Interact()
     {
-        // Mark NPC as spoken to
         unlocked = true;
 
-        // Start appropriate dialogue
-        if (cakeZone != null && !cakeZone.IsCakePlaced())
+        bool cakeInZone = false;
+        if (cakeZone != null)
+        {
+            // Dynamically check for any cake in zone
+            cakeInZone = cakeZone.IsCakePlaced();
+        }
+
+        if (!cakeInZone)
         {
             DialogueManager.Instance.StartDialogue(blockedDialogue, false);
         }
         else
         {
             if (triggersCelebration)
-            {
                 DialogueManager.Instance.StartDialogue(mainDialogue, true, transform);
-            }
             else
-            {
                 DialogueManager.Instance.StartDialogue(mainDialogue, false);
-            }
         }
 
-        // Unlock linked door (optional)
         if (linkedDoor != null)
         {
             linkedDoor.TryOpenDoor();
@@ -55,3 +55,5 @@ public class NPC : Interactable
         }
     }
 }
+
+
