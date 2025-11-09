@@ -19,7 +19,7 @@ public class HingeDoor : MonoBehaviour
     public InputActionReference interactAction;
 
     [Header("NPC Requirement")]
-    public NPC npcToTalkTo; // Assign the NPC that must be spoken to
+    public NPC npcToTalkTo; 
 
     [Header("Feedback")]
     public string lockedMessage = "You need to speak to the NPC first!";
@@ -32,21 +32,24 @@ public class HingeDoor : MonoBehaviour
 
     private void Awake()
     {
+        //Default hinge to first child if not assigned.
         if (hinge == null)
         {
             hinge = transform.childCount > 0 ? transform.GetChild(0) : transform;
         }
 
+        //Find player by tag.
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.transform;
-        else Debug.LogWarning("[HingeDoor] Player not found. Tag your player 'Player'.");
+        else Debug.LogWarning("HingeDoor Player not found.");
 
         if (interactAction == null)
-            Debug.LogWarning("[HingeDoor] Interact action not assigned.");
+            Debug.LogWarning("HingeDoor Interact action not assigned.");
     }
 
     private void OnEnable()
     {
+        //Enable input action.
         if (interactAction != null)
         {
             interactAction.action.Enable();
@@ -56,6 +59,7 @@ public class HingeDoor : MonoBehaviour
 
     private void OnDisable()
     {
+        //Disable input action.
         if (interactAction != null)
         {
             interactAction.action.performed -= OnInteract;
@@ -67,14 +71,14 @@ public class HingeDoor : MonoBehaviour
     {
         if (!playerInRange || player == null) return;
 
-        // NPC check: prevent opening if player hasn't spoken
+        //NPC check, prevent opening if player hasn't spoken.
         if (npcToTalkTo != null && !npcToTalkTo.HasBeenSpokenTo)
         {
             Debug.Log(lockedMessage);
             return;
         }
 
-        // Determine swing direction
+        //Determine swing direction.
         Vector3 toPlayer = player.position - hinge.position;
         float side = Vector3.Dot(hinge.right, toPlayer);
         int swingDirection = side >= 0 ? 1 : -1;
@@ -87,6 +91,7 @@ public class HingeDoor : MonoBehaviour
 
     private void Update()
     {
+        //Proximity check.
         if (useProximityCheck && player != null)
         {
             float dist = Vector3.Distance(player.position, transform.position);
@@ -99,18 +104,14 @@ public class HingeDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Proximity trigger check.
         if (!useProximityCheck && other.CompareTag("Player"))
             playerInRange = true;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!useProximityCheck && other.CompareTag("Player"))
-            playerInRange = false;
-    }
-
     private void OnDrawGizmosSelected()
     {
+        //Visualize proximity radius.
         if (useProximityCheck)
         {
             Gizmos.color = Color.cyan;
@@ -118,16 +119,16 @@ public class HingeDoor : MonoBehaviour
         }
     }
 
-    // Call this manually or from NPC when unlocked
     public void TryOpenDoor()
     {
+        //NPC check (Check that player has spoken to NPC in order to open door).
         if (npcToTalkTo != null && !npcToTalkTo.HasBeenSpokenTo)
         {
             Debug.Log(lockedMessage);
             return;
         }
 
-        // Determine swing direction (default if player is null)
+        //Determine swing direction to where player is.
         Vector3 toPlayer = player != null ? player.position - hinge.position : Vector3.forward;
         float side = Vector3.Dot(hinge.right, toPlayer);
         int swingDirection = side >= 0 ? 1 : -1;

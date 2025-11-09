@@ -6,23 +6,19 @@ using UnityEngine.EventSystems;
 public class PauseMenu : MonoBehaviour
 {
     [Header("UI Canvases")]
-    public GameObject pauseMenuUI;       // whole pause menu canvas
-    public GameObject pauseMenu;         // main pause panel
-    public GameObject settingsMenu;      // settings panel
-    public GameObject recipeCanvas;      // recipe canvas
-
+    public GameObject pauseMenuUI;       //Whole pause menu canvas.
+    public GameObject pauseMenu;         //Main pause panel.
+    public GameObject settingsMenu;      //Settings panel.
+    public GameObject recipeCanvas;      //Recipe canvas.
+    
     [Header("Player")]
     public PlayerController playerController;
 
     [Header("Input System")]
-    public InputAction pauseAction;      // assign in inspector
-
-    [Header("First Selected Buttons")]
-    public GameObject firstPauseButton;      // first button in main pause menu
-    public GameObject firstSettingsButton;   // first button in settings menu
+    public InputAction pauseAction;      
 
     [Header("Recipe Panel")]
-    public GameObject recipePanel;       // optional
+    public GameObject recipePanel;      
 
     private bool IsPaused = false;
 
@@ -48,7 +44,7 @@ public class PauseMenu : MonoBehaviour
         settingsMenu.SetActive(false);
     }
 
-    private void OnEnable()
+    private void OnEnable() 
     {
         if (pauseAction != null)
         {
@@ -68,6 +64,7 @@ public class PauseMenu : MonoBehaviour
 
     private void TogglePause(InputAction.CallbackContext context)
     {
+        //Toggle pause state.
         if (IsPaused)
             ResumeGame();
         else
@@ -76,6 +73,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        //Show pause menu UI.
         pauseMenuUI.SetActive(true);
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
@@ -89,11 +87,11 @@ public class PauseMenu : MonoBehaviour
         if (playerController != null)
             playerController.enabled = false;
 
-        SelectButton(firstPauseButton);
     }
 
     public void ResumeGame()
     {
+        //Hide pause menu UI.
         pauseMenuUI.SetActive(false);
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
@@ -110,45 +108,37 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        //Return to main menu scene.
         Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(0);
     }
 
     public void QuitGame()
     {
+        //Quit the Game.
         Application.Quit();
         Debug.Log("Application Quit");
     }
 
     public void OpenSettings()
     {
+        //Open settings menu.
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
 
         if (recipePanel != null)
             recipePanel.SetActive(false);
 
-        SelectButton(firstSettingsButton);
     }
 
     public void Back()
     {
+        //Return to pause menu.
         pauseMenu.SetActive(true);
         settingsMenu.SetActive(false);
 
         if (recipePanel != null)
             recipePanel.SetActive(true);
 
-        SelectButton(firstPauseButton);
-    }
-
-    // Utility method to handle EventSystem selection
-    private void SelectButton(GameObject button)
-    {
-        if (button != null)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(button);
-        }
     }
 }

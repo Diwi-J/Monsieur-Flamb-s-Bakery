@@ -13,9 +13,9 @@ public class MixingBowl : Interactable
     private readonly HashSet<string> addedUnique = new HashSet<string>();
 
     [Header("Visuals")]
-    [SerializeField] private Transform fillVisual; // The sphere or liquid visual
-    [SerializeField] private float fillMaxHeight = 0.2f; // max Y scale for full mixture
-    [SerializeField] private float fillSmoothSpeed = 3f; // speed of filling animation
+    [SerializeField] private Transform fillVisual; //The liquid visual.
+    [SerializeField] private float fillMaxHeight = 0.2f; //Max Y scale for full mixture.
+    [SerializeField] private float fillSmoothSpeed = 3f; //Speed of filling animation.
 
     [Header("Recipe Book")]
     public RecipeBookUI recipeBookUI;
@@ -35,9 +35,9 @@ public class MixingBowl : Interactable
     {
         pickupItem = GetComponent<PickupItem>();
         if (pickupItem != null)
-            pickupItem.canPickUp = false; // ❌ Prevent pickup until all ingredients are added
+            pickupItem.canPickUp = false; //Prevent pickup of mixing bowl until all ingredients are added.
 
-        // Start fill at 0
+        //Start fill at 0
         if (fillVisual != null)
         {
             Vector3 scale = fillVisual.localScale;
@@ -47,6 +47,7 @@ public class MixingBowl : Interactable
 
     private void Update()
     {
+        //Smoothly update fill level.
         if (fillVisual != null && !isMixed)
         {
             currentFillLevel = Mathf.Lerp(currentFillLevel, targetFillLevel, Time.deltaTime * fillSmoothSpeed);
@@ -71,7 +72,7 @@ public class MixingBowl : Interactable
 
             targetFillLevel = (float)addedUnique.Count / requiredIngredients.Count;
 
-            // Spawn ingredient puff particles at the bowl
+            //Spawn ingredient puff particles at the bowl.
             if (addIngredientParticles != null)
             {
                 Vector3 spawnPos = transform.position + Vector3.up * 0.5f;
@@ -83,13 +84,14 @@ public class MixingBowl : Interactable
 
         Destroy(other.gameObject);
 
-        // Check if all ingredients are added
+        //Check if all ingredients are added.
         if (addedUnique.Count >= requiredIngredients.Count)
             CompleteMixture();
     }
 
     public override void Interact()
     {
+        //Prevent interaction if already mixed.
         if (!isMixed && addedUnique.Count >= requiredIngredients.Count)
             CompleteMixture();
     }
@@ -102,10 +104,10 @@ public class MixingBowl : Interactable
         {
             Renderer rend = fillVisual.GetComponent<Renderer>();
             if (rend != null)
-                rend.material.color = new Color(0.9f, 0.75f, 0.5f); // creamy brown
+                rend.material.color = new Color(0.9f, 0.75f, 0.5f); //Creamy brown colour.
         }
 
-        // ✅ Only change: enable pickup now that all ingredients are added
+        //Enable pickup now that all ingredients are added.
         if (pickupItem != null)
             pickupItem.canPickUp = true;
 
@@ -121,12 +123,12 @@ public class MixingBowl : Interactable
 
         if (ingredientsAdded >= totalIngredientsRequired)
         {
-            // Enable pickup
+            //Enable Mixing Bowl pickup.
             pickupItem.canPickUp = true;
         }
         else
         {
-            // Keep pickup disabled until all added
+            //Keep pickup disabled until all added.
             pickupItem.canPickUp = false;
         }
     }

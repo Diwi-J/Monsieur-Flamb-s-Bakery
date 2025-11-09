@@ -18,6 +18,7 @@ public class Checklist : MonoBehaviour
 
     private void Start()
     {
+        //Initialize checklist display at start.
         UpdateChecklistText();
     }
 

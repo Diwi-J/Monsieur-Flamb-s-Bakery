@@ -10,21 +10,22 @@ public class RecipeBookToggle : MonoBehaviour
 
     private void Start()
     {
-        //Start a coroutine to wait one frame to ensure toggles are fully initialized
+        //Start a coroutine to wait one frame to ensure toggles are fully initialized.
         StartCoroutine(ResetTogglesNextFrame());
     }
 
     private IEnumerator ResetTogglesNextFrame()
     {
-        yield return null; //wait one frame
+        yield return null; //Wait one frame.
 
         Toggle[] toggles = GetComponentsInChildren<Toggle>(true);
         foreach (Toggle t in toggles)
         {
-            t.isOn = false; //force unchecked toggle
+            t.isOn = false; //Force unchecked toggle.
         }
     }
 
+    //Toggle the recipe book UI.
     public void ToggleRecipeBook()
     {
         if (recipeBookCanvas == null) return;

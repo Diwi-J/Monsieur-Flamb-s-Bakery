@@ -15,7 +15,7 @@ public class NameTagManager : MonoBehaviour
     {
         if (playerCamera == null) playerCamera = Camera.main;
 
-        // Create a canvas if none exists
+        //Create Canvas if none exists.
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
@@ -26,7 +26,7 @@ public class NameTagManager : MonoBehaviour
             canvasGO.AddComponent<UnityEngine.UI.GraphicRaycaster>();
         }
 
-        // Create text element
+        //Create text element.
         nameGO = new GameObject("NameTagText");
         nameGO.transform.SetParent(canvas.transform, false);
         nameText = nameGO.AddComponent<TextMeshProUGUI>();
@@ -44,14 +44,14 @@ public class NameTagManager : MonoBehaviour
     {
         if (playerCamera == null) return;
 
-        // Raycast forward from camera
+        //Raycast forward from camera.
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
         {
             Lookable lookable = hit.collider.GetComponent<Lookable>();
             if (lookable != null)
             {
-                // Show text
+                //Show text.
                 nameText.text = lookable.objectName;
                 Vector3 worldPos = lookable.transform.position + Vector3.up * verticalOffset;
                 Vector3 screenPos = playerCamera.WorldToScreenPoint(worldPos);
@@ -72,7 +72,7 @@ public class NameTagManager : MonoBehaviour
             }
         }
 
-        // Hide if not looking at anything with Lookable
+        //Hide if not looking at anything with Lookable.
         nameGO.SetActive(false);
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class Oven : MonoBehaviour
 {
     [Header("Baking Settings")]
-    public GameObject bakedCakePrefab;      // Prefab of the finished cake
-    public Transform spawnPoint;            // Where to spawn the cake
+    public GameObject bakedCakePrefab;      //Prefab of the finished cake.
+    public Transform spawnPoint;            //Where to spawn the cake.
     public float bakeTime = 5f;
 
     [Header("Effects")]
@@ -21,13 +21,14 @@ public class Oven : MonoBehaviour
     {
         if (isBaking) return;
 
+        //Check for MixingBowl with mixture.
         PickupItem mixtureItem = other.GetComponent<PickupItem>();
         MixingBowl bowl = other.GetComponent<MixingBowl>();
 
         if (mixtureItem == null || bowl == null) return;
         if (!bowl.IsMixed()) return;
 
-        // Drop the bowl if the player is holding it
+        //Drop the bowl if the player is holding it.
         PlayerInteractable player = FindObjectOfType<PlayerInteractable>();
         if (player != null && player.heldItem == mixtureItem)
             player.DropItem();
@@ -40,7 +41,7 @@ public class Oven : MonoBehaviour
         isBaking = true;
         Debug.Log("Baking started...");
 
-        // Enable visual/audio effects
+        //Enable visual/audio effects.
         if (steamEffect != null) steamEffect.Play();
         if (progressBar != null)
         {
@@ -61,7 +62,7 @@ public class Oven : MonoBehaviour
 
         Debug.Log("Baking finished!");
 
-        // Stop effects
+        //Stop effects.
         if (steamEffect != null) steamEffect.Stop();
         if (progressBar != null)
             progressBar.gameObject.SetActive(false);
@@ -69,19 +70,19 @@ public class Oven : MonoBehaviour
         if (audioSource != null && dingSound != null)
             audioSource.PlayOneShot(dingSound);
 
-        // Spawn the baked cake in the world, ready to pick up manually
+        //Spawn the baked cake in the world, ready to pick up manually.
         if (bakedCakePrefab != null && spawnPoint != null)
         {
             GameObject cake = Instantiate(bakedCakePrefab, spawnPoint.position, spawnPoint.rotation);
 
-            // Ensure it has PickupItem
+            //Ensure it has PickupItem.
             PickupItem cakePickup = cake.GetComponent<PickupItem>();
             if (cakePickup == null)
                 cakePickup = cake.AddComponent<PickupItem>();
 
-            cakePickup.canPickUp = true;  // allow manual pickup
+            cakePickup.canPickUp = true;  //Allow manual pickup.
 
-            // Ensure it has Rigidbody and Collider
+            //Ensure it has Rigidbody and Collider.
             Rigidbody rb = cake.GetComponent<Rigidbody>();
             if (rb == null) rb = cake.AddComponent<Rigidbody>();
             rb.useGravity = true;
@@ -91,7 +92,7 @@ public class Oven : MonoBehaviour
                 cake.AddComponent<BoxCollider>();
         }
 
-        // Destroy the mixing bowl after baking
+        //Destroy the mixing bowl after baking.
         Destroy(bowl.gameObject);
 
         isBaking = false;

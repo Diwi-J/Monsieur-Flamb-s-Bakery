@@ -6,9 +6,9 @@ public class ButtonHoverParticles : MonoBehaviour, ISelectHandler, IDeselectHand
 {
     public ParticleSystem hoverParticles;
 
-    public void OnPointerEnter(PointerEventData eventData) => hoverParticles?.Play();
-    public void OnPointerExit(PointerEventData eventData) => hoverParticles?.Stop();
+    public void OnPointerEnter(PointerEventData eventData) => hoverParticles?.Play(); //Play particles.
+    public void OnPointerExit(PointerEventData eventData) => hoverParticles?.Stop(); //Stop particles.
 
-    public void OnSelect(BaseEventData eventData) => hoverParticles?.Play();
-    public void OnDeselect(BaseEventData eventData) => hoverParticles?.Stop();
+    public void OnSelect(BaseEventData eventData) => hoverParticles?.Play(); //Play particles.
+    public void OnDeselect(BaseEventData eventData) => hoverParticles?.Stop(); //Stop particles.
 }

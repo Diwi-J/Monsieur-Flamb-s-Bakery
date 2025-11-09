@@ -11,7 +11,7 @@ public class PlayerInteractable : MonoBehaviour
 
     public void TryInteract()
     {
-        // Drop if the player is already holding an item
+        //Drop if the player is already holding an item.
         if (heldItem != null)
         {
             DropItem();
@@ -21,11 +21,11 @@ public class PlayerInteractable : MonoBehaviour
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, interactRange))
         {
-            // Check for PickupItem first
+            //Check for PickupItem first.
             PickupItem pickup = hit.collider.GetComponent<PickupItem>();
             if (pickup != null && pickup.canPickUp) //Respect canPickUp
             {
-                // Use hand if assigned, otherwise fallback to PickupItem default
+                //Use hand if assigned, otherwise fallback to PickupItem default.
                 if (hand != null)
                     pickup.PickUp(hand);
                 else
@@ -35,7 +35,7 @@ public class PlayerInteractable : MonoBehaviour
                 return;
             }
 
-            // Other interactables
+            //Other interactables.
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
@@ -53,7 +53,7 @@ public class PlayerInteractable : MonoBehaviour
         heldItem = null;
     }
 
-    // Visualize interaction range in editor
+    //Visualize interaction range in editor.
     private void OnDrawGizmos()
     {
         if (playerCamera == null) return;

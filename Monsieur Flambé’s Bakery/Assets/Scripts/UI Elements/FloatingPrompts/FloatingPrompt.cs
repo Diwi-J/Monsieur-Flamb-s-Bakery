@@ -3,10 +3,10 @@ using TMPro;
 
 public class FloatingPrompt : MonoBehaviour
 {
-    public static FloatingPrompt Instance; // Singleton
+    public static FloatingPrompt Instance; 
 
     [Header("UI Text")]
-    public TMP_Text promptText; // Assign your TextMeshProUGUI
+    public TMP_Text promptText;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class FloatingPrompt : MonoBehaviour
 
         if (promptText == null)
         {
-            Debug.LogWarning("[FloatingPrompt] No TextMeshProUGUI assigned!");
+            Debug.LogWarning("FloatingPrompt- No TextMeshProUGUI assigned!");
         }
         else
         {
@@ -32,12 +32,14 @@ public class FloatingPrompt : MonoBehaviour
 
     public void Show(string message)
     {
+        //Show the prompt message.
         if (promptText != null)
             promptText.text = message;
     }
 
     public void Hide()
     {
+        //Hide the prompt message.
         if (promptText != null)
             promptText.text = "";
     }

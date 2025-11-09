@@ -32,9 +32,9 @@ public class PickupItem : Interactable
 
     public override void Interact() { }
 
-    // Original PickUp() untouched
     public void PickUp()
     {
+        //Overload to use default hold parent.
         PickUp(holdParent);
     }
 
@@ -44,6 +44,7 @@ public class PickupItem : Interactable
 
         isHeld = true;
 
+        //Disable physics.
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
@@ -53,6 +54,7 @@ public class PickupItem : Interactable
         if (col != null)
             col.enabled = false;
 
+        //Parent to hand.
         transform.SetParent(hand, worldPositionStays: false);
         transform.localPosition = holdOffset;
         transform.localRotation = Quaternion.identity;
@@ -63,6 +65,7 @@ public class PickupItem : Interactable
 
     private void LateUpdate()
     {
+        //Maintain position and rotation while held.
         if (isHeld && holdParent != null)
         {
             transform.position = holdParent.position + holdParent.TransformVector(holdOffset);
@@ -72,11 +75,13 @@ public class PickupItem : Interactable
 
     public void Drop()
     {
+        //Drop the item.
         if (!isHeld) return;
 
         isHeld = false;
         canBePickedUp = false;
 
+        //Unparent from hand.
         transform.SetParent(originalParent, worldPositionStays: true);
         transform.localScale = originalScale;
         transform.position += Vector3.up * 0.05f;
@@ -86,6 +91,7 @@ public class PickupItem : Interactable
 
     private IEnumerator EnablePhysicsAfterDelay()
     {
+        //Delay to avoid immediate collisions with the player.
         yield return new WaitForSeconds(dropPhysicsDelay);
 
         rb.isKinematic = false;

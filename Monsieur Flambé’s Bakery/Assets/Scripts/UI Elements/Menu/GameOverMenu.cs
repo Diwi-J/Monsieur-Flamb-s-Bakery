@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
-    private GameObject gameOverMenuUI;   // Whole Canvas
-    private GameObject gameOverMenu;     // Inner GameOver UI Panel
+    private GameObject gameOverMenuUI;   //Whole Canvas.
+    private GameObject gameOverMenu;     //Inner GameOver UI Panel.
 
     public PlayerController playerController;
 
@@ -20,33 +20,33 @@ public class GameOverMenu : MonoBehaviour
         gameOverMenu.SetActive(false);
     }
 
-    // Called when player loses (time ran out)
+    //Called when player loses (time ran out).
     public void GameOver()
     {
         ShowMenu("Game Over!");
     }
 
-    // Called when player completes objective successfully
+    //Called when player completes objective successfully.
     public void GameComplete()
     {
         ShowMenu("Objective Completed!");
     }
 
-    // Unified menu display logic
+    //Unified menu display logic.
     private void ShowMenu(string title)
     {
-        // Pause game
+        //Pause game.
         Time.timeScale = 0f;
 
-        // Show UI
+        //Show UI.
         gameOverMenuUI.SetActive(true);
         gameOverMenu.SetActive(true);
 
-        // Disable player movement
+        //Disable player movement.
         if (playerController != null)
             playerController.enabled = false;
 
-        // Optional: set a text field inside panel if you have one
+        //Set a text field inside panel.
         var textField = gameOverMenu.GetComponentInChildren<UnityEngine.UI.Text>();
         if (textField != null)
             textField.text = title;
@@ -56,14 +56,14 @@ public class GameOverMenu : MonoBehaviour
 
     public void Restart()
     {
-        // Unpause time
+        //Unpause time.
         Time.timeScale = 1f;
 
-        // Reactivate player (optional — scene reload resets anyway)
+        //Reactivate player.
         if (playerController != null)
             playerController.enabled = true;
 
-        // Reload scene safely
+        //Reload scene safely.
         StartCoroutine(RestartRoutine());
     }
 
@@ -74,13 +74,14 @@ public class GameOverMenu : MonoBehaviour
         while (!asyncLoad.isDone)
             yield return null;
 
-        // Reset UI just in case
+        //Reset UI just in case.
         gameOverMenuUI.SetActive(false);
         gameOverMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
+        //Quit Game.
         Application.Quit();
         Debug.Log("Application Quit");
     }

@@ -4,5 +4,5 @@ using UnityEngine;
 public class Recipe
 {
     public string recipeName;
-    public string[] ingredients; // list of ingredient names
+    public string[] ingredients; //List of ingredient names.
 }

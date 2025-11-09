@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        //Get components.
         controller = GetComponent<CharacterController>();
         interactable = GetComponent<PlayerInteractable>();
         input = GetComponent<PlayerInput>();
@@ -44,11 +45,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        //Disable controls when paused.
         if (controlstate) return;
 
         HandleMovement();
         HandleLook();
 
+        //Check for focused recipe book.
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, 3f))
         {
@@ -62,18 +65,19 @@ public class PlayerController : MonoBehaviour
 
     #region Unity Events
 
+    //Movement and Look.
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();   
     }
 
+    //Sprint.
     public void OnSprint(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             isRunning = true;
 
-            //Debug.Log("Sprinting");
         }
         else if (context.canceled)
         {
@@ -81,10 +85,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Look.
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
     }
+
+    //Interact.
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
@@ -97,6 +104,7 @@ public class PlayerController : MonoBehaviour
         interactable.TryInteract();
     }
 
+    //Pick Up/Drop.
     public void OnPickUp()
     {
         interactable.TryInteract();
@@ -107,6 +115,7 @@ public class PlayerController : MonoBehaviour
         interactable.DropItem();
     }
 
+    //Pause.
     public void OnPause()
     {
         pauseMenu.PauseGame();

@@ -12,7 +12,7 @@ public class ObjectPrompt : MonoBehaviour
     {
         GameObject p = GameObject.FindGameObjectWithTag("Player");
         if (p != null) player = p.transform;
-        else Debug.LogWarning("[ObjectPrompt] Player not found. Tag your player 'Player'.");
+        else Debug.LogWarning("Player not found. Tag your player 'Player'.");
     }
 
     private void Update()
@@ -21,7 +21,7 @@ public class ObjectPrompt : MonoBehaviour
 
         float dist = Vector3.Distance(player.position, transform.position);
 
-        // Only show if FloatingPrompt exists
+        //Only show if FloatingPrompt exists.
         if (FloatingPrompt.Instance != null)
         {
             if (dist <= displayDistance)
@@ -33,6 +33,7 @@ public class ObjectPrompt : MonoBehaviour
 
     private void OnDisable()
     {
+        //Hide the prompt when this object is disabled.
         if (FloatingPrompt.Instance != null)
             FloatingPrompt.Instance.Hide();
     }

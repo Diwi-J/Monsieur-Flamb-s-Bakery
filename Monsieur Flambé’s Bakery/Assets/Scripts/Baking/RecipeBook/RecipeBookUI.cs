@@ -17,7 +17,7 @@ public class RecipeBookUI : MonoBehaviour
 
     void Awake()
     {
-        //Initialize toggles safely
+        //Initialize toggles safely.
         foreach (var entry in ingredients)
         {
             if (entry.toggle != null)
@@ -35,7 +35,7 @@ public class RecipeBookUI : MonoBehaviour
         collectedIngredients.Clear();
     }
 
-    //Handles toggle changes
+    //Handles toggle changes.
     private void OnToggleChanged(IngredientEntry entry, bool isOn)
     {
         if (isOn)
@@ -44,6 +44,7 @@ public class RecipeBookUI : MonoBehaviour
             collectedIngredients.Remove(entry.ingredientName.Trim());
     }
 
+    //Automatically tick an ingredient by name.
     public void AutoTickIngredient(string ingredientName)
     {
         string trimmedName = ingredientName.Trim();
@@ -56,9 +57,9 @@ public class RecipeBookUI : MonoBehaviour
                 found = true;
                 if (!entry.toggle.isOn)
                 {
-                    entry.toggle.isOn = true; // Will trigger OnToggleChanged
+                    entry.toggle.isOn = true; //Will trigger OnToggleChanged.
                 }
-                //Ensure the ingredient is in the collected set
+                //Ensure the ingredient is in the collected set.
                 collectedIngredients.Add(trimmedName);
                 break;
             }
@@ -68,12 +69,13 @@ public class RecipeBookUI : MonoBehaviour
             Debug.LogWarning("[RecipeBookUI] Ingredient not found: {trimmedName}");
     }
 
+    //Check if all ingredients are collected.
     public bool IsRecipeComplete()
     {
         return collectedIngredients.Count == ingredients.Length;
     }
 
-    //Reset the book
+    //Reset the book.
     public void ResetBook()
     {
         foreach (var entry in ingredients)

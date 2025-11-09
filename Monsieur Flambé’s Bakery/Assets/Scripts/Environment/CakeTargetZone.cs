@@ -21,13 +21,13 @@ public class CakeTargetZone : MonoBehaviour
         if (other.CompareTag(cakeTag))
         {
             cakePlaced = true;
-            Debug.Log("[CakeTargetZone] Cake placed!");
+            Debug.Log("CakeTargetZone- Cake placed!");
 
-            // Unlock NPC dialogue
+            //Unlock NPC main dialogue.
             if (npcToUnlock != null)
                 npcToUnlock.UnlockDialogue();
 
-            // Stop timer (success)
+            //Stop timer (if player is successful).
             if (gameTimer != null)
                 gameTimer.StopTimerForObjective();
         }

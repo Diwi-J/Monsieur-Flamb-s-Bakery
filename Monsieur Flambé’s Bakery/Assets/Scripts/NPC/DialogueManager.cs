@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,20 +14,22 @@ public class DialogueManager : MonoBehaviour
     private string[] sentences;
     private int index;
 
-    [Header("Particles")]
-    public ParticleSystem celebrationParticles;      // Assign prefab in scene
-    public Transform celebrationSpawnPoint;          // NPC or point above NPC
+    [Header("Particles (optional)")]
+    public ParticleSystem celebrationParticles;
+    public Transform celebrationSpawnPoint;
 
     private PlayerControls controls;
 
-    // Track whether this is a "success" dialogue
+    //Track if this dialogue should trigger confetti.
     private bool triggerCelebration = false;
+
+    public Dialogue LastDialogue { get; private set; } //Stores last dialogue.
+    public event Action onDialogueComplete;
 
     void Awake()
     {
         Instance = this;
         dialogueUI.SetActive(false);
-
         controls = new PlayerControls();
     }
 
@@ -42,16 +45,18 @@ public class DialogueManager : MonoBehaviour
         controls.Player.Disable();
     }
 
-    // Handle input to continue dialogue
     private void OnNextPressed(InputAction.CallbackContext context)
     {
-        if (dialogueUI.activeSelf) // Only continue if dialogue is open
+        if (dialogueUI.activeSelf)
             NextSentence();
     }
 
-    // Start a new dialogue
     public void StartDialogue(Dialogue dialogue, bool isCelebration = false, Transform celebrationPoint = null)
     {
+        if (dialogue == null) return;
+
+        LastDialogue = dialogue;
+
         dialogueUI.SetActive(true);
         nameText.text = dialogue.npcName;
 
@@ -59,14 +64,10 @@ public class DialogueManager : MonoBehaviour
         index = 0;
         dialogueText.text = sentences[index];
 
-        // Remember if this dialogue should trigger confetti
         triggerCelebration = isCelebration;
-
-        // Assign spawn point for confetti
         celebrationSpawnPoint = celebrationPoint;
     }
 
-    // Show next sentence or end dialogue if finished
     public void NextSentence()
     {
         index++;
@@ -76,24 +77,23 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
     }
 
-    // End the dialogue and hide UI
     void EndDialogue()
     {
         dialogueUI.SetActive(false);
 
-        // Spawn confetti only if this was a celebration dialogue
+        //Celebration particles.
         if (triggerCelebration && celebrationParticles != null && celebrationSpawnPoint != null)
         {
             Vector3 spawnPos = celebrationSpawnPoint.position + Vector3.up * 1.5f;
-
-            // Upright rotation with random Y for spread
-            Quaternion upright = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            Quaternion upright = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
             ParticleSystem ps = Instantiate(celebrationParticles, spawnPos, upright);
             ps.Play();
-
             Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
         }
+
+        //Fire completion event.
+        onDialogueComplete?.Invoke();
 
         triggerCelebration = false;
         celebrationSpawnPoint = null;

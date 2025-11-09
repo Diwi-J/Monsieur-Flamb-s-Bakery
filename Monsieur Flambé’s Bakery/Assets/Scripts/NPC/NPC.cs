@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 
 public class NPC : Interactable
 {
@@ -10,13 +9,14 @@ public class NPC : Interactable
     [Header("Cake Target Zone")]
     public CakeTargetZone cakeZone;
 
-    [Header("Celebration")]
-    public bool triggersCelebration = false;
-
-    [Header("Door Unlock (optional)")]
+    [Header("Door Unlock")]
     public HingeDoor linkedDoor;
 
+    [Header("Win Screen (assign only on endgame NPC)")]
+    public GameObject winPanel;  //Only this NPC triggers win screen.
+
     private bool unlocked = false;
+    private bool winTriggered = false;
 
     public bool HasBeenSpokenTo => unlocked;
 
@@ -29,23 +29,19 @@ public class NPC : Interactable
     {
         unlocked = true;
 
-        bool cakeInZone = false;
-        if (cakeZone != null)
-        {
-            // Dynamically check for any cake in zone
-            cakeInZone = cakeZone.IsCakePlaced();
-        }
+        bool cakeInZone = cakeZone != null && cakeZone.IsCakePlaced();
 
-        if (!cakeInZone)
+        if (!cakeInZone && blockedDialogue != null)
         {
             DialogueManager.Instance.StartDialogue(blockedDialogue, false);
         }
-        else
+        else if (mainDialogue != null)
         {
-            if (triggersCelebration)
-                DialogueManager.Instance.StartDialogue(mainDialogue, true, transform);
-            else
-                DialogueManager.Instance.StartDialogue(mainDialogue, false);
+            DialogueManager.Instance.StartDialogue(mainDialogue, false);
+
+            //Only subscribe if this NPC actually has a winPanel assigned.
+            if (!winTriggered && winPanel != null)
+                DialogueManager.Instance.onDialogueComplete += TriggerWinScreen;
         }
 
         if (linkedDoor != null)
@@ -54,6 +50,28 @@ public class NPC : Interactable
             Debug.Log("Door unlocked!");
         }
     }
+
+    private void TriggerWinScreen()
+    {
+        //Only trigger once.
+        winTriggered = true;
+
+        //Unsubscribe immediately.
+        DialogueManager.Instance.onDialogueComplete -= TriggerWinScreen;
+
+        if (winPanel != null)
+        {
+            winPanel.SetActive(true);
+
+            //Pause game.
+            Time.timeScale = 0f;
+
+            //Disable player movement.
+            PlayerController player = FindObjectOfType<PlayerController>();
+            if (player != null)
+                player.enabled = false;
+
+            Debug.Log("Win screen triggered!");
+        }
+    }
 }
-
-
